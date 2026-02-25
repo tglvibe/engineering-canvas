@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Brain, X, Send, Sparkles } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const models = [
   { id: "gpt", name: "GPT-4o", provider: "OpenAI", color: "bg-green-500" },
@@ -23,6 +24,7 @@ const mockResponses: Record<string, (topic: string, q: string) => string> = {
 type Mode = "single" | "multi" | "consultant";
 
 export default function MultiLLMPanel({ open, onClose, topicTitle }: { open: boolean; onClose: () => void; topicTitle: string }) {
+  const { t } = useTranslation();
   const [mode, setMode] = useState<Mode>("single");
   const [selectedModel, setSelectedModel] = useState("gpt");
   const [enabledModels, setEnabledModels] = useState<string[]>(["gpt", "claude", "gemini", "llama", "mistral", "deepseek"]);
@@ -31,21 +33,13 @@ export default function MultiLLMPanel({ open, onClose, topicTitle }: { open: boo
   const [consultantAnswer, setConsultantAnswer] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const toggleModel = (id: string) => {
-    setEnabledModels(prev => prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]);
-  };
+  const toggleModel = (id: string) => setEnabledModels(prev => prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]);
 
   const sendQuery = () => {
     if (!input.trim()) return;
-    setLoading(true);
-    setResponses({});
-    setConsultantAnswer("");
-
+    setLoading(true); setResponses({}); setConsultantAnswer("");
     if (mode === "single") {
-      setTimeout(() => {
-        setResponses({ [selectedModel]: mockResponses[selectedModel](topicTitle, input) });
-        setLoading(false);
-      }, 1200);
+      setTimeout(() => { setResponses({ [selectedModel]: mockResponses[selectedModel](topicTitle, input) }); setLoading(false); }, 1200);
     } else {
       enabledModels.forEach((m, i) => {
         setTimeout(() => {
@@ -53,12 +47,10 @@ export default function MultiLLMPanel({ open, onClose, topicTitle }: { open: boo
           if (i === enabledModels.length - 1) {
             if (mode === "consultant") {
               setTimeout(() => {
-                setConsultantAnswer(`**Consolidated Consultant Answer**\n\nSynthesizing insights from ${enabledModels.length} models on "${input}":\n\n**Consensus Points:**\n- All models agree on the importance of starting simple and iterating\n- Domain-driven design is universally recommended\n- Observability and monitoring are non-negotiable at scale\n\n**Key Differences:**\n- GPT-4o emphasizes trade-off analysis\n- Claude advocates for incremental complexity\n- Gemini provides Google-scale examples\n- Llama focuses on open-source tooling\n- Mistral adds European compliance perspective\n- DeepSeek goes deep on consistency models\n\n**Best Recommendation:**\nStart with a well-structured monolith using PostgreSQL, add Redis caching for hot paths, implement event-driven patterns for async workflows, and extract microservices only when scaling data supports it. Invest heavily in observability from day one.`);
+                setConsultantAnswer(`**Consolidated Consultant Answer**\n\nSynthesizing insights from ${enabledModels.length} models on "${input}":\n\n**Consensus Points:**\n- All models agree on the importance of starting simple and iterating\n- Domain-driven design is universally recommended\n- Observability and monitoring are non-negotiable at scale\n\n**Best Recommendation:**\nStart with a well-structured monolith using PostgreSQL, add Redis caching for hot paths, implement event-driven patterns for async workflows, and extract microservices only when scaling data supports it.`);
                 setLoading(false);
               }, 800);
-            } else {
-              setLoading(false);
-            }
+            } else setLoading(false);
           }
         }, 800 + i * 600);
       });
@@ -70,94 +62,49 @@ export default function MultiLLMPanel({ open, onClose, topicTitle }: { open: boo
 
   return (
     <>
-      {/* Mobile overlay backdrop */}
       <div className="fixed inset-0 z-40 bg-foreground/20 backdrop-blur-sm lg:hidden" onClick={onClose} />
-      
-      <motion.aside
-        initial={{ x: 300, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: 300, opacity: 0 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className="fixed right-0 top-0 bottom-0 z-50 w-full sm:w-[380px] lg:w-[420px] lg:relative lg:z-auto border-l border-border bg-card shrink-0 flex flex-col overflow-hidden"
-      >
-        {/* Header */}
+      <motion.aside initial={{ x: 300, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 300, opacity: 0 }} transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        className="fixed right-0 top-0 bottom-0 z-50 w-full sm:w-[380px] lg:w-[420px] lg:relative lg:z-auto border-l border-border bg-card shrink-0 flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
-          <div className="flex items-center gap-2">
-            <Brain className="w-4 h-4 text-primary" />
-            <h3 className="text-sm font-semibold text-foreground">AI Assistant</h3>
-          </div>
+          <div className="flex items-center gap-2"><Brain className="w-4 h-4 text-primary" /><h3 className="text-sm font-semibold text-foreground">{t("workspace.aiAssistant")}</h3></div>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground"><X className="w-4 h-4" /></button>
         </div>
-
-        {/* Mode selector */}
         <div className="flex gap-1 px-3 py-2 border-b border-border shrink-0">
-          {[
-            { id: "single" as Mode, label: "Single LLM" },
-            { id: "multi" as Mode, label: "Multi-LLM" },
-            { id: "consultant" as Mode, label: "Consultant" },
-          ].map(m => (
-            <button
-              key={m.id}
-              onClick={() => setMode(m.id)}
-              className={`flex-1 py-1.5 rounded-md text-xs font-medium transition-all ${
-                mode === m.id ? "bg-foreground text-background" : "bg-secondary text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {m.label}
-            </button>
+          {([{ id: "single" as Mode, label: t("workspace.singleLLM") }, { id: "multi" as Mode, label: t("workspace.multiLLM") }, { id: "consultant" as Mode, label: t("workspace.consultant") }]).map(m => (
+            <button key={m.id} onClick={() => setMode(m.id)} className={`flex-1 py-1.5 rounded-md text-xs font-medium transition-all ${mode === m.id ? "bg-foreground text-background" : "bg-secondary text-muted-foreground hover:text-foreground"}`}>{m.label}</button>
           ))}
         </div>
-
-        {/* Model selector */}
         {mode === "single" && (
           <div className="flex flex-wrap gap-1 px-3 py-2 border-b border-border shrink-0">
             {models.map(m => (
-              <button
-                key={m.id}
-                onClick={() => setSelectedModel(m.id)}
-                className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-medium transition-all ${
-                  selectedModel === m.id ? "bg-primary/10 text-primary border border-primary/20" : "bg-secondary text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <span className={`w-1.5 h-1.5 rounded-full ${m.color}`} />
-                {m.name}
+              <button key={m.id} onClick={() => setSelectedModel(m.id)} className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-medium transition-all ${selectedModel === m.id ? "bg-primary/10 text-primary border border-primary/20" : "bg-secondary text-muted-foreground hover:text-foreground"}`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${m.color}`} /> {m.name}
               </button>
             ))}
           </div>
         )}
-
         {(mode === "multi" || mode === "consultant") && (
           <div className="px-3 py-2 border-b border-border space-y-1 shrink-0">
-            <div className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground mb-1">Active Models</div>
+            <div className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground mb-1">{t("workspace.activeModels")}</div>
             <div className="flex flex-wrap gap-1">
               {models.map(m => (
-                <button
-                  key={m.id}
-                  onClick={() => toggleModel(m.id)}
-                  className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-medium transition-all ${
-                    enabledModels.includes(m.id) ? "bg-primary/10 text-primary border border-primary/20" : "bg-secondary/50 text-muted-foreground/50 line-through"
-                  }`}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full ${enabledModels.includes(m.id) ? m.color : "bg-muted-foreground/30"}`} />
-                  {m.name}
+                <button key={m.id} onClick={() => toggleModel(m.id)} className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-medium transition-all ${enabledModels.includes(m.id) ? "bg-primary/10 text-primary border border-primary/20" : "bg-secondary/50 text-muted-foreground/50 line-through"}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${enabledModels.includes(m.id) ? m.color : "bg-muted-foreground/30"}`} /> {m.name}
                 </button>
               ))}
             </div>
           </div>
         )}
-
-        {/* Responses */}
         <div className="flex-1 overflow-y-auto p-3 space-y-3 scrollbar-hide">
           {Object.keys(responses).length === 0 && !loading && (
             <div className="text-center py-12">
               <Brain className="w-8 h-8 text-muted-foreground/20 mx-auto mb-3" />
               <p className="text-sm text-muted-foreground">
-                {mode === "multi" ? "Compare responses from multiple LLMs" : mode === "consultant" ? "Get a synthesized answer from all models" : `Ask ${models.find(m => m.id === selectedModel)?.name}`}
+                {mode === "multi" ? t("workspace.compareResponses") : mode === "consultant" ? t("workspace.synthesizedAnswer") : `${t("workspace.ask")} ${models.find(m => m.id === selectedModel)?.name}`}
               </p>
-              <p className="text-xs text-muted-foreground/60 mt-1">Context: {topicTitle}</p>
+              <p className="text-xs text-muted-foreground/60 mt-1">{t("workspace.context")}: {topicTitle}</p>
             </div>
           )}
-
           {Object.entries(responses).map(([modelId, response]) => {
             const model = models.find(m => m.id === modelId);
             return (
@@ -171,38 +118,25 @@ export default function MultiLLMPanel({ open, onClose, topicTitle }: { open: boo
               </motion.div>
             );
           })}
-
           {consultantAnswer && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-lg border-2 border-primary/30 bg-primary/[0.03] p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-sm font-bold text-foreground">Consultant Synthesis</span>
-              </div>
+              <div className="flex items-center gap-2 mb-3"><Sparkles className="w-4 h-4 text-primary" /><span className="text-sm font-bold text-foreground">{t("workspace.consultantSynthesis")}</span></div>
               <div className="text-xs text-muted-foreground leading-relaxed whitespace-pre-wrap">{consultantAnswer}</div>
             </motion.div>
           )}
-
           {loading && (
             <div className="flex items-center gap-2 p-3">
               <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }} className="w-4 h-4 border-2 border-primary/20 border-t-primary rounded-full" />
-              <span className="text-xs text-muted-foreground">Generating responses...</span>
+              <span className="text-xs text-muted-foreground">{t("workspace.generatingResponses")}</span>
             </div>
           )}
         </div>
-
-        {/* Input */}
         <div className="p-3 border-t border-border shrink-0">
           <div className="flex items-center gap-2">
-            <input
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && sendQuery()}
-              placeholder={`Ask ${mode === "single" ? models.find(m => m.id === selectedModel)?.name : "all models"}...`}
-              className="flex-1 px-3 py-2.5 rounded-lg border border-border bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring/20"
-            />
-            <button onClick={sendQuery} disabled={loading} className="p-2.5 bg-gradient-brand text-primary-foreground rounded-lg hover:opacity-90 disabled:opacity-50">
-              <Send className="w-3.5 h-3.5" />
-            </button>
+            <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && sendQuery()}
+              placeholder={`${t("workspace.ask")} ${mode === "single" ? models.find(m => m.id === selectedModel)?.name : t("workspace.askAllModels")}...`}
+              className="flex-1 px-3 py-2.5 rounded-lg border border-border bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring/20" />
+            <button onClick={sendQuery} disabled={loading} className="p-2.5 bg-gradient-brand text-primary-foreground rounded-lg hover:opacity-90 disabled:opacity-50"><Send className="w-3.5 h-3.5" /></button>
           </div>
         </div>
       </motion.aside>
