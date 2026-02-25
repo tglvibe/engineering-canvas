@@ -5,8 +5,9 @@ import {
   ChevronLeft, ChevronDown, ChevronRight, BookOpen, Code2, Compass, 
   MessageSquare, Lightbulb, Target, Briefcase, FileText, Zap, ThumbsUp, ThumbsDown,
   AlertTriangle, Maximize2, Minimize2, Network, StickyNote, Brain, Rocket,
-  Users, Award, Globe, Menu, X
+  Users, Award, Globe, Menu, X, LogOut, User
 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/tgl-logo.png";
 import { backendModules, topicVideos, topicBlogs, topicMOOCs, topicScenarios, topicCodeExamples } from "@/data/tracks";
 
@@ -31,6 +32,7 @@ const modes = [
 export default function WorkspacePage() {
   const { trackId } = useParams();
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [activeMode, setActiveMode] = useState<string>("learn");
   const [activeTopic, setActiveTopic] = useState<string>("t1");
   const [expandedModules, setExpandedModules] = useState<string[]>(["m1"]);
@@ -39,6 +41,7 @@ export default function WorkspacePage() {
   const [canvasOpen, setCanvasOpen] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
   const [graphOpen, setGraphOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const modules = backendModules;
@@ -196,6 +199,34 @@ export default function WorkspacePage() {
             <button onClick={() => navigate("/dashboard")} className="p-1.5 sm:p-2 text-muted-foreground hover:text-foreground transition-colors hidden sm:block" title="Dashboard">
               <Award className="w-4 h-4" />
             </button>
+            <div className="relative ml-1">
+              <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-brand flex items-center justify-center text-primary-foreground text-[10px] sm:text-xs font-bold">
+                {user?.avatar || "U"}
+              </button>
+              <AnimatePresence>
+                {userMenuOpen && (
+                  <>
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[60]" onClick={() => setUserMenuOpen(false)} />
+                    <motion.div initial={{ opacity: 0, y: -5, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -5, scale: 0.95 }}
+                      className="absolute right-0 top-full mt-1 z-[61] w-48 rounded-xl border border-border bg-card shadow-lg overflow-hidden">
+                      <div className="p-2.5 border-b border-border">
+                        <p className="text-xs font-semibold text-foreground truncate">{user?.name}</p>
+                        <p className="text-[10px] text-muted-foreground truncate">{user?.email}</p>
+                      </div>
+                      <button onClick={() => { navigate("/profile"); setUserMenuOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs text-muted-foreground hover:bg-secondary transition-colors">
+                        <User className="w-3.5 h-3.5" /> Profile
+                      </button>
+                      <button onClick={() => { navigate("/tracks"); setUserMenuOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs text-muted-foreground hover:bg-secondary transition-colors">
+                        <BookOpen className="w-3.5 h-3.5" /> All Tracks
+                      </button>
+                      <button onClick={() => { logout(); navigate("/"); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs text-destructive hover:bg-destructive/5 transition-colors">
+                        <LogOut className="w-3.5 h-3.5" /> Sign Out
+                      </button>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </header>
       )}
