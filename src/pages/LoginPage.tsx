@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, AlertCircle, Info } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "@/assets/tgl-logo.png";
 
 const goals = ["Get a Job", "Land an Internship", "Upskill", "Switch Domain"];
 const levels = ["Beginner", "Intermediate", "Advanced"];
+
+const DEMO_EMAIL = "demo@talenciaglobal.com";
+const DEMO_PASSWORD = "demo1234";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -17,12 +20,28 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
 
   const handleAuth = (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+
+    if (!email.trim() || !password.trim()) {
+      setError("Please enter both email and password.");
+      return;
+    }
+
     if (isSignup) {
+      if (!name.trim()) {
+        setError("Please enter your name.");
+        return;
+      }
       setStep("onboarding");
     } else {
+      if (email !== DEMO_EMAIL || password !== DEMO_PASSWORD) {
+        setError("Invalid credentials. Use the demo credentials shown below.");
+        return;
+      }
       navigate("/tracks");
     }
   };
@@ -31,28 +50,60 @@ export default function LoginPage() {
     navigate("/tracks");
   };
 
+  const fillDemo = () => {
+    setEmail(DEMO_EMAIL);
+    setPassword(DEMO_PASSWORD);
+    setError("");
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-warm flex items-center justify-center px-6">
+    <div className="min-h-screen bg-gradient-warm flex items-center justify-center px-4 sm:px-6">
       <motion.div
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
         className="w-full max-w-sm"
       >
-        <div className="text-center mb-8">
-          <img src={logo} alt="Talencia Global" className="h-8 mx-auto mb-6" />
+        <div className="text-center mb-6 sm:mb-8">
+          <img src={logo} alt="Talencia Global" className="h-7 sm:h-8 mx-auto mb-5 sm:mb-6" />
           {step === "auth" && (
-            <h1 className="text-2xl font-bold text-foreground">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground">
               {isSignup ? "Create your account" : "Welcome back"}
             </h1>
           )}
           {step === "onboarding" && (
-            <h1 className="text-2xl font-bold text-foreground">Set up your profile</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground">Set up your profile</h1>
           )}
         </div>
 
         {step === "auth" && (
-          <form onSubmit={handleAuth} className="space-y-4">
+          <form onSubmit={handleAuth} className="space-y-3.5 sm:space-y-4">
+            {/* Demo credentials banner */}
+            {!isSignup && (
+              <motion.button
+                type="button"
+                onClick={fillDemo}
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="w-full flex items-start gap-2.5 p-3 rounded-xl border border-primary/20 bg-primary/[0.04] text-left group hover:border-primary/40 transition-all"
+              >
+                <Info className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-xs font-semibold text-foreground">Demo Credentials <span className="text-primary">(tap to fill)</span></p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">{DEMO_EMAIL}</p>
+                  <p className="text-[11px] text-muted-foreground font-mono">{DEMO_PASSWORD}</p>
+                </div>
+              </motion.button>
+            )}
+
+            {/* Error message */}
+            {error && (
+              <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-2 p-3 rounded-xl border border-destructive/20 bg-destructive/5">
+                <AlertCircle className="w-4 h-4 text-destructive mt-0.5 shrink-0" />
+                <p className="text-xs text-destructive">{error}</p>
+              </motion.div>
+            )}
+
             {isSignup && (
               <div>
                 <label className="text-sm font-medium text-foreground mb-1.5 block">Name</label>
@@ -70,7 +121,7 @@ export default function LoginPage() {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => { setEmail(e.target.value); setError(""); }}
                 className="w-full px-4 py-3 rounded-xl border border-border bg-card text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring/20 focus:border-primary transition-all"
                 placeholder="you@example.com"
               />
@@ -81,7 +132,7 @@ export default function LoginPage() {
                 <input
                   type={showPassword ? "text" : "password"}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => { setPassword(e.target.value); setError(""); }}
                   className="w-full px-4 py-3 rounded-xl border border-border bg-card text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring/20 focus:border-primary transition-all pr-10"
                   placeholder="••••••••"
                 />
@@ -98,7 +149,7 @@ export default function LoginPage() {
             </button>
             <p className="text-center text-sm text-muted-foreground">
               {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
-              <button type="button" onClick={() => setIsSignup(!isSignup)} className="text-primary font-medium hover:underline">
+              <button type="button" onClick={() => { setIsSignup(!isSignup); setError(""); }} className="text-primary font-medium hover:underline">
                 {isSignup ? "Sign in" : "Sign up"}
               </button>
             </p>
@@ -109,7 +160,7 @@ export default function LoginPage() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="space-y-6"
+            className="space-y-5 sm:space-y-6"
           >
             <div>
               <label className="text-sm font-medium text-foreground mb-3 block">Your skill level</label>
@@ -118,7 +169,7 @@ export default function LoginPage() {
                   <button
                     key={l}
                     onClick={() => setSelectedLevel(l)}
-                    className={`py-2.5 rounded-xl text-sm font-medium border transition-all ${
+                    className={`py-2.5 rounded-xl text-xs sm:text-sm font-medium border transition-all ${
                       selectedLevel === l
                         ? "border-primary bg-primary/5 text-primary"
                         : "border-border text-muted-foreground hover:border-primary/30"
@@ -136,7 +187,7 @@ export default function LoginPage() {
                   <button
                     key={g}
                     onClick={() => setSelectedGoal(g)}
-                    className={`py-2.5 px-3 rounded-xl text-sm font-medium border transition-all ${
+                    className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-medium border transition-all ${
                       selectedGoal === g
                         ? "border-primary bg-primary/5 text-primary"
                         : "border-border text-muted-foreground hover:border-primary/30"
