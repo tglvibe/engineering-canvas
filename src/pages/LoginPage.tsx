@@ -2,14 +2,19 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Eye, EyeOff, AlertCircle, Info, Upload, Check, Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth, SkillRating, Certification, Internship, Project } from "@/contexts/AuthContext";
 import logo from "@/assets/tgl-logo.png";
+import LanguageSelector from "@/components/LanguageSelector";
 
 const goals = ["Get a Job", "Land an Internship", "Upskill", "Switch Domain", "Build a Startup"];
+const goalKeys = ["goals.getJob", "goals.internship", "goals.upskill", "goals.switchDomain", "goals.startup"];
 const levels = ["Beginner", "Intermediate", "Advanced"];
+const levelKeys = ["levels.beginner", "levels.intermediate", "levels.advanced"];
 const languages = ["JavaScript", "TypeScript", "Python", "Java", "Go", "C#", "Rust", "C++"];
 const stacks = ["Node.js + PostgreSQL", "Django + PostgreSQL", "Spring Boot + MySQL", "Go + MongoDB", "FastAPI + PostgreSQL", ".NET + SQL Server", "MERN Stack", "MEAN Stack"];
 const genders = ["Male", "Female", "Non-binary", "Prefer not to say"];
+const genderKeys = ["common.male", "common.female", "common.nonBinary", "common.preferNotToSay"];
 const spokenLanguages = ["English", "Hindi", "Tamil", "Telugu", "Kannada", "Malayalam", "Bengali", "Marathi", "Gujarati", "Punjabi", "Urdu", "Spanish", "French", "German", "Mandarin", "Japanese", "Arabic"];
 const popularSkills = ["JavaScript", "TypeScript", "Python", "Java", "Go", "Rust", "C++", "C#", "React", "Angular", "Vue", "Node.js", "Django", "Spring Boot", "FastAPI", "Express", "PostgreSQL", "MongoDB", "Redis", "Docker", "Kubernetes", "AWS", "GCP", "Azure", "GraphQL", "REST", "Git", "Linux", "Kafka", "RabbitMQ"];
 
@@ -21,6 +26,7 @@ const STEPS: Step[] = ["auth", "basic", "academic", "skills", "experience", "pre
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { login, signup, isAuthenticated } = useAuth();
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -76,13 +82,13 @@ export default function LoginPage() {
   const handleAuth = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!email.trim() || !password.trim()) { setError("Please enter both email and password."); return; }
+    if (!email.trim() || !password.trim()) { setError(t("auth.enterBoth")); return; }
     if (isSignup) {
-      if (!name.trim()) { setError("Please enter your name."); return; }
+      if (!name.trim()) { setError(t("auth.enterName")); return; }
       setStep("basic");
     } else {
       const success = login(email, password);
-      if (!success) { setError("Invalid credentials. Use the demo credentials shown below."); return; }
+      if (!success) { setError(t("auth.invalidCredentials")); return; }
       navigate("/tracks");
     }
   };
@@ -151,14 +157,14 @@ export default function LoginPage() {
     ) : null
   );
 
-  const NavButtons = ({ canProceed = true, nextLabel = "Next", onNext }: { canProceed?: boolean; nextLabel?: string; onNext?: () => void }) => (
+  const NavButtons = ({ canProceed = true, nextLabel, onNext }: { canProceed?: boolean; nextLabel?: string; onNext?: () => void }) => (
     <div className="flex gap-2 mt-5">
       <button type="button" onClick={goBack} className="flex-1 py-3 rounded-xl border border-border text-sm font-medium text-foreground hover:bg-secondary transition-colors flex items-center justify-center gap-1.5">
-        <ArrowLeft className="w-3.5 h-3.5" /> Back
+        <ArrowLeft className="w-3.5 h-3.5" /> {t("onboarding.back")}
       </button>
       <button type="button" onClick={onNext || goNext} disabled={!canProceed}
         className="flex-1 bg-gradient-brand text-primary-foreground font-semibold py-3 rounded-xl shadow-brand hover:opacity-90 transition-all disabled:opacity-40 flex items-center justify-center gap-1.5">
-        {nextLabel} <ArrowRight className="w-3.5 h-3.5" />
+        {nextLabel || t("onboarding.next")} <ArrowRight className="w-3.5 h-3.5" />
       </button>
     </div>
   );
@@ -181,15 +187,18 @@ export default function LoginPage() {
       <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }}
         className={`w-full ${step === "auth" ? "max-w-sm" : "max-w-lg"}`}>
         <div className="text-center mb-5">
-          <img src={logo} alt="Talencia Global" className="h-7 sm:h-8 mx-auto mb-4" />
-          {step === "auth" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">{isSignup ? "Create your account" : "Welcome back"}</h1>}
-          {step === "basic" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">Personal Details</h1>}
-          {step === "academic" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">Academic Background</h1>}
-          {step === "skills" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">Skills & Self-Assessment</h1>}
-          {step === "experience" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">Experience & Projects</h1>}
-          {step === "preferences" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">Learning Preferences</h1>}
-          {step === "review" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">Review & Start</h1>}
-          {step !== "auth" && <p className="text-xs text-muted-foreground mt-1">Step {stepIdx} of {totalSteps - 1} · You can skip optional fields</p>}
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <img src={logo} alt="Talencia Global" className="h-7 sm:h-8" />
+            <LanguageSelector compact />
+          </div>
+          {step === "auth" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">{isSignup ? t("auth.createAccount") : t("auth.welcomeBack")}</h1>}
+          {step === "basic" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">{t("onboarding.personalDetails")}</h1>}
+          {step === "academic" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">{t("onboarding.academicBackground")}</h1>}
+          {step === "skills" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">{t("onboarding.skillsAssessment")}</h1>}
+          {step === "experience" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">{t("onboarding.experienceProjects")}</h1>}
+          {step === "preferences" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">{t("onboarding.learningPreferences")}</h1>}
+          {step === "review" && <h1 className="text-xl sm:text-2xl font-bold text-foreground">{t("onboarding.reviewStart")}</h1>}
+          {step !== "auth" && <p className="text-xs text-muted-foreground mt-1">{t("onboarding.stepOf", { current: stepIdx, total: totalSteps - 1 })}</p>}
         </div>
 
         <StepIndicator />
@@ -205,7 +214,7 @@ export default function LoginPage() {
                     className="w-full flex items-start gap-2.5 p-3 rounded-xl border border-primary/20 bg-primary/[0.04] text-left hover:border-primary/40 transition-all">
                     <Info className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                     <div>
-                      <p className="text-xs font-semibold text-foreground">Demo Credentials <span className="text-primary">(tap to fill)</span></p>
+                      <p className="text-xs font-semibold text-foreground">{t("auth.demoCredentials")} <span className="text-primary">{t("auth.tapToFill")}</span></p>
                       <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">{DEMO_EMAIL}</p>
                       <p className="text-[11px] text-muted-foreground font-mono">{DEMO_PASSWORD}</p>
                     </div>
@@ -219,16 +228,16 @@ export default function LoginPage() {
                 )}
                 {isSignup && (
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Full Name *</label>
-                    <input type="text" value={name} onChange={e => setName(e.target.value)} className={inputClass} placeholder="Your full name" />
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">{t("auth.fullName")} *</label>
+                    <input type="text" value={name} onChange={e => setName(e.target.value)} className={inputClass} placeholder={t("auth.fullName")} />
                   </div>
                 )}
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Email *</label>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">{t("auth.email")} *</label>
                   <input type="email" value={email} onChange={e => { setEmail(e.target.value); setError(""); }} className={inputClass} placeholder="you@example.com" />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Password *</label>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">{t("auth.password")} *</label>
                   <div className="relative">
                     <input type={showPassword ? "text" : "password"} value={password} onChange={e => { setPassword(e.target.value); setError(""); }} className={`${inputClass} pr-10`} placeholder="••••••••" />
                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
@@ -240,16 +249,16 @@ export default function LoginPage() {
                   <div className="p-3 rounded-xl border border-primary/15 bg-primary/[0.03]">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Upload className="w-4 h-4 text-primary shrink-0" />
-                      <span><strong className="text-foreground">Upload Resume</strong> to auto-fill your profile (coming soon)</span>
+                      <span><strong className="text-foreground">{t("auth.uploadResume")}</strong> {t("auth.uploadResumeDesc")}</span>
                     </div>
                   </div>
                 )}
                 <button type="submit" className="w-full bg-gradient-brand text-primary-foreground font-semibold py-3 rounded-xl shadow-brand hover:opacity-90 transition-all flex items-center justify-center gap-2">
-                  {isSignup ? "Continue" : "Sign In"} <ArrowRight className="w-4 h-4" />
+                  {isSignup ? t("auth.continue") : t("auth.signInBtn")} <ArrowRight className="w-4 h-4" />
                 </button>
                 <p className="text-center text-sm text-muted-foreground">
-                  {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
-                  <button type="button" onClick={() => { setIsSignup(!isSignup); setError(""); }} className="text-primary font-medium hover:underline">{isSignup ? "Sign in" : "Sign up"}</button>
+                  {isSignup ? t("auth.alreadyHaveAccount") : t("auth.dontHaveAccount")}{" "}
+                  <button type="button" onClick={() => { setIsSignup(!isSignup); setError(""); }} className="text-primary font-medium hover:underline">{isSignup ? t("auth.signInLink") : t("auth.signUp")}</button>
                 </p>
               </form>
             )}
@@ -259,46 +268,46 @@ export default function LoginPage() {
               <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">Phone</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.phone")}</label>
                     <input value={phone} onChange={e => setPhone(e.target.value)} className={inputClass} placeholder="+91 98765 43210" />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">Date of Birth</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.dateOfBirth")}</label>
                     <input type="date" value={dob} onChange={e => setDob(e.target.value)} className={inputClass} />
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Gender</label>
+                  <label className="text-xs font-medium text-muted-foreground mb-1.5 block">{t("onboarding.gender")}</label>
                   <div className="flex flex-wrap gap-1.5">
-                    {genders.map(g => (
+                    {genders.map((g, gi) => (
                       <button key={g} type="button" onClick={() => setGender(g)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${gender === g ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground hover:border-primary/30"}`}>{g}</button>
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${gender === g ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground hover:border-primary/30"}`}>{t(genderKeys[gi])}</button>
                     ))}
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">City</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.city")}</label>
                     <input value={city} onChange={e => setCity(e.target.value)} className={inputClass} placeholder="New Delhi" />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">State</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.state")}</label>
                     <input value={state} onChange={e => setState(e.target.value)} className={inputClass} placeholder="Delhi" />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">Country</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.country")}</label>
                     <input value={country} onChange={e => setCountry(e.target.value)} className={inputClass} placeholder="India" />
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-medium text-muted-foreground mb-1 block">Native Language</label>
+                  <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.nativeLanguage")}</label>
                   <select value={nativeLang} onChange={e => setNativeLang(e.target.value)} className={inputClass}>
-                    <option value="">Select</option>
+                    <option value="">{t("onboarding.select")}</option>
                     {spokenLanguages.map(l => <option key={l} value={l}>{l}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Languages You Know</label>
+                  <label className="text-xs font-medium text-muted-foreground mb-1.5 block">{t("onboarding.languagesYouKnow")}</label>
                   <div className="flex flex-wrap gap-1.5">
                     {spokenLanguages.slice(0, 10).map(l => (
                       <button key={l} type="button" onClick={() => toggleKnownLang(l)}
@@ -308,11 +317,11 @@ export default function LoginPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">LinkedIn</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.linkedin")}</label>
                     <input value={linkedin} onChange={e => setLinkedin(e.target.value)} className={inputClass} placeholder="linkedin.com/in/you" />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">GitHub</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.github")}</label>
                     <input value={github} onChange={e => setGithub(e.target.value)} className={inputClass} placeholder="github.com/you" />
                   </div>
                 </div>
@@ -324,35 +333,35 @@ export default function LoginPage() {
             {step === "academic" && (
               <div className="space-y-3">
                 <div>
-                  <label className="text-xs font-medium text-muted-foreground mb-1 block">College / University</label>
+                  <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.college")}</label>
                   <input value={college} onChange={e => setCollege(e.target.value)} className={inputClass} placeholder="IIT Delhi" />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">Degree</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.degree")}</label>
                     <input value={degree} onChange={e => setDegree(e.target.value)} className={inputClass} placeholder="B.Tech" />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">Branch / Major</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.branch")}</label>
                     <input value={branch} onChange={e => setBranch(e.target.value)} className={inputClass} placeholder="Computer Science" />
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">CGPA / GPA</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.cgpa")}</label>
                     <input value={cgpa} onChange={e => setCgpa(e.target.value)} className={inputClass} placeholder="8.5" />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">Graduation Year</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.graduationYear")}</label>
                     <input value={gradYear} onChange={e => setGradYear(e.target.value)} className={inputClass} placeholder="2024" />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">10th %</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.tenthPercent")}</label>
                     <input value={tenthPct} onChange={e => setTenthPct(e.target.value)} className={inputClass} placeholder="95" />
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-medium text-muted-foreground mb-1 block">12th %</label>
+                  <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.twelfthPercent")}</label>
                   <input value={twelfthPct} onChange={e => setTwelfthPct(e.target.value)} className={inputClass} placeholder="92" />
                 </div>
                 <NavButtons />
@@ -362,9 +371,9 @@ export default function LoginPage() {
             {/* SKILLS */}
             {step === "skills" && (
               <div className="space-y-3">
-                <p className="text-xs text-muted-foreground">Add skills and rate yourself 1-10 on conceptual understanding & hands-on experience.</p>
+                <p className="text-xs text-muted-foreground">{t("onboarding.skillsDesc")}</p>
                 <div>
-                  <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Quick Add Popular Skills</label>
+                  <label className="text-xs font-medium text-muted-foreground mb-1.5 block">{t("onboarding.quickAddSkills")}</label>
                   <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto scrollbar-hide">
                     {popularSkills.filter(s => !skills.find(sk => sk.name === s)).slice(0, 20).map(s => (
                       <button key={s} type="button" onClick={() => addSkill(s)}
@@ -373,23 +382,23 @@ export default function LoginPage() {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <input value={newSkill} onChange={e => setNewSkill(e.target.value)} className={`${inputClass} flex-1`} placeholder="Or type a skill..." onKeyDown={e => e.key === "Enter" && (e.preventDefault(), addSkill(newSkill))} />
-                  <button type="button" onClick={() => addSkill(newSkill)} className="px-3 py-2 rounded-xl bg-primary/10 text-primary text-xs font-medium">Add</button>
+                  <input value={newSkill} onChange={e => setNewSkill(e.target.value)} className={`${inputClass} flex-1`} placeholder={t("onboarding.typeSkill")} onKeyDown={e => e.key === "Enter" && (e.preventDefault(), addSkill(newSkill))} />
+                  <button type="button" onClick={() => addSkill(newSkill)} className="px-3 py-2 rounded-xl bg-primary/10 text-primary text-xs font-medium">{t("onboarding.add")}</button>
                 </div>
                 <div className="space-y-2 max-h-60 overflow-y-auto scrollbar-hide">
                   {skills.map((skill, idx) => (
                     <div key={idx} className="p-3 rounded-xl border border-border bg-card">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-sm font-medium text-foreground">{skill.name}</span>
-                        <button type="button" onClick={() => removeSkill(idx)} className="text-[10px] text-destructive">Remove</button>
+                        <button type="button" onClick={() => removeSkill(idx)} className="text-[10px] text-destructive">{t("onboarding.remove")}</button>
                       </div>
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between">
-                          <span className="text-[10px] text-muted-foreground">Conceptual</span>
+                          <span className="text-[10px] text-muted-foreground">{t("onboarding.conceptual")}</span>
                           <RatingDots value={skill.conceptual} onChange={v => updateSkillRating(idx, "conceptual", v)} />
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-[10px] text-muted-foreground">Hands-on</span>
+                          <span className="text-[10px] text-muted-foreground">{t("onboarding.handsOn")}</span>
                           <RatingDots value={skill.handson} onChange={v => updateSkillRating(idx, "handson", v)} />
                         </div>
                       </div>
@@ -405,15 +414,15 @@ export default function LoginPage() {
               <div className="space-y-4">
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">Current Role</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.currentRole")}</label>
                     <input value={currentRole} onChange={e => setCurrentRole(e.target.value)} className={inputClass} placeholder="Student" />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">Years Exp</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.yearsExp")}</label>
                     <input value={yearsExp} onChange={e => setYearsExp(e.target.value)} className={inputClass} placeholder="0" />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-muted-foreground mb-1 block">Company</label>
+                    <label className="text-xs font-medium text-muted-foreground mb-1 block">{t("onboarding.company")}</label>
                     <input value={company} onChange={e => setCompany(e.target.value)} className={inputClass} placeholder="Optional" />
                   </div>
                 </div>
@@ -421,19 +430,19 @@ export default function LoginPage() {
                 {/* Certifications */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Certifications</label>
-                    <button type="button" onClick={addCertification} className="text-[10px] text-primary font-medium">+ Add</button>
+                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t("onboarding.certifications")}</label>
+                    <button type="button" onClick={addCertification} className="text-[10px] text-primary font-medium">+ {t("onboarding.add")}</button>
                   </div>
                   {certifications.map((c, i) => (
                     <div key={i} className="p-3 rounded-lg border border-border bg-card mb-2 space-y-2">
                       <div className="flex gap-2">
-                        <input value={c.name} onChange={e => updateCert(i, "name", e.target.value)} className={`${inputClass} flex-1`} placeholder="Certification name" />
+                        <input value={c.name} onChange={e => updateCert(i, "name", e.target.value)} className={`${inputClass} flex-1`} placeholder={t("onboarding.certName")} />
                         <button type="button" onClick={() => removeCert(i)} className="text-xs text-destructive px-2">×</button>
                       </div>
                       <div className="grid grid-cols-3 gap-2">
-                        <input value={c.issuer} onChange={e => updateCert(i, "issuer", e.target.value)} className={inputClass} placeholder="Issuer" />
-                        <input value={c.year} onChange={e => updateCert(i, "year", e.target.value)} className={inputClass} placeholder="Year" />
-                        <input value={c.techStack} onChange={e => updateCert(i, "techStack", e.target.value)} className={inputClass} placeholder="Tech stack" />
+                        <input value={c.issuer} onChange={e => updateCert(i, "issuer", e.target.value)} className={inputClass} placeholder={t("onboarding.issuer")} />
+                        <input value={c.year} onChange={e => updateCert(i, "year", e.target.value)} className={inputClass} placeholder={t("onboarding.year")} />
+                        <input value={c.techStack} onChange={e => updateCert(i, "techStack", e.target.value)} className={inputClass} placeholder={t("onboarding.techStack")} />
                       </div>
                     </div>
                   ))}
@@ -442,19 +451,19 @@ export default function LoginPage() {
                 {/* Internships */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Internships</label>
-                    <button type="button" onClick={addInternship} className="text-[10px] text-primary font-medium">+ Add</button>
+                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t("onboarding.internships")}</label>
+                    <button type="button" onClick={addInternship} className="text-[10px] text-primary font-medium">+ {t("onboarding.add")}</button>
                   </div>
                   {internships.map((intern, i) => (
                     <div key={i} className="p-3 rounded-lg border border-border bg-card mb-2 space-y-2">
                       <div className="flex gap-2">
-                        <input value={intern.company} onChange={e => updateInternship(i, "company", e.target.value)} className={`${inputClass} flex-1`} placeholder="Company" />
-                        <input value={intern.role} onChange={e => updateInternship(i, "role", e.target.value)} className={`${inputClass} flex-1`} placeholder="Role" />
+                        <input value={intern.company} onChange={e => updateInternship(i, "company", e.target.value)} className={`${inputClass} flex-1`} placeholder={t("onboarding.company")} />
+                        <input value={intern.role} onChange={e => updateInternship(i, "role", e.target.value)} className={`${inputClass} flex-1`} placeholder={t("onboarding.role")} />
                         <button type="button" onClick={() => removeInternship(i)} className="text-xs text-destructive px-2">×</button>
                       </div>
                       <div className="grid grid-cols-2 gap-2">
-                        <input value={intern.duration} onChange={e => updateInternship(i, "duration", e.target.value)} className={inputClass} placeholder="Duration" />
-                        <input value={intern.techStack} onChange={e => updateInternship(i, "techStack", e.target.value)} className={inputClass} placeholder="Tech stack" />
+                        <input value={intern.duration} onChange={e => updateInternship(i, "duration", e.target.value)} className={inputClass} placeholder={t("onboarding.duration")} />
+                        <input value={intern.techStack} onChange={e => updateInternship(i, "techStack", e.target.value)} className={inputClass} placeholder={t("onboarding.techStack")} />
                       </div>
                     </div>
                   ))}
@@ -463,18 +472,18 @@ export default function LoginPage() {
                 {/* Projects */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Projects</label>
-                    <button type="button" onClick={addProject} className="text-[10px] text-primary font-medium">+ Add</button>
+                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t("onboarding.projects")}</label>
+                    <button type="button" onClick={addProject} className="text-[10px] text-primary font-medium">+ {t("onboarding.add")}</button>
                   </div>
                   {projects.map((p, i) => (
                     <div key={i} className="p-3 rounded-lg border border-border bg-card mb-2 space-y-2">
                       <div className="flex gap-2">
-                        <input value={p.title} onChange={e => updateProject(i, "title", e.target.value)} className={`${inputClass} flex-1`} placeholder="Project title" />
+                        <input value={p.title} onChange={e => updateProject(i, "title", e.target.value)} className={`${inputClass} flex-1`} placeholder={t("onboarding.projectTitle")} />
                         <button type="button" onClick={() => removeProject(i)} className="text-xs text-destructive px-2">×</button>
                       </div>
                       <div className="grid grid-cols-2 gap-2">
-                        <input value={p.techStack} onChange={e => updateProject(i, "techStack", e.target.value)} className={inputClass} placeholder="Tech stack" />
-                        <input value={p.url} onChange={e => updateProject(i, "url", e.target.value)} className={inputClass} placeholder="URL" />
+                        <input value={p.techStack} onChange={e => updateProject(i, "techStack", e.target.value)} className={inputClass} placeholder={t("onboarding.techStack")} />
+                        <input value={p.url} onChange={e => updateProject(i, "url", e.target.value)} className={inputClass} placeholder={t("onboarding.url")} />
                       </div>
                     </div>
                   ))}
@@ -488,25 +497,25 @@ export default function LoginPage() {
             {step === "preferences" && (
               <div className="space-y-5">
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-3 block">Your skill level *</label>
+                  <label className="text-sm font-medium text-foreground mb-3 block">{t("onboarding.skillLevel")} *</label>
                   <div className="grid grid-cols-3 gap-2">
-                    {levels.map(l => (
+                    {levels.map((l, li) => (
                       <button key={l} type="button" onClick={() => setSelectedLevel(l)}
-                        className={`py-2.5 rounded-xl text-xs sm:text-sm font-medium border transition-all ${selectedLevel === l ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground hover:border-primary/30"}`}>{l}</button>
+                        className={`py-2.5 rounded-xl text-xs sm:text-sm font-medium border transition-all ${selectedLevel === l ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground hover:border-primary/30"}`}>{t(levelKeys[li])}</button>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-3 block">Your goal *</label>
+                  <label className="text-sm font-medium text-foreground mb-3 block">{t("onboarding.yourGoal")} *</label>
                   <div className="flex flex-wrap gap-2">
-                    {goals.map(g => (
+                    {goals.map((g, gi) => (
                       <button key={g} type="button" onClick={() => setSelectedGoal(g)}
-                        className={`py-2 px-3 rounded-xl text-xs sm:text-sm font-medium border transition-all ${selectedGoal === g ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground hover:border-primary/30"}`}>{g}</button>
+                        className={`py-2 px-3 rounded-xl text-xs sm:text-sm font-medium border transition-all ${selectedGoal === g ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground hover:border-primary/30"}`}>{t(goalKeys[gi])}</button>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Preferred Programming Language</label>
+                  <label className="text-sm font-medium text-foreground mb-2 block">{t("onboarding.preferredLang")}</label>
                   <div className="flex flex-wrap gap-1.5">
                     {languages.map(l => (
                       <button key={l} type="button" onClick={() => setSelectedLang(l)}
@@ -515,7 +524,7 @@ export default function LoginPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Preferred Stack</label>
+                  <label className="text-sm font-medium text-foreground mb-2 block">{t("onboarding.preferredStack")}</label>
                   <div className="flex flex-wrap gap-1.5">
                     {stacks.map(s => (
                       <button key={s} type="button" onClick={() => setSelectedStack(s)}
@@ -531,20 +540,20 @@ export default function LoginPage() {
             {step === "review" && (
               <div className="space-y-3">
                 <div className="rounded-xl border border-border bg-card p-4 space-y-2">
-                  <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Personal</h3>
+                  <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t("onboarding.personal")}</h3>
                   <p className="text-sm text-foreground">{name} · {email}</p>
                   {city && <p className="text-xs text-muted-foreground">{city}{state ? `, ${state}` : ""}{country ? `, ${country}` : ""}</p>}
                 </div>
                 {college && (
                   <div className="rounded-xl border border-border bg-card p-4 space-y-1">
-                    <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Academic</h3>
+                    <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t("onboarding.academic")}</h3>
                     <p className="text-sm text-foreground">{degree} {branch} — {college}</p>
                     <p className="text-xs text-muted-foreground">CGPA: {cgpa} · Graduation: {gradYear}</p>
                   </div>
                 )}
                 {skills.length > 0 && (
                   <div className="rounded-xl border border-border bg-card p-4">
-                    <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Skills ({skills.length})</h3>
+                    <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">{t("onboarding.skills")} ({skills.length})</h3>
                     <div className="flex flex-wrap gap-1.5">
                       {skills.map(s => (
                         <span key={s.name} className="px-2 py-1 rounded-md bg-primary/5 text-[10px] font-medium text-primary border border-primary/10">
@@ -556,18 +565,18 @@ export default function LoginPage() {
                 )}
                 {(certifications.length > 0 || internships.length > 0 || projects.length > 0) && (
                   <div className="rounded-xl border border-border bg-card p-4 space-y-1">
-                    <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Experience</h3>
+                    <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t("onboarding.experience")}</h3>
                     {certifications.length > 0 && <p className="text-xs text-muted-foreground">{certifications.length} certification(s)</p>}
                     {internships.length > 0 && <p className="text-xs text-muted-foreground">{internships.length} internship(s)</p>}
                     {projects.length > 0 && <p className="text-xs text-muted-foreground">{projects.length} project(s)</p>}
                   </div>
                 )}
                 <div className="rounded-xl border border-primary/20 bg-primary/[0.03] p-4 space-y-1">
-                  <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Preferences</h3>
+                  <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t("onboarding.preferences")}</h3>
                   <p className="text-sm text-foreground">{selectedLevel} · {selectedGoal}</p>
                   {selectedLang && <p className="text-xs text-muted-foreground">{selectedLang} · {selectedStack}</p>}
                 </div>
-                <NavButtons nextLabel="Start Learning" onNext={handleComplete} />
+                <NavButtons nextLabel={t("onboarding.startLearning")} onNext={handleComplete} />
               </div>
             )}
 

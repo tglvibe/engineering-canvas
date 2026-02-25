@@ -1,18 +1,11 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   BarChart3, Target, Brain, Rocket, TrendingUp, GitCommit,
   Award, Calendar, CheckCircle, AlertTriangle, Users
 } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
-const stats = [
-  { label: "Topics Mastered", value: "12", total: "/48", icon: Target, color: "text-primary" },
-  { label: "Practice Score", value: "78%", icon: TrendingUp, color: "text-accent" },
-  { label: "AI Interactions", value: "147", icon: Brain, color: "text-primary" },
-  { label: "Project Maturity", value: "35%", icon: Rocket, color: "text-accent" },
-  { label: "Git Contributions", value: "23", icon: GitCommit, color: "text-primary" },
-  { label: "Readiness Score", value: "62%", icon: Award, color: "text-accent" },
-];
 
 const heatmapData = [
   { topic: "HTTP & REST", mastery: 90 },
@@ -59,12 +52,22 @@ const getMasteryColor = (v: number) => {
 
 export default function DashboardPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const maxMinutes = Math.max(...weeklyProgress.map(w => w.minutes));
   const maxCommits = Math.max(...gitActivity.map(g => g.commits));
 
+  const stats = [
+    { label: t("dashboard.topicsMastered"), value: "12", total: "/48", icon: Target, color: "text-primary" },
+    { label: t("dashboard.practiceScore"), value: "78%", icon: TrendingUp, color: "text-accent" },
+    { label: t("dashboard.aiInteractions"), value: "147", icon: Brain, color: "text-primary" },
+    { label: t("dashboard.projectMaturity"), value: "35%", icon: Rocket, color: "text-accent" },
+    { label: t("dashboard.gitContributions"), value: "23", icon: GitCommit, color: "text-primary" },
+    { label: t("dashboard.readinessScore"), value: "62%", icon: Award, color: "text-accent" },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
-      <AppHeader title="Performance Dashboard" backTo="/tracks" />
+      <AppHeader title={t("dashboard.title")} backTo="/tracks" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
@@ -72,12 +75,12 @@ export default function DashboardPage() {
           <div className="rounded-2xl border border-primary/20 bg-primary/[0.02] p-4 sm:p-6 mb-6 sm:mb-8">
             <div className="flex items-center justify-between gap-4">
               <div className="min-w-0">
-                <h2 className="text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Job Readiness</h2>
+                <h2 className="text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">{t("dashboard.jobReadiness")}</h2>
                 <div className="text-4xl sm:text-5xl font-bold text-foreground mt-1">62<span className="text-xl sm:text-2xl text-muted-foreground">%</span></div>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">Backend Engineer — SDE-1 Level</p>
                 <div className="flex items-center gap-2 mt-3 flex-wrap">
-                  <span className="px-2 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold text-primary">12 topics mastered</span>
-                  <span className="px-2 py-0.5 rounded-full bg-secondary text-[10px] font-medium text-muted-foreground">36 remaining</span>
+                  <span className="px-2 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold text-primary">12 {t("dashboard.topicsMastered").toLowerCase()}</span>
+                  <span className="px-2 py-0.5 rounded-full bg-secondary text-[10px] font-medium text-muted-foreground">36 {t("dashboard.remaining")}</span>
                 </div>
               </div>
               <div className="w-24 h-24 sm:w-32 sm:h-32 relative shrink-0">
@@ -110,7 +113,7 @@ export default function DashboardPage() {
             {/* Mastery Heatmap */}
             <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
               <h2 className="text-sm font-semibold text-foreground mb-3 sm:mb-4 flex items-center gap-2">
-                <BarChart3 className="w-4 h-4 text-muted-foreground" /> Mastery Heatmap
+                <BarChart3 className="w-4 h-4 text-muted-foreground" /> {t("dashboard.masteryHeatmap")}
               </h2>
               <div className="space-y-2 sm:space-y-2.5">
                 {heatmapData.map(item => (
@@ -129,7 +132,7 @@ export default function DashboardPage() {
             {/* Practice Accuracy */}
             <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
               <h2 className="text-sm font-semibold text-foreground mb-3 sm:mb-4 flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-primary" /> Practice Accuracy
+                <CheckCircle className="w-4 h-4 text-primary" /> {t("dashboard.practiceAccuracy")}
               </h2>
               <div className="space-y-3">
                 {practiceAccuracy.map(item => (
@@ -152,7 +155,7 @@ export default function DashboardPage() {
             {/* Weekly Progress */}
             <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
               <h2 className="text-sm font-semibold text-foreground mb-3 sm:mb-4 flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-muted-foreground" /> Weekly Progress
+                <Calendar className="w-4 h-4 text-muted-foreground" /> {t("dashboard.weeklyProgress")}
               </h2>
               <div className="flex items-end gap-1.5 sm:gap-2 h-28 sm:h-32">
                 {weeklyProgress.map(w => (
@@ -169,7 +172,7 @@ export default function DashboardPage() {
             {/* Git Contributions */}
             <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
               <h2 className="text-sm font-semibold text-foreground mb-3 sm:mb-4 flex items-center gap-2">
-                <GitCommit className="w-4 h-4 text-muted-foreground" /> Git Contributions
+                <GitCommit className="w-4 h-4 text-muted-foreground" /> {t("dashboard.gitContributions")}
               </h2>
               <div className="flex items-end gap-1.5 sm:gap-2 h-28 sm:h-32">
                 {gitActivity.map(g => (
@@ -187,7 +190,7 @@ export default function DashboardPage() {
           {/* Weak Areas */}
           <div className="rounded-xl border border-primary/20 bg-primary/[0.02] p-4 sm:p-5 mb-6 sm:mb-8">
             <h2 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-primary" /> Recommended Focus Areas
+              <AlertTriangle className="w-4 h-4 text-primary" /> {t("dashboard.focusAreas")}
             </h2>
             <div className="flex flex-wrap gap-2">
               {heatmapData.filter(h => h.mastery < 40).map(h => (
@@ -202,15 +205,15 @@ export default function DashboardPage() {
           {/* Certificate Preview */}
           <div className="rounded-xl border border-border bg-card p-5 sm:p-6 text-center">
             <Award className="w-8 sm:w-10 h-8 sm:h-10 text-primary mx-auto mb-3" />
-            <h3 className="font-bold text-foreground text-sm sm:text-base">Track Completion Certificate</h3>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">Complete all 48 topics to unlock your Backend Engineering certificate</p>
+            <h3 className="font-bold text-foreground text-sm sm:text-base">{t("dashboard.certificate")}</h3>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1">{t("dashboard.certificateDesc")}</p>
             <div className="mt-3 flex items-center justify-center gap-2">
               <div className="w-32 sm:w-40 h-2 bg-secondary rounded-full overflow-hidden">
                 <div className="h-full bg-gradient-brand rounded-full" style={{ width: "25%" }} />
               </div>
               <span className="text-xs font-mono text-muted-foreground">25%</span>
             </div>
-            <p className="text-[10px] sm:text-xs text-muted-foreground mt-2">Role Alignment: <span className="text-primary font-medium">Backend Engineer · SDE-1 · API Engineer</span></p>
+            <p className="text-[10px] sm:text-xs text-muted-foreground mt-2">{t("dashboard.roleAlignment")}: <span className="text-primary font-medium">Backend Engineer · SDE-1 · API Engineer</span></p>
           </div>
         </motion.div>
       </div>

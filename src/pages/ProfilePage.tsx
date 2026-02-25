@@ -2,12 +2,14 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { User, Github, Linkedin, Globe, GraduationCap, Award, Briefcase, Code2, Save, CheckCircle, BarChart3, BookOpen, MapPin, Phone, Calendar, Languages, Star, FolderGit2, Building } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth, SkillRating, Certification, Internship, Project } from "@/contexts/AuthContext";
 import AppHeader from "@/components/AppHeader";
 
 export default function ProfilePage() {
   const { user, updateProfile } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [editing, setEditing] = useState(false);
   const [saved, setSaved] = useState(false);
   const [activeTab, setActiveTab] = useState<"overview" | "skills" | "experience" | "academic">("overview");
@@ -39,7 +41,7 @@ export default function ProfilePage() {
       {editing ? (
         <input value={value || ""} onChange={e => updateField(field, e.target.value)} className={inputClass} placeholder={placeholder} />
       ) : (
-        <p className="text-sm text-foreground py-2.5 px-3 rounded-lg bg-secondary/50">{value || <span className="text-muted-foreground italic">Not set</span>}</p>
+        <p className="text-sm text-foreground py-2.5 px-3 rounded-lg bg-secondary/50">{value || <span className="text-muted-foreground italic">{t("profile.notSet")}</span>}</p>
       )}
     </div>
   );
@@ -55,15 +57,15 @@ export default function ProfilePage() {
   );
 
   const tabs = [
-    { id: "overview" as const, label: "Overview", icon: User },
-    { id: "skills" as const, label: "Skills", icon: Code2 },
-    { id: "experience" as const, label: "Experience", icon: Briefcase },
-    { id: "academic" as const, label: "Academic", icon: GraduationCap },
+    { id: "overview" as const, label: t("profile.overview"), icon: User },
+    { id: "skills" as const, label: t("profile.skills"), icon: Code2 },
+    { id: "experience" as const, label: t("profile.experience"), icon: Briefcase },
+    { id: "academic" as const, label: t("profile.academic"), icon: GraduationCap },
   ];
 
   return (
     <div className="min-h-screen bg-background">
-      <AppHeader title="Profile" backTo="/tracks" />
+      <AppHeader title={t("profile.title")} backTo="/tracks" />
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8 pb-20">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
@@ -86,33 +88,33 @@ export default function ProfilePage() {
           {/* Quick Actions */}
           <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-6">
             <button onClick={() => navigate("/dashboard")} className="flex items-center gap-2 p-3 rounded-xl border border-border bg-card hover:border-primary/30 transition-all text-sm text-foreground">
-              <BarChart3 className="w-4 h-4 text-primary" /> Dashboard
+              <BarChart3 className="w-4 h-4 text-primary" /> {t("profile.myDashboard")}
             </button>
             <button onClick={() => navigate("/tracks")} className="flex items-center gap-2 p-3 rounded-xl border border-border bg-card hover:border-primary/30 transition-all text-sm text-foreground">
-              <BookOpen className="w-4 h-4 text-primary" /> My Tracks
+              <BookOpen className="w-4 h-4 text-primary" /> {t("profile.myTracks")}
             </button>
           </div>
 
           {/* Edit toggle */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex gap-1 overflow-x-auto scrollbar-hide">
-              {tabs.map(t => (
-                <button key={t.id} onClick={() => setActiveTab(t.id)}
+              {tabs.map(tab => (
+                <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all shrink-0 ${
-                    activeTab === t.id ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground"
+                    activeTab === tab.id ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground"
                   }`}>
-                  <t.icon className="w-3 h-3" /> {t.label}
+                  <tab.icon className="w-3 h-3" /> {tab.label}
                 </button>
               ))}
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              {saved && <span className="text-xs text-primary flex items-center gap-1"><CheckCircle className="w-3 h-3" /> Saved</span>}
+              {saved && <span className="text-xs text-primary flex items-center gap-1"><CheckCircle className="w-3 h-3" /> {t("profile.saved")}</span>}
               {editing ? (
                 <button onClick={handleSave} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-brand text-primary-foreground text-xs font-medium">
-                  <Save className="w-3 h-3" /> Save
+                  <Save className="w-3 h-3" /> {t("profile.save")}
                 </button>
               ) : (
-                <button onClick={() => setEditing(true)} className="px-3 py-1.5 rounded-lg border border-border text-xs font-medium text-foreground hover:bg-secondary transition-colors">Edit</button>
+                <button onClick={() => setEditing(true)} className="px-3 py-1.5 rounded-lg border border-border text-xs font-medium text-foreground hover:bg-secondary transition-colors">{t("profile.edit")}</button>
               )}
             </div>
           </div>
@@ -121,33 +123,33 @@ export default function ProfilePage() {
           {activeTab === "overview" && (
             <div className="space-y-4">
               <div className="rounded-xl border border-border bg-card p-4 space-y-3">
-                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Personal</h3>
-                <Field label="Full Name" value={form?.name || ""} field="name" icon={User} placeholder="Your name" />
+                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t("profile.personalSection")}</h3>
+                <Field label={t("auth.fullName")} value={form?.name || ""} field="name" icon={User} placeholder="Your name" />
                 <div className="grid grid-cols-2 gap-3">
-                  <Field label="Phone" value={form?.phone || ""} field="phone" icon={Phone} placeholder="+91..." />
-                  <Field label="Date of Birth" value={form?.dateOfBirth || ""} field="dateOfBirth" icon={Calendar} placeholder="1999-06-15" />
+                  <Field label={t("onboarding.phone")} value={form?.phone || ""} field="phone" icon={Phone} placeholder="+91..." />
+                  <Field label={t("onboarding.dateOfBirth")} value={form?.dateOfBirth || ""} field="dateOfBirth" icon={Calendar} placeholder="1999-06-15" />
                 </div>
                 <div className="grid grid-cols-3 gap-3">
-                  <Field label="City" value={form?.city || ""} field="city" icon={MapPin} placeholder="City" />
-                  <Field label="State" value={form?.state || ""} field="state" icon={MapPin} placeholder="State" />
-                  <Field label="Country" value={form?.country || ""} field="country" icon={MapPin} placeholder="Country" />
+                  <Field label={t("onboarding.city")} value={form?.city || ""} field="city" icon={MapPin} placeholder="City" />
+                  <Field label={t("onboarding.state")} value={form?.state || ""} field="state" icon={MapPin} placeholder="State" />
+                  <Field label={t("onboarding.country")} value={form?.country || ""} field="country" icon={MapPin} placeholder="Country" />
                 </div>
               </div>
               <div className="rounded-xl border border-border bg-card p-4 space-y-3">
-                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Social & Links</h3>
-                <Field label="LinkedIn" value={form?.linkedin || ""} field="linkedin" icon={Linkedin} placeholder="linkedin.com/in/you" />
-                <Field label="GitHub" value={form?.github || ""} field="github" icon={Github} placeholder="github.com/you" />
-                <Field label="Portfolio" value={form?.portfolio || ""} field="portfolio" icon={Globe} placeholder="yoursite.com" />
+                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t("profile.socialLinks")}</h3>
+                <Field label={t("onboarding.linkedin")} value={form?.linkedin || ""} field="linkedin" icon={Linkedin} placeholder="linkedin.com/in/you" />
+                <Field label={t("onboarding.github")} value={form?.github || ""} field="github" icon={Github} placeholder="github.com/you" />
+                <Field label={t("profile.portfolio")} value={form?.portfolio || ""} field="portfolio" icon={Globe} placeholder="yoursite.com" />
               </div>
               <div className="rounded-xl border border-border bg-card p-4 space-y-3">
-                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Languages & Preferences</h3>
-                <Field label="Native Language" value={form?.nativeLanguage || ""} field="nativeLanguage" icon={Languages} placeholder="Hindi" />
+                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t("profile.languagesPrefs")}</h3>
+                <Field label={t("onboarding.nativeLanguage")} value={form?.nativeLanguage || ""} field="nativeLanguage" icon={Languages} placeholder="Hindi" />
                 <div>
-                  <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5"><Languages className="w-3 h-3" /> Known Languages</label>
-                  <p className="text-sm text-foreground py-2.5 px-3 rounded-lg bg-secondary/50">{form?.knownLanguages?.join(", ") || <span className="text-muted-foreground italic">Not set</span>}</p>
+                  <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5"><Languages className="w-3 h-3" /> {t("profile.knownLanguages")}</label>
+                  <p className="text-sm text-foreground py-2.5 px-3 rounded-lg bg-secondary/50">{form?.knownLanguages?.join(", ") || <span className="text-muted-foreground italic">{t("profile.notSet")}</span>}</p>
                 </div>
-                <Field label="Preferred Programming Language" value={form?.preferredLanguage || ""} field="preferredLanguage" icon={Code2} placeholder="TypeScript" />
-                <Field label="Preferred Stack" value={form?.preferredStack || ""} field="preferredStack" icon={Code2} placeholder="Node.js + PostgreSQL" />
+                <Field label={t("profile.preferredProgramming")} value={form?.preferredLanguage || ""} field="preferredLanguage" icon={Code2} placeholder="TypeScript" />
+                <Field label={t("profile.preferredStack")} value={form?.preferredStack || ""} field="preferredStack" icon={Code2} placeholder="Node.js + PostgreSQL" />
               </div>
             </div>
           )}
@@ -156,31 +158,31 @@ export default function ProfilePage() {
           {activeTab === "skills" && (
             <div className="space-y-3">
               {(!form?.skills || form.skills.length === 0) ? (
-                <div className="text-center py-12 text-sm text-muted-foreground">No skills added yet. Click Edit to add skills with ratings.</div>
+                <div className="text-center py-12 text-sm text-muted-foreground">{t("profile.noSkills")}</div>
               ) : (
                 form.skills.map((skill: SkillRating, idx: number) => (
                   <div key={idx} className="rounded-xl border border-border bg-card p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-semibold text-foreground">{skill.name}</span>
-                      <span className="text-[10px] text-muted-foreground">Avg: {((skill.conceptual + skill.handson) / 2).toFixed(1)}/10</span>
+                      <span className="text-[10px] text-muted-foreground">{t("profile.avg")}: {((skill.conceptual + skill.handson) / 2).toFixed(1)}/10</span>
                     </div>
                     {editing ? (
                       <div className="space-y-2">
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] text-muted-foreground w-16">Conceptual</span>
+                          <span className="text-[10px] text-muted-foreground w-16">{t("onboarding.conceptual")}</span>
                           <input type="range" min={1} max={10} value={skill.conceptual} onChange={e => updateSkillRating(idx, "conceptual", Number(e.target.value))} className="flex-1 accent-primary" />
                           <span className="text-xs font-mono text-foreground w-5">{skill.conceptual}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] text-muted-foreground w-16">Hands-on</span>
+                          <span className="text-[10px] text-muted-foreground w-16">{t("onboarding.handsOn")}</span>
                           <input type="range" min={1} max={10} value={skill.handson} onChange={e => updateSkillRating(idx, "handson", Number(e.target.value))} className="flex-1 accent-primary" />
                           <span className="text-xs font-mono text-foreground w-5">{skill.handson}</span>
                         </div>
                       </div>
                     ) : (
                       <div className="space-y-1.5">
-                        <RatingBar value={skill.conceptual} label="Conceptual" />
-                        <RatingBar value={skill.handson} label="Hands-on" />
+                        <RatingBar value={skill.conceptual} label={t("onboarding.conceptual")} />
+                        <RatingBar value={skill.handson} label={t("onboarding.handsOn")} />
                       </div>
                     )}
                   </div>
@@ -192,21 +194,19 @@ export default function ProfilePage() {
           {/* EXPERIENCE TAB */}
           {activeTab === "experience" && (
             <div className="space-y-4">
-              {/* Professional */}
               <div className="rounded-xl border border-border bg-card p-4 space-y-3">
-                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5"><Building className="w-3.5 h-3.5" /> Professional</h3>
+                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5"><Building className="w-3.5 h-3.5" /> {t("profile.professional")}</h3>
                 <div className="grid grid-cols-3 gap-3">
-                  <Field label="Current Role" value={form?.currentRole || ""} field="currentRole" icon={Briefcase} placeholder="Student" />
-                  <Field label="Years Exp" value={form?.yearsOfExperience || ""} field="yearsOfExperience" icon={Calendar} placeholder="0" />
-                  <Field label="Company" value={form?.company || ""} field="company" icon={Building} placeholder="—" />
+                  <Field label={t("onboarding.currentRole")} value={form?.currentRole || ""} field="currentRole" icon={Briefcase} placeholder="Student" />
+                  <Field label={t("onboarding.yearsExp")} value={form?.yearsOfExperience || ""} field="yearsOfExperience" icon={Calendar} placeholder="0" />
+                  <Field label={t("onboarding.company")} value={form?.company || ""} field="company" icon={Building} placeholder="—" />
                 </div>
               </div>
 
-              {/* Certifications */}
               <div className="rounded-xl border border-border bg-card p-4">
-                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5 mb-3"><Award className="w-3.5 h-3.5" /> Certifications</h3>
+                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5 mb-3"><Award className="w-3.5 h-3.5" /> {t("onboarding.certifications")}</h3>
                 {(!form?.certifications || form.certifications.length === 0) ? (
-                  <p className="text-xs text-muted-foreground italic">No certifications added</p>
+                  <p className="text-xs text-muted-foreground italic">{t("profile.noCertifications")}</p>
                 ) : (
                   <div className="space-y-2">
                     {form.certifications.map((c: Certification, i: number) => (
@@ -219,11 +219,10 @@ export default function ProfilePage() {
                 )}
               </div>
 
-              {/* Internships */}
               <div className="rounded-xl border border-border bg-card p-4">
-                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5 mb-3"><Briefcase className="w-3.5 h-3.5" /> Internships</h3>
+                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5 mb-3"><Briefcase className="w-3.5 h-3.5" /> {t("onboarding.internships")}</h3>
                 {(!form?.internships || form.internships.length === 0) ? (
-                  <p className="text-xs text-muted-foreground italic">No internships added</p>
+                  <p className="text-xs text-muted-foreground italic">{t("profile.noInternships")}</p>
                 ) : (
                   <div className="space-y-2">
                     {form.internships.map((intern: Internship, i: number) => (
@@ -237,11 +236,10 @@ export default function ProfilePage() {
                 )}
               </div>
 
-              {/* Projects */}
               <div className="rounded-xl border border-border bg-card p-4">
-                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5 mb-3"><FolderGit2 className="w-3.5 h-3.5" /> Projects</h3>
+                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5 mb-3"><FolderGit2 className="w-3.5 h-3.5" /> {t("onboarding.projects")}</h3>
                 {(!form?.projects || form.projects.length === 0) ? (
-                  <p className="text-xs text-muted-foreground italic">No projects added</p>
+                  <p className="text-xs text-muted-foreground italic">{t("profile.noProjects")}</p>
                 ) : (
                   <div className="space-y-2">
                     {form.projects.map((p: Project, i: number) => (
@@ -261,18 +259,18 @@ export default function ProfilePage() {
           {activeTab === "academic" && (
             <div className="space-y-4">
               <div className="rounded-xl border border-border bg-card p-4 space-y-3">
-                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5"><GraduationCap className="w-3.5 h-3.5" /> Education</h3>
-                <Field label="College / University" value={form?.college || ""} field="college" icon={GraduationCap} placeholder="Your college" />
+                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5"><GraduationCap className="w-3.5 h-3.5" /> {t("profile.education")}</h3>
+                <Field label={t("onboarding.college")} value={form?.college || ""} field="college" icon={GraduationCap} placeholder="Your college" />
                 <div className="grid grid-cols-2 gap-3">
-                  <Field label="Degree" value={form?.degree || ""} field="degree" icon={Award} placeholder="B.Tech" />
-                  <Field label="Branch / Major" value={form?.branch || ""} field="branch" icon={Code2} placeholder="Computer Science" />
+                  <Field label={t("onboarding.degree")} value={form?.degree || ""} field="degree" icon={Award} placeholder="B.Tech" />
+                  <Field label={t("onboarding.branch")} value={form?.branch || ""} field="branch" icon={Code2} placeholder="Computer Science" />
                 </div>
                 <div className="grid grid-cols-3 gap-3">
-                  <Field label="CGPA / GPA" value={form?.cgpa || ""} field="cgpa" icon={Star} placeholder="8.5" />
-                  <Field label="Graduation Year" value={form?.graduationYear || ""} field="graduationYear" icon={Calendar} placeholder="2024" />
-                  <Field label="10th %" value={form?.tenthPercent || ""} field="tenthPercent" icon={Award} placeholder="95" />
+                  <Field label={t("onboarding.cgpa")} value={form?.cgpa || ""} field="cgpa" icon={Star} placeholder="8.5" />
+                  <Field label={t("onboarding.graduationYear")} value={form?.graduationYear || ""} field="graduationYear" icon={Calendar} placeholder="2024" />
+                  <Field label={t("onboarding.tenthPercent")} value={form?.tenthPercent || ""} field="tenthPercent" icon={Award} placeholder="95" />
                 </div>
-                <Field label="12th %" value={form?.twelfthPercent || ""} field="twelfthPercent" icon={Award} placeholder="92" />
+                <Field label={t("onboarding.twelfthPercent")} value={form?.twelfthPercent || ""} field="twelfthPercent" icon={Award} placeholder="92" />
               </div>
             </div>
           )}

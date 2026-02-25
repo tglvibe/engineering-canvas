@@ -17,6 +17,7 @@ interface AppHeaderProps {
 export default function AppHeader({ title, showBack = true, backTo, minimal }: AppHeaderProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -32,9 +33,9 @@ export default function AppHeader({ title, showBack = true, backTo, minimal }: A
   };
 
   const navItems = [
-    { label: "Tracks", icon: BookOpen, path: "/tracks", active: location.pathname === "/tracks" },
-    { label: "Dashboard", icon: BarChart3, path: "/dashboard", active: location.pathname === "/dashboard" },
-    { label: "Profile", icon: User, path: "/profile", active: location.pathname === "/profile" },
+    { label: t("nav.tracks"), icon: BookOpen, path: "/tracks", active: location.pathname === "/tracks" },
+    { label: t("nav.dashboard"), icon: BarChart3, path: "/dashboard", active: location.pathname === "/dashboard" },
+    { label: t("nav.profile"), icon: User, path: "/profile", active: location.pathname === "/profile" },
   ];
 
   return (
@@ -71,6 +72,8 @@ export default function AppHeader({ title, showBack = true, backTo, minimal }: A
                 ))}
               </div>
             )}
+
+            <LanguageSelector compact />
 
             {/* User avatar / menu trigger */}
             <button
@@ -127,13 +130,13 @@ export default function AppHeader({ title, showBack = true, backTo, minimal }: A
                   onClick={() => { navigate("/profile"); setMenuOpen(false); }}
                   className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-muted-foreground hover:bg-secondary transition-colors sm:block hidden"
                 >
-                  <span className="flex items-center gap-2.5"><User className="w-4 h-4" /> View Profile</span>
+                  <span className="flex items-center gap-2.5"><User className="w-4 h-4" /> {t("nav.viewProfile")}</span>
                 </button>
                 <button
                   onClick={handleLogout}
                   className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-destructive hover:bg-destructive/5 transition-colors"
                 >
-                  <LogOut className="w-4 h-4" /> Sign Out
+                  <LogOut className="w-4 h-4" /> {t("nav.signOut")}
                 </button>
               </div>
             </motion.div>
