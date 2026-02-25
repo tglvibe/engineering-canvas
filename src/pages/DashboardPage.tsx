@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
-  BarChart3, Target, Brain, Rocket, TrendingUp, ArrowLeft, GitCommit,
+  BarChart3, Target, Brain, Rocket, TrendingUp, GitCommit,
   Award, Calendar, CheckCircle, AlertTriangle, Users
 } from "lucide-react";
-import logo from "@/assets/tgl-logo.png";
-
+import AppHeader from "@/components/AppHeader";
 const stats = [
   { label: "Topics Mastered", value: "12", total: "/48", icon: Target, color: "text-primary" },
   { label: "Practice Score", value: "78%", icon: TrendingUp, color: "text-accent" },
@@ -65,19 +64,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <button onClick={() => navigate("/tracks")} className="text-muted-foreground hover:text-foreground"><ArrowLeft className="w-4 h-4" /></button>
-            <img src={logo} alt="" className="h-5 sm:h-6 hidden sm:block" />
-            <span className="text-xs sm:text-sm font-semibold text-foreground">Performance Dashboard</span>
-          </div>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <span className="text-[10px] sm:text-xs text-muted-foreground items-center gap-1 hidden sm:flex"><Users className="w-3 h-3" /> 10,000+ learners</span>
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-brand flex items-center justify-center text-primary-foreground text-xs font-bold">U</div>
-          </div>
-        </div>
-      </nav>
+      <AppHeader title="Performance Dashboard" backTo="/tracks" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
