@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, LogOut, User, BarChart3, BookOpen, Home, Menu, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
+import LanguageSelector from "@/components/LanguageSelector";
 import logo from "@/assets/tgl-logo.png";
 
 interface AppHeaderProps {
