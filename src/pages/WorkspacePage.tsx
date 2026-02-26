@@ -120,7 +120,7 @@ export default function WorkspacePage() {
                       className="w-full flex items-center gap-2 px-2 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-sidebar-accent transition-colors"
                     >
                       {expandedModules.includes(mod.id) ? <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />}
-                      <span className="truncate">{mod.title}</span>
+                      <span className="truncate">{t(`trackContent.${mod.id}.title`, mod.title)}</span>
                     </button>
                     <AnimatePresence>
                       {expandedModules.includes(mod.id) && (
@@ -133,7 +133,7 @@ export default function WorkspacePage() {
                                 activeTopic === topic.id ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
                               }`}
                             >
-                              {topic.title}
+                              {t(`trackContent.${topic.id}.title`, topic.title)}
                             </button>
                           ))}
                         </motion.div>
@@ -240,7 +240,7 @@ export default function WorkspacePage() {
       {/* Focus mode bar */}
       {focusMode && (
         <header className="h-10 border-b border-border bg-background flex items-center justify-between px-4 shrink-0">
-          <span className="text-xs font-medium text-muted-foreground truncate">{t("workspace.focusMode")} — {currentTopic.title}</span>
+          <span className="text-xs font-medium text-muted-foreground truncate">{t("workspace.focusMode")} — {t(`trackContent.${activeTopic}.title`, currentTopic.title)}</span>
           <button onClick={() => setFocusMode(false)} className="text-muted-foreground hover:text-foreground">
             <Minimize2 className="w-4 h-4" />
           </button>
@@ -260,7 +260,7 @@ export default function WorkspacePage() {
                     className="w-full flex items-center gap-2 px-2 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-sidebar-accent transition-colors"
                   >
                     {expandedModules.includes(mod.id) ? <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />}
-                    <span className="truncate">{mod.title}</span>
+                    <span className="truncate">{t(`trackContent.${mod.id}.title`, mod.title)}</span>
                   </button>
                   <AnimatePresence>
                     {expandedModules.includes(mod.id) && (
@@ -273,7 +273,7 @@ export default function WorkspacePage() {
                               activeTopic === topic.id ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
                             }`}
                           >
-                            {topic.title}
+                              {t(`trackContent.${topic.id}.title`, topic.title)}
                           </button>
                         ))}
                       </motion.div>
@@ -301,31 +301,31 @@ export default function WorkspacePage() {
               <div className="mb-6 sm:mb-8">
                 <div className="flex items-center gap-2 mb-2 flex-wrap">
                   <span className="px-2 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold text-primary uppercase tracking-wider">
-                    {modules.find(m => m.topics.some(t => t.id === activeTopic))?.title}
+                    {t(`trackContent.${modules.find(m => m.topics.some(t => t.id === activeTopic))?.id}.title`, modules.find(m => m.topics.some(t => t.id === activeTopic))?.title)}
                   </span>
                   <span className="px-2 py-0.5 rounded-full bg-secondary text-[10px] font-medium text-muted-foreground">
                     {activeMode === "learn" ? t("workspace.learnMode") : activeMode === "practice" ? t("workspace.practiceMode") : t("workspace.exploreMode")}
                   </span>
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-foreground">{currentTopic.title}</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground">{t(`trackContent.${activeTopic}.title`, currentTopic.title)}</h1>
               </div>
 
               {/* ===== LEARN MODE — All 8 Layers ===== */}
               {activeMode === "learn" && (
                 <div className="space-y-4 sm:space-y-5">
                   <SectionDivider label={t("workspace.coreConceptFramework")} />
-                  <SectionCard icon={Lightbulb} title={t("workspace.what")} accent>{currentTopic.what}</SectionCard>
-                  <SectionCard icon={Target} title={t("workspace.why")}>{currentTopic.why}</SectionCard>
-                  <SectionCard icon={Zap} title={t("workspace.when")}>{currentTopic.when}</SectionCard>
-                  <SectionCard icon={Code2} title={t("workspace.howItWorks")} accent>{currentTopic.how}</SectionCard>
-                  <SectionCard icon={Compass} title={t("workspace.techEcosystem")}>{currentTopic.ecosystem}</SectionCard>
-                  <SectionCard icon={Briefcase} title={t("workspace.realWorldExamples")} accent>{currentTopic.realWorld}</SectionCard>
+                  <SectionCard icon={Lightbulb} title={t("workspace.what")} accent>{t(`trackContent.${activeTopic}.what`, currentTopic.what)}</SectionCard>
+                  <SectionCard icon={Target} title={t("workspace.why")}>{t(`trackContent.${activeTopic}.why`, currentTopic.why)}</SectionCard>
+                  <SectionCard icon={Zap} title={t("workspace.when")}>{t(`trackContent.${activeTopic}.when`, currentTopic.when)}</SectionCard>
+                  <SectionCard icon={Code2} title={t("workspace.howItWorks")} accent>{t(`trackContent.${activeTopic}.how`, currentTopic.how)}</SectionCard>
+                  <SectionCard icon={Compass} title={t("workspace.techEcosystem")}>{t(`trackContent.${activeTopic}.ecosystem`, currentTopic.ecosystem)}</SectionCard>
+                  <SectionCard icon={Briefcase} title={t("workspace.realWorldExamples")} accent>{t(`trackContent.${activeTopic}.realWorld`, currentTopic.realWorld)}</SectionCard>
 
                   {/* Use Cases */}
                   <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
                     <h3 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2"><FileText className="w-4 h-4 text-muted-foreground" /> {t("workspace.useCases")}</h3>
                     <ul className="space-y-1.5">
-                      {currentTopic.useCases.map((uc, i) => (
+                      {(t(`trackContent.${activeTopic}.useCases`, { returnObjects: true, defaultValue: currentTopic.useCases }) as string[]).map((uc, i) => (
                         <li key={i} className="text-sm text-muted-foreground flex items-start gap-2"><span className="text-primary mt-0.5">•</span> {uc}</li>
                       ))}
                     </ul>
@@ -336,7 +336,7 @@ export default function WorkspacePage() {
                     <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
                       <h3 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2"><ThumbsUp className="w-4 h-4 text-primary" /> {t("workspace.advantages")}</h3>
                       <ul className="space-y-1.5">
-                        {currentTopic.advantages.map((a, i) => (
+                         {(t(`trackContent.${activeTopic}.advantages`, { returnObjects: true, defaultValue: currentTopic.advantages }) as string[]).map((a, i) => (
                           <li key={i} className="text-sm text-muted-foreground flex items-start gap-2"><span className="text-primary mt-0.5">+</span> {a}</li>
                         ))}
                       </ul>
@@ -344,7 +344,7 @@ export default function WorkspacePage() {
                     <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
                       <h3 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2"><ThumbsDown className="w-4 h-4 text-destructive" /> {t("workspace.disadvantages")}</h3>
                       <ul className="space-y-1.5">
-                        {currentTopic.disadvantages.map((d, i) => (
+                        {(t(`trackContent.${activeTopic}.disadvantages`, { returnObjects: true, defaultValue: currentTopic.disadvantages }) as string[]).map((d, i) => (
                           <li key={i} className="text-sm text-muted-foreground flex items-start gap-2"><span className="text-destructive mt-0.5">−</span> {d}</li>
                         ))}
                       </ul>
@@ -352,9 +352,9 @@ export default function WorkspacePage() {
                   </div>
 
                   {/* Interview & Resume */}
-                  <SectionCard icon={AlertTriangle} title={t("workspace.interviewPerspective")} accent>{currentTopic.interviewTip}</SectionCard>
+                  <SectionCard icon={AlertTriangle} title={t("workspace.interviewPerspective")} accent>{t(`trackContent.${activeTopic}.interviewTip`, currentTopic.interviewTip)}</SectionCard>
                   <SectionCard icon={FileText} title={t("workspace.resumeFraming")}>
-                    <code className="text-xs font-mono bg-secondary px-2 py-1 rounded text-foreground break-all">{currentTopic.resumeBullet}</code>
+                    <code className="text-xs font-mono bg-secondary px-2 py-1 rounded text-foreground break-all">{t(`trackContent.${activeTopic}.resumeBullet`, currentTopic.resumeBullet)}</code>
                   </SectionCard>
 
                   {videos.length > 0 && (
