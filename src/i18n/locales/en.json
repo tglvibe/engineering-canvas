@@ -315,5 +315,51 @@
     "title": "404",
     "desc": "Oops! Page not found",
     "returnHome": "Return to Home"
+  },
+  "trackContent": {
+    "m1": { "title": "Foundations of Backend Engineering" },
+    "m2": { "title": "Database Engineering" },
+    "t1": {
+      "title": "What is Backend Engineering?",
+      "what": "Backend engineering is the discipline of building server-side systems that power applications — APIs, databases, authentication, business logic, and infrastructure.",
+      "why": "Every product needs a reliable, scalable backend. Frontend is the face; backend is the brain and backbone. Without it, no data persists, no logic executes, no system scales.",
+      "when": "Whenever you build anything beyond a static page: user accounts, data storage, real-time features, payments, AI integrations, or multi-service architectures.",
+      "how": "A client sends an HTTP request → the server routes it → middleware processes auth/validation → a handler executes business logic → the database is queried → a response is returned. This cycle repeats millions of times per second at scale.",
+      "ecosystem": "Node.js, Python (Django/Flask/FastAPI), Go, Java (Spring Boot), Rust, PostgreSQL, Redis, RabbitMQ, Kafka, Docker, Kubernetes, AWS/GCP/Azure.",
+      "realWorld": "Netflix processes 2+ billion API requests daily. Stripe's backend handles idempotent payment processing across 46 countries. Uber's backend orchestrates 25M+ rides daily across microservices.",
+      "useCases": ["REST/GraphQL APIs", "Authentication & authorization", "Background job processing", "Real-time event streaming", "Data pipeline orchestration"],
+      "advantages": ["Full control over data and business logic", "Language-agnostic — choose the best tool", "Scales independently from frontend", "Security boundaries at the server level"],
+      "disadvantages": ["Complexity grows with scale", "Debugging distributed systems is hard", "Infrastructure costs at scale", "Requires deep understanding of networking"],
+      "interviewTip": "When asked 'What does a backend engineer do?', go beyond 'write APIs.' Talk about system reliability, data integrity, scalability patterns, and operational excellence.",
+      "resumeBullet": "Designed and implemented RESTful backend services handling 10K+ requests/sec with <50ms p99 latency using Node.js and PostgreSQL."
+    },
+    "t2": {
+      "title": "HTTP, REST & API Design",
+      "what": "REST (Representational State Transfer) is an architectural style for designing networked applications using HTTP methods to perform CRUD operations on resources.",
+      "why": "REST is the lingua franca of web APIs. Understanding it deeply separates junior developers from engineers who can design systems that last.",
+      "when": "Whenever you need machine-to-machine or client-server communication. REST is ideal for stateless, cacheable, resource-oriented interactions.",
+      "how": "Resources are identified by URIs. HTTP methods (GET, POST, PUT, PATCH, DELETE) map to operations. Status codes communicate outcomes. Headers carry metadata.",
+      "ecosystem": "OpenAPI/Swagger, Postman, cURL, Express.js, FastAPI, Spring Boot, API Gateway (AWS/GCP), rate limiters, API versioning strategies.",
+      "realWorld": "GitHub's REST API serves millions of developers daily. Stripe's API is considered the gold standard — consistent naming, idempotent operations, pagination, versioning.",
+      "useCases": ["Public/partner APIs", "Mobile app backends", "Microservice communication", "CRUD applications", "Webhook integrations"],
+      "advantages": ["Simple and well-understood", "Stateless — easy to scale", "Cacheable with HTTP semantics", "Tooling ecosystem is massive"],
+      "disadvantages": ["Over-fetching and under-fetching", "No real-time push (need polling/WebSocket)", "Can become chatty for complex operations", "Versioning can be painful"],
+      "interviewTip": "Know the difference between PUT and PATCH. Understand idempotency. Be able to design a clean API for any domain in under 5 minutes.",
+      "resumeBullet": "Architected RESTful API layer with OpenAPI spec, versioning strategy, and rate limiting, reducing integration time for partner teams by 60%."
+    },
+    "t3": {
+      "title": "SQL & Relational Databases",
+      "what": "Relational databases organize data into tables with defined schemas, relationships (via foreign keys), and use SQL for querying. They guarantee ACID properties.",
+      "why": "Most business data is inherently relational. Understanding SQL deeply is non-negotiable for any backend engineer.",
+      "when": "When you need strong consistency, complex queries with joins, transactions, or well-structured data with clear relationships.",
+      "how": "Data is stored in rows within tables. Indexes speed up reads. Query planners optimize execution. Transactions ensure atomicity. Constraints enforce integrity.",
+      "ecosystem": "PostgreSQL, MySQL, SQLite, SQL Server. ORMs: Prisma, TypeORM, Sequelize, SQLAlchemy, Hibernate.",
+      "realWorld": "Instagram runs on PostgreSQL and handles billions of rows. Banks rely on ACID-compliant relational databases for every transaction.",
+      "useCases": ["User data storage", "Financial transactions", "Inventory management", "Content management", "Analytics and reporting"],
+      "advantages": ["ACID guarantees", "Mature tooling and community", "Complex queries with JOINs", "Schema enforcement"],
+      "disadvantages": ["Vertical scaling limits", "Schema migrations can be painful", "Not ideal for unstructured data", "Can be slower for simple key-value lookups"],
+      "interviewTip": "Be ready to write complex SQL queries on the spot. Know the difference between INNER JOIN, LEFT JOIN, and CROSS JOIN. Understand indexing trade-offs.",
+      "resumeBullet": "Optimized PostgreSQL queries reducing p95 latency from 800ms to 45ms through strategic indexing and query plan analysis."
+    }
   }
 }
