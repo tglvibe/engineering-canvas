@@ -7,9 +7,11 @@ import {
   AlertTriangle, Maximize2, Minimize2, Network, StickyNote, Brain, Rocket,
   Users, Award, Globe, Menu, X, LogOut, User
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/tgl-logo.png";
 import { backendModules, topicVideos, topicBlogs, topicMOOCs, topicScenarios, topicCodeExamples } from "@/data/tracks";
+import LanguageSelector from "@/components/LanguageSelector";
 
 import VideoResources from "@/components/workspace/VideoResources";
 import BlogResources from "@/components/workspace/BlogResources";
@@ -23,16 +25,11 @@ import ThinkingCanvas from "@/components/workspace/ThinkingCanvas";
 import CommunityPanel from "@/components/workspace/CommunityPanel";
 import CapstoneProject from "@/components/workspace/CapstoneProject";
 
-const modes = [
-  { id: "learn", label: "Learn", icon: BookOpen },
-  { id: "practice", label: "Practice", icon: Code2 },
-  { id: "explore", label: "Explore", icon: Compass },
-] as const;
-
 export default function WorkspacePage() {
   const { trackId } = useParams();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const { t } = useTranslation();
   const [activeMode, setActiveMode] = useState<string>("learn");
   const [activeTopic, setActiveTopic] = useState<string>("t1");
   const [expandedModules, setExpandedModules] = useState<string[]>(["m1"]);
@@ -44,6 +41,12 @@ export default function WorkspacePage() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  const modes = [
+    { id: "learn", label: t("workspace.learn"), icon: BookOpen },
+    { id: "practice", label: t("workspace.practice"), icon: Code2 },
+    { id: "explore", label: t("workspace.explore"), icon: Compass },
+  ] as const;
+
   const modules = backendModules;
   const currentTopic = modules.flatMap(m => m.topics).find(t => t.id === activeTopic);
 
@@ -53,7 +56,7 @@ export default function WorkspacePage() {
 
   const selectTopic = (topicId: string) => {
     setActiveTopic(topicId);
-    setSidebarOpen(false); // close sidebar on mobile after selection
+    setSidebarOpen(false);
   };
 
   const SectionCard = ({ icon: Icon, title, children, accent = false }: { icon: any; title: string; children: React.ReactNode; accent?: boolean }) => (
@@ -104,7 +107,7 @@ export default function WorkspacePage() {
               className="fixed left-0 top-0 bottom-0 z-50 w-[280px] bg-sidebar border-r border-border overflow-y-auto scrollbar-hide lg:hidden"
             >
               <div className="flex items-center justify-between p-3 border-b border-border">
-                <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-widest px-2">Outline</h2>
+                <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-widest px-2">{t("workspace.outline")}</h2>
                 <button onClick={() => setSidebarOpen(false)} className="p-1.5 text-muted-foreground hover:text-foreground">
                   <X className="w-4 h-4" />
                 </button>
@@ -140,10 +143,10 @@ export default function WorkspacePage() {
                 ))}
                 <div className="border-t border-border mt-3 pt-3 space-y-1">
                   <button onClick={() => { setGraphOpen(true); setSidebarOpen(false); }} className="w-full flex items-center gap-2 px-2 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors">
-                    <Network className="w-3.5 h-3.5" /> Knowledge Graph
+                    <Network className="w-3.5 h-3.5" /> {t("workspace.knowledgeGraph")}
                   </button>
                   <button onClick={() => navigate("/dashboard")} className="w-full flex items-center gap-2 px-2 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors">
-                    <Award className="w-3.5 h-3.5" /> Dashboard
+                    <Award className="w-3.5 h-3.5" /> {t("nav.dashboard")}
                   </button>
                 </div>
               </div>
@@ -163,9 +166,9 @@ export default function WorkspacePage() {
               <ChevronLeft className="w-4 h-4" />
             </button>
             <img src={logo} alt="" className="h-5 hidden sm:block shrink-0" />
-            <span className="text-xs sm:text-sm text-muted-foreground truncate">Backend Engineering</span>
+            <span className="text-xs sm:text-sm text-muted-foreground truncate">{t("workspace.backendEngineering")}</span>
             <span className="px-1.5 py-0.5 rounded-full bg-secondary text-[9px] sm:text-[10px] font-bold text-muted-foreground items-center gap-1 hidden md:flex shrink-0">
-              <Globe className="w-3 h-3" /> 10,000+ learners
+              <Globe className="w-3 h-3" /> 10,000+ {t("common.learners")}
             </span>
           </div>
           <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
@@ -184,21 +187,24 @@ export default function WorkspacePage() {
                 </button>
               ))}
             </div>
-            <button onClick={() => setGraphOpen(true)} className="p-1.5 sm:p-2 text-muted-foreground hover:text-foreground transition-colors hidden sm:block" title="Knowledge Graph">
+            <button onClick={() => setGraphOpen(true)} className="p-1.5 sm:p-2 text-muted-foreground hover:text-foreground transition-colors hidden sm:block" title={t("workspace.knowledgeGraph")}>
               <Network className="w-4 h-4" />
             </button>
-            <button onClick={() => setFocusMode(true)} className="p-1.5 sm:p-2 text-muted-foreground hover:text-foreground transition-colors hidden sm:block" title="Focus Mode">
+            <button onClick={() => setFocusMode(true)} className="p-1.5 sm:p-2 text-muted-foreground hover:text-foreground transition-colors hidden sm:block" title={t("workspace.focusMode")}>
               <Maximize2 className="w-4 h-4" />
             </button>
-            <button onClick={() => { setCanvasOpen(!canvasOpen); if (aiPanelOpen) setAiPanelOpen(false); }} className={`p-1.5 sm:p-2 transition-colors ${canvasOpen ? "text-primary" : "text-muted-foreground hover:text-foreground"}`} title="Thinking Canvas">
+            <button onClick={() => { setCanvasOpen(!canvasOpen); if (aiPanelOpen) setAiPanelOpen(false); }} className={`p-1.5 sm:p-2 transition-colors ${canvasOpen ? "text-primary" : "text-muted-foreground hover:text-foreground"}`} title={t("workspace.thinkingCanvas")}>
               <StickyNote className="w-4 h-4" />
             </button>
-            <button onClick={() => { setAiPanelOpen(!aiPanelOpen); if (canvasOpen) setCanvasOpen(false); }} className={`p-1.5 sm:p-2 transition-colors ${aiPanelOpen ? "text-primary" : "text-muted-foreground hover:text-foreground"}`} title="AI Assistant">
+            <button onClick={() => { setAiPanelOpen(!aiPanelOpen); if (canvasOpen) setCanvasOpen(false); }} className={`p-1.5 sm:p-2 transition-colors ${aiPanelOpen ? "text-primary" : "text-muted-foreground hover:text-foreground"}`} title={t("workspace.aiAssistant")}>
               <Brain className="w-4 h-4" />
             </button>
-            <button onClick={() => navigate("/dashboard")} className="p-1.5 sm:p-2 text-muted-foreground hover:text-foreground transition-colors hidden sm:block" title="Dashboard">
+            <button onClick={() => navigate("/dashboard")} className="p-1.5 sm:p-2 text-muted-foreground hover:text-foreground transition-colors hidden sm:block" title={t("nav.dashboard")}>
               <Award className="w-4 h-4" />
             </button>
+
+            <LanguageSelector compact />
+
             <div className="relative ml-1">
               <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-brand flex items-center justify-center text-primary-foreground text-[10px] sm:text-xs font-bold">
                 {user?.avatar || "U"}
@@ -214,13 +220,13 @@ export default function WorkspacePage() {
                         <p className="text-[10px] text-muted-foreground truncate">{user?.email}</p>
                       </div>
                       <button onClick={() => { navigate("/profile"); setUserMenuOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs text-muted-foreground hover:bg-secondary transition-colors">
-                        <User className="w-3.5 h-3.5" /> Profile
+                        <User className="w-3.5 h-3.5" /> {t("nav.profile")}
                       </button>
                       <button onClick={() => { navigate("/tracks"); setUserMenuOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs text-muted-foreground hover:bg-secondary transition-colors">
-                        <BookOpen className="w-3.5 h-3.5" /> All Tracks
+                        <BookOpen className="w-3.5 h-3.5" /> {t("workspace.allTracks")}
                       </button>
                       <button onClick={() => { logout(); navigate("/"); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs text-destructive hover:bg-destructive/5 transition-colors">
-                        <LogOut className="w-3.5 h-3.5" /> Sign Out
+                        <LogOut className="w-3.5 h-3.5" /> {t("nav.signOut")}
                       </button>
                     </motion.div>
                   </>
@@ -234,7 +240,7 @@ export default function WorkspacePage() {
       {/* Focus mode bar */}
       {focusMode && (
         <header className="h-10 border-b border-border bg-background flex items-center justify-between px-4 shrink-0">
-          <span className="text-xs font-medium text-muted-foreground truncate">Focus Mode — {currentTopic.title}</span>
+          <span className="text-xs font-medium text-muted-foreground truncate">{t("workspace.focusMode")} — {currentTopic.title}</span>
           <button onClick={() => setFocusMode(false)} className="text-muted-foreground hover:text-foreground">
             <Minimize2 className="w-4 h-4" />
           </button>
@@ -246,7 +252,7 @@ export default function WorkspacePage() {
         {!focusMode && (
           <aside className="hidden lg:block w-[260px] border-r border-border bg-sidebar shrink-0 overflow-y-auto scrollbar-hide">
             <div className="p-3">
-              <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-3 px-2">Outline</h2>
+              <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-3 px-2">{t("workspace.outline")}</h2>
               {modules.map(mod => (
                 <div key={mod.id} className="mb-0.5">
                   <button
@@ -277,10 +283,10 @@ export default function WorkspacePage() {
               ))}
               <div className="border-t border-border mt-3 pt-3 space-y-1">
                 <button onClick={() => setGraphOpen(true)} className="w-full flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors">
-                  <Network className="w-3.5 h-3.5" /> Knowledge Graph
+                  <Network className="w-3.5 h-3.5" /> {t("workspace.knowledgeGraph")}
                 </button>
                 <button onClick={() => navigate("/dashboard")} className="w-full flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors">
-                  <Award className="w-3.5 h-3.5" /> Dashboard
+                  <Award className="w-3.5 h-3.5" /> {t("nav.dashboard")}
                 </button>
               </div>
             </div>
@@ -298,7 +304,7 @@ export default function WorkspacePage() {
                     {modules.find(m => m.topics.some(t => t.id === activeTopic))?.title}
                   </span>
                   <span className="px-2 py-0.5 rounded-full bg-secondary text-[10px] font-medium text-muted-foreground">
-                    {activeMode === "learn" ? "Learn Mode" : activeMode === "practice" ? "Practice Mode" : "Explore Mode"}
+                    {activeMode === "learn" ? t("workspace.learnMode") : activeMode === "practice" ? t("workspace.practiceMode") : t("workspace.exploreMode")}
                   </span>
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground">{currentTopic.title}</h1>
@@ -307,17 +313,17 @@ export default function WorkspacePage() {
               {/* ===== LEARN MODE — All 8 Layers ===== */}
               {activeMode === "learn" && (
                 <div className="space-y-4 sm:space-y-5">
-                  <SectionDivider label="Core Concept Framework" />
-                  <SectionCard icon={Lightbulb} title="What" accent>{currentTopic.what}</SectionCard>
-                  <SectionCard icon={Target} title="Why">{currentTopic.why}</SectionCard>
-                  <SectionCard icon={Zap} title="When">{currentTopic.when}</SectionCard>
-                  <SectionCard icon={Code2} title="How It Works" accent>{currentTopic.how}</SectionCard>
-                  <SectionCard icon={Compass} title="Tech Ecosystem">{currentTopic.ecosystem}</SectionCard>
-                  <SectionCard icon={Briefcase} title="Real-World Examples" accent>{currentTopic.realWorld}</SectionCard>
+                  <SectionDivider label={t("workspace.coreConceptFramework")} />
+                  <SectionCard icon={Lightbulb} title={t("workspace.what")} accent>{currentTopic.what}</SectionCard>
+                  <SectionCard icon={Target} title={t("workspace.why")}>{currentTopic.why}</SectionCard>
+                  <SectionCard icon={Zap} title={t("workspace.when")}>{currentTopic.when}</SectionCard>
+                  <SectionCard icon={Code2} title={t("workspace.howItWorks")} accent>{currentTopic.how}</SectionCard>
+                  <SectionCard icon={Compass} title={t("workspace.techEcosystem")}>{currentTopic.ecosystem}</SectionCard>
+                  <SectionCard icon={Briefcase} title={t("workspace.realWorldExamples")} accent>{currentTopic.realWorld}</SectionCard>
 
                   {/* Use Cases */}
                   <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
-                    <h3 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2"><FileText className="w-4 h-4 text-muted-foreground" /> Use Cases</h3>
+                    <h3 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2"><FileText className="w-4 h-4 text-muted-foreground" /> {t("workspace.useCases")}</h3>
                     <ul className="space-y-1.5">
                       {currentTopic.useCases.map((uc, i) => (
                         <li key={i} className="text-sm text-muted-foreground flex items-start gap-2"><span className="text-primary mt-0.5">•</span> {uc}</li>
@@ -328,7 +334,7 @@ export default function WorkspacePage() {
                   {/* Advantages & Disadvantages */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
-                      <h3 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2"><ThumbsUp className="w-4 h-4 text-primary" /> Advantages</h3>
+                      <h3 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2"><ThumbsUp className="w-4 h-4 text-primary" /> {t("workspace.advantages")}</h3>
                       <ul className="space-y-1.5">
                         {currentTopic.advantages.map((a, i) => (
                           <li key={i} className="text-sm text-muted-foreground flex items-start gap-2"><span className="text-primary mt-0.5">+</span> {a}</li>
@@ -336,7 +342,7 @@ export default function WorkspacePage() {
                       </ul>
                     </div>
                     <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
-                      <h3 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2"><ThumbsDown className="w-4 h-4 text-destructive" /> Disadvantages</h3>
+                      <h3 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2"><ThumbsDown className="w-4 h-4 text-destructive" /> {t("workspace.disadvantages")}</h3>
                       <ul className="space-y-1.5">
                         {currentTopic.disadvantages.map((d, i) => (
                           <li key={i} className="text-sm text-muted-foreground flex items-start gap-2"><span className="text-destructive mt-0.5">−</span> {d}</li>
@@ -346,53 +352,53 @@ export default function WorkspacePage() {
                   </div>
 
                   {/* Interview & Resume */}
-                  <SectionCard icon={AlertTriangle} title="Interview Perspective" accent>{currentTopic.interviewTip}</SectionCard>
-                  <SectionCard icon={FileText} title="Resume Framing">
+                  <SectionCard icon={AlertTriangle} title={t("workspace.interviewPerspective")} accent>{currentTopic.interviewTip}</SectionCard>
+                  <SectionCard icon={FileText} title={t("workspace.resumeFraming")}>
                     <code className="text-xs font-mono bg-secondary px-2 py-1 rounded text-foreground break-all">{currentTopic.resumeBullet}</code>
                   </SectionCard>
 
                   {videos.length > 0 && (
                     <>
-                      <SectionDivider label="Video Resources" />
+                      <SectionDivider label={t("workspace.videoResources")} />
                       <VideoResources videos={videos} />
                     </>
                   )}
 
                   {moocs.length > 0 && (
                     <>
-                      <SectionDivider label="MOOC References" />
+                      <SectionDivider label={t("workspace.moocReferences")} />
                       <MOOCResources moocs={moocs} />
                     </>
                   )}
 
                   {blogs.length > 0 && (
                     <>
-                      <SectionDivider label="Blogs & Documentation" />
+                      <SectionDivider label={t("workspace.blogsDocumentation")} />
                       <BlogResources blogs={blogs} />
                     </>
                   )}
 
                   {scenarios.length > 0 && (
                     <>
-                      <SectionDivider label="Scenario-Based Problems" />
+                      <SectionDivider label={t("workspace.scenarioBasedProblems")} />
                       <ScenarioProblems scenarios={scenarios} onSelectScenario={() => setActiveMode("practice")} />
                     </>
                   )}
 
                   {codeExamples.length > 0 && (
                     <>
-                      <SectionDivider label="Code Playground" />
+                      <SectionDivider label={t("workspace.codePlayground")} />
                       <CodePlayground examples={codeExamples} />
                     </>
                   )}
 
-                  <SectionDivider label="Git Publishing" />
+                  <SectionDivider label={t("workspace.gitPublishing")} />
                   <GitSimulation />
 
-                  <SectionDivider label="Community" />
+                  <SectionDivider label={t("workspace.community")} />
                   <CommunityPanel />
 
-                  <SectionDivider label="Capstone Project" />
+                  <SectionDivider label={t("workspace.capstoneProject")} />
                   <CapstoneProject />
                 </div>
               )}
@@ -401,11 +407,11 @@ export default function WorkspacePage() {
               {activeMode === "practice" && (
                 <div className="space-y-5 sm:space-y-6">
                   {scenarios.length > 0 && <ScenarioProblems scenarios={scenarios} onSelectScenario={() => {}} />}
-                  <SectionDivider label="Code Playground" />
+                  <SectionDivider label={t("workspace.codePlayground")} />
                   {codeExamples.length > 0 && <CodePlayground examples={codeExamples} />}
-                  <SectionDivider label="Git Simulation" />
+                  <SectionDivider label={t("workspace.gitSimulation")} />
                   <GitSimulation />
-                  <SectionDivider label="Community Solutions" />
+                  <SectionDivider label={t("workspace.communitySolutions")} />
                   <CommunityPanel />
                 </div>
               )}
@@ -415,25 +421,25 @@ export default function WorkspacePage() {
                 <div className="space-y-5 sm:space-y-6">
                   <div className="rounded-xl border border-border bg-card p-5 sm:p-6 text-center">
                     <Brain className="w-8 h-8 text-primary mx-auto mb-3" />
-                    <h2 className="font-semibold text-foreground mb-2">AI Deep Dive</h2>
+                    <h2 className="font-semibold text-foreground mb-2">{t("workspace.aiDeepDive")}</h2>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Open the <span className="text-primary font-medium">AI Assistant</span> panel to explore <span className="font-medium text-foreground">{currentTopic.title}</span> with multiple LLMs.
+                      {t("workspace.aiDeepDiveDesc")} <span className="font-medium text-foreground">{currentTopic.title}</span> {t("workspace.withMultipleLLMs")}
                     </p>
                     <button onClick={() => setAiPanelOpen(true)} className="px-4 py-2 bg-gradient-brand text-primary-foreground text-sm font-medium rounded-lg hover:opacity-90 transition-opacity">
-                      Open AI Assistant
+                      {t("workspace.openAiAssistant")}
                     </button>
                   </div>
 
-                  <SectionDivider label="Knowledge Graph" />
+                  <SectionDivider label={t("workspace.knowledgeGraph")} />
                   <div className="rounded-xl border border-border bg-card p-5 sm:p-6 text-center">
                     <Network className="w-8 h-8 text-muted-foreground/30 mx-auto mb-3" />
-                    <p className="text-sm text-muted-foreground mb-3">Explore concept dependencies visually</p>
+                    <p className="text-sm text-muted-foreground mb-3">{t("workspace.exploreConceptsVisually")}</p>
                     <button onClick={() => setGraphOpen(true)} className="px-4 py-2 border border-border rounded-lg text-sm font-medium text-foreground hover:bg-secondary transition-colors">
-                      Open Knowledge Graph
+                      {t("workspace.openKnowledgeGraph")}
                     </button>
                   </div>
 
-                  <SectionDivider label="Capstone Project" />
+                  <SectionDivider label={t("workspace.capstoneProject")} />
                   <CapstoneProject />
                 </div>
               )}
@@ -441,14 +447,14 @@ export default function WorkspacePage() {
           </div>
         </main>
 
-        {/* AI Panel - overlay on mobile, side panel on desktop */}
+        {/* AI Panel */}
         <AnimatePresence>
           {aiPanelOpen && !focusMode && (
             <MultiLLMPanel open={aiPanelOpen} onClose={() => setAiPanelOpen(false)} topicTitle={currentTopic.title} />
           )}
         </AnimatePresence>
 
-        {/* Thinking Canvas - overlay on mobile, side panel on desktop */}
+        {/* Thinking Canvas */}
         <AnimatePresence>
           {canvasOpen && !focusMode && (
             <ThinkingCanvas open={canvasOpen} onClose={() => setCanvasOpen(false)} topicTitle={currentTopic.title} />

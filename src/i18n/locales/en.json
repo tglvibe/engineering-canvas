@@ -137,6 +137,8 @@
     "searchTracks": "Search tracks...",
     "allTracks": "All Tracks",
     "noResults": "No tracks match your search.",
+    "startTrack": "Start Track",
+    "continueTrack": "Continue",
     "forYou": "FOR YOU",
     "modules": "modules",
     "weeks": "weeks"
@@ -210,6 +212,8 @@
   },
   "workspace": {
     "outline": "Outline",
+    "backendEngineering": "Backend Engineering",
+    "allTracks": "All Tracks",
     "knowledgeGraph": "Knowledge Graph",
     "knowledgeGraphDesc": "Interactive concept dependency map — Click nodes to explore",
     "learnMode": "Learn Mode",
