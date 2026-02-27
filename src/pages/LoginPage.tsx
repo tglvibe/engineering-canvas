@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Eye, EyeOff, AlertCircle, Info, Upload, Check, Star } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth, SkillRating, Certification, Internship, Project } from "@/contexts/AuthContext";
 import logo from "@/assets/tgl-logo.png";
@@ -77,7 +77,16 @@ export default function LoginPage() {
   const [selectedLang, setSelectedLang] = useState("");
   const [selectedStack, setSelectedStack] = useState("");
 
-  if (isAuthenticated) { navigate("/explore", { replace: true }); return null; }
+  // Redirect authenticated users via useEffect to avoid calling navigate during render
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  
+  useState(() => {
+    if (isAuthenticated) setShouldRedirect(true);
+  });
+
+  if (shouldRedirect || isAuthenticated) {
+    return <Navigate to="/explore" replace />;
+  }
 
   const handleAuth = (e: React.FormEvent) => {
     e.preventDefault();
