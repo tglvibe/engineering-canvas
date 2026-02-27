@@ -6,10 +6,13 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
+import ExplorePage from "./pages/ExplorePage";
 import TracksPage from "./pages/TracksPage";
 import WorkspacePage from "./pages/WorkspacePage";
 import DashboardPage from "./pages/DashboardPage";
 import ProfilePage from "./pages/ProfilePage";
+import ProgramPage from "./pages/ProgramPage";
+import RolePage from "./pages/RolePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,7 +27,10 @@ const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<LandingPage />} />
     <Route path="/login" element={<LoginPage />} />
+    <Route path="/explore" element={<ProtectedRoute><ExplorePage /></ProtectedRoute>} />
     <Route path="/tracks" element={<ProtectedRoute><TracksPage /></ProtectedRoute>} />
+    <Route path="/program/:programId" element={<ProtectedRoute><ProgramPage /></ProtectedRoute>} />
+    <Route path="/role/:roleId" element={<ProtectedRoute><RolePage /></ProtectedRoute>} />
     <Route path="/workspace/:trackId" element={<ProtectedRoute><WorkspacePage /></ProtectedRoute>} />
     <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
     <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />

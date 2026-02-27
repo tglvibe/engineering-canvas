@@ -33,9 +33,9 @@ export default function AppHeader({ title, showBack = true, backTo, minimal }: A
   };
 
   const navItems = [
+    { label: t("nav.explore"), icon: BookOpen, path: "/explore", active: location.pathname === "/explore" },
     { label: t("nav.tracks"), icon: BookOpen, path: "/tracks", active: location.pathname === "/tracks" },
     { label: t("nav.dashboard"), icon: BarChart3, path: "/dashboard", active: location.pathname === "/dashboard" },
-    { label: t("nav.profile"), icon: User, path: "/profile", active: location.pathname === "/profile" },
   ];
 
   return (
@@ -48,7 +48,7 @@ export default function AppHeader({ title, showBack = true, backTo, minimal }: A
                 <ChevronLeft className="w-4 h-4" />
               </button>
             )}
-            <button onClick={() => navigate("/tracks")} className="shrink-0">
+            <button onClick={() => navigate("/explore")} className="shrink-0">
               <img src={logo} alt="Talencia Global" className="h-5 sm:h-6" />
             </button>
             {title && <span className="text-xs sm:text-sm font-semibold text-foreground truncate">{title}</span>}
