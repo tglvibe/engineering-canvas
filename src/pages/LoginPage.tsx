@@ -77,7 +77,7 @@ export default function LoginPage() {
   const [selectedLang, setSelectedLang] = useState("");
   const [selectedStack, setSelectedStack] = useState("");
 
-  if (isAuthenticated) { navigate("/tracks", { replace: true }); return null; }
+  if (isAuthenticated) { navigate("/explore", { replace: true }); return null; }
 
   const handleAuth = (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,7 +89,7 @@ export default function LoginPage() {
     } else {
       const success = login(email, password);
       if (!success) { setError(t("auth.invalidCredentials")); return; }
-      navigate("/tracks");
+      navigate("/explore");
     }
   };
 
@@ -131,7 +131,7 @@ export default function LoginPage() {
       level: selectedLevel, goal: selectedGoal,
       preferredLanguage: selectedLang, preferredStack: selectedStack,
     });
-    navigate("/tracks");
+    navigate("/explore");
   };
 
   const goNext = () => {
