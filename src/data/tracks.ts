@@ -599,3 +599,30 @@ GET /api/users/1 → { "id": 1, "name": "Ada Lovelace", "role": "engineer" }`,
     ],
   },
 ];
+
+// placeholder curriculum until dedicated HCE modules are created
+export const lceModules: Module[] = [
+  {
+    id: "lcem1",
+    title: "Foundations of Low-Code Engineering",
+    topics: [
+      {
+        id: "lcet1",
+        title: "What is Low-Code Engineering?",
+        what: "Building applications using visual models and pre-built components on platforms like OutSystems, Mendix, and PowerApps.",
+        why: "Speeds development, empowers non-developers, and is ideal for internal tools and prototypes.",
+        when: "Whenever rapid application delivery is required or when citizen development is encouraged.",
+        how: "Use drag-drop interfaces, configure data models, and connect logic with visual workflows; custom code is added sparingly.",
+        ecosystem: "Low-code platforms, connectors, cloud hosting, citizen developer communities.",
+        realWorld: "A bank deployed a loan processing app in 3 weeks using PowerApps, replacing months of custom development.",
+        useCases: ["Internal dashboards","Process automation","Client portals"],
+        advantages: ["Fast iteration","Lower cost","Accessible to non-programmers"],
+        disadvantages: ["Vendor lock-in","Limited control","May not scale for complex systems"],
+        interviewTip: "Emphasize understanding of when low-code is appropriate versus custom code.",
+        resumeBullet: "Delivered internal HR tracker 8x faster using Mendix low-code platform.",
+      },
+    ],
+  },
+];
+
+export const hceModules: Module[] = backendModules;

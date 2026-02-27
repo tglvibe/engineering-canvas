@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useParams, useNavigate } from "react-router-dom";
 import {
-  ChevronLeft, ChevronDown, ChevronRight, BookOpen, Code2, Compass, 
+  ChevronLeft, ChevronDown, ChevronRight, BookOpen, Code2, Compass,
   MessageSquare, Lightbulb, Target, Briefcase, FileText, Zap, ThumbsUp, ThumbsDown,
   AlertTriangle, Maximize2, Minimize2, Network, StickyNote, Brain, Rocket,
   Users, Award, Globe, Menu, X, LogOut, User
@@ -10,7 +10,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/tgl-logo.png";
-import { backendModules, topicVideos, topicBlogs, topicMOOCs, topicScenarios, topicCodeExamples } from "@/data/tracks";
+import { backendModules, lceModules, topicVideos, topicBlogs, topicMOOCs, topicScenarios, topicCodeExamples } from "@/data/tracks";
 import LanguageSelector from "@/components/LanguageSelector";
 
 import VideoResources from "@/components/workspace/VideoResources";
@@ -30,9 +30,25 @@ export default function WorkspacePage() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { t } = useTranslation();
+  const modulesMap: Record<string, any[]> = {
+    backend: backendModules,
+    hce: backendModules,
+    lce: lceModules,
+    nce: lceModules, // Placeholder for NCE
+  };
+  const modules = modulesMap[trackId || "backend"] || backendModules;
+  const initialTopicId = modules[0]?.topics[0]?.id || "t1";
+
   const [activeMode, setActiveMode] = useState<string>("learn");
-  const [activeTopic, setActiveTopic] = useState<string>("t1");
-  const [expandedModules, setExpandedModules] = useState<string[]>(["m1"]);
+  const [activeTopic, setActiveTopic] = useState<string>(initialTopicId);
+  const [expandedModules, setExpandedModules] = useState<string[]>([modules[0]?.id || "m1"]);
+
+  useEffect(() => {
+    const newModules = modulesMap[trackId || "backend"] || backendModules;
+    const firstTopicId = newModules[0]?.topics[0]?.id || "t1";
+    setActiveTopic(firstTopicId);
+    setExpandedModules([newModules[0]?.id || "m1"]);
+  }, [trackId]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [aiPanelOpen, setAiPanelOpen] = useState(false);
   const [canvasOpen, setCanvasOpen] = useState(false);
@@ -47,7 +63,6 @@ export default function WorkspacePage() {
     { id: "explore", label: t("workspace.explore"), icon: Compass },
   ] as const;
 
-  const modules = backendModules;
   const currentTopic = modules.flatMap(m => m.topics).find(t => t.id === activeTopic);
 
   const toggleModule = (id: string) => {
@@ -129,9 +144,8 @@ export default function WorkspacePage() {
                             <button
                               key={topic.id}
                               onClick={() => selectTopic(topic.id)}
-                              className={`w-full text-left px-3 pl-8 py-2 text-sm rounded-lg transition-colors ${
-                                activeTopic === topic.id ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
-                              }`}
+                              className={`w-full text-left px-3 pl-8 py-2 text-sm rounded-lg transition-colors ${activeTopic === topic.id ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
+                                }`}
                             >
                               {t(`trackContent.${topic.id}.title`, topic.title)}
                             </button>
@@ -166,7 +180,7 @@ export default function WorkspacePage() {
               <ChevronLeft className="w-4 h-4" />
             </button>
             <img src={logo} alt="" className="h-5 hidden sm:block shrink-0" />
-            <span className="text-xs sm:text-sm text-muted-foreground truncate">{t("workspace.backendEngineering")}</span>
+            <span className="text-xs sm:text-sm text-muted-foreground truncate">{t(`hierarchy.${trackId === "lce" ? "lowCode" : trackId === "nce" ? "noCode" : "highCode"}`)}</span>
             <span className="px-1.5 py-0.5 rounded-full bg-secondary text-[9px] sm:text-[10px] font-bold text-muted-foreground items-center gap-1 hidden md:flex shrink-0">
               <Globe className="w-3 h-3" /> 10,000+ {t("common.learners")}
             </span>
@@ -178,9 +192,8 @@ export default function WorkspacePage() {
                 <button
                   key={m.id}
                   onClick={() => setActiveMode(m.id)}
-                  className={`flex items-center gap-1 px-2 sm:px-3 py-1.5 rounded-md text-[10px] sm:text-xs font-medium transition-all ${
-                    activeMode === m.id ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  className={`flex items-center gap-1 px-2 sm:px-3 py-1.5 rounded-md text-[10px] sm:text-xs font-medium transition-all ${activeMode === m.id ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                    }`}
                 >
                   <m.icon className="w-3 h-3" />
                   <span className="hidden sm:inline">{m.label}</span>
@@ -269,11 +282,10 @@ export default function WorkspacePage() {
                           <button
                             key={topic.id}
                             onClick={() => setActiveTopic(topic.id)}
-                            className={`w-full text-left px-3 pl-8 py-1.5 text-sm rounded-lg transition-colors ${
-                              activeTopic === topic.id ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
-                            }`}
+                            className={`w-full text-left px-3 pl-8 py-1.5 text-sm rounded-lg transition-colors ${activeTopic === topic.id ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
+                              }`}
                           >
-                              {t(`trackContent.${topic.id}.title`, topic.title)}
+                            {t(`trackContent.${topic.id}.title`, topic.title)}
                           </button>
                         ))}
                       </motion.div>
@@ -336,7 +348,7 @@ export default function WorkspacePage() {
                     <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
                       <h3 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2"><ThumbsUp className="w-4 h-4 text-primary" /> {t("workspace.advantages")}</h3>
                       <ul className="space-y-1.5">
-                         {(t(`trackContent.${activeTopic}.advantages`, { returnObjects: true, defaultValue: currentTopic.advantages }) as string[]).map((a, i) => (
+                        {(t(`trackContent.${activeTopic}.advantages`, { returnObjects: true, defaultValue: currentTopic.advantages }) as string[]).map((a, i) => (
                           <li key={i} className="text-sm text-muted-foreground flex items-start gap-2"><span className="text-primary mt-0.5">+</span> {a}</li>
                         ))}
                       </ul>
@@ -406,7 +418,7 @@ export default function WorkspacePage() {
               {/* ===== PRACTICE MODE ===== */}
               {activeMode === "practice" && (
                 <div className="space-y-5 sm:space-y-6">
-                  {scenarios.length > 0 && <ScenarioProblems scenarios={scenarios} onSelectScenario={() => {}} />}
+                  {scenarios.length > 0 && <ScenarioProblems scenarios={scenarios} onSelectScenario={() => { }} />}
                   <SectionDivider label={t("workspace.codePlayground")} />
                   {codeExamples.length > 0 && <CodePlayground examples={codeExamples} />}
                   <SectionDivider label={t("workspace.gitSimulation")} />
