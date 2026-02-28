@@ -153,10 +153,11 @@ export interface CourseTopic {
 }
 
 export interface CapstoneStep {
-  sequenceNumber: number;
+  sequenceNumber?: number;
   title: string;
-  objective: string;
-  skills: string[];
+  description?: string;
+  objective?: string;
+  skills?: string[];
   status?: "Done" | "In Progress" | "Not Started";
 }
 
