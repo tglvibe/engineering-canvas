@@ -1147,6 +1147,7 @@ export const hceBack101: CourseEnhanced = {
     ],
   },
   totalEstimatedHours: 65,
+  moduleCount: 4,
   estimatedCompletionDays: 70,
   createdAt: "2026-02-28T00:00:00Z",
   updatedAt: "2026-02-28T00:00:00Z",

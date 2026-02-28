@@ -29,7 +29,13 @@ export default function WorkspacePage() {
   const { trackId } = useParams();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const { t } = useTranslation();
+  const { t: rawT } = useTranslation();
+  const t = (key: string, optionsOrDefault?: any) => {
+    if (optionsOrDefault && typeof optionsOrDefault === 'object' && optionsOrDefault.returnObjects) {
+      return rawT(key, optionsOrDefault) as any;
+    }
+    return String(rawT(key, optionsOrDefault ?? key));
+  };
   const modulesMap: Record<string, any[]> = {
     backend: backendModules,
     hce: backendModules,
