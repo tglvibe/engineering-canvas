@@ -10,7 +10,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/tgl-logo.png";
-import { backendModules, lceModules, topicVideos, topicBlogs, topicMOOCs, topicScenarios, topicCodeExamples } from "@/data/tracks";
+import { topicVideos, topicBlogs, topicMOOCs, topicScenarios, topicCodeExamples } from "@/data/tracks";
+import { getModulesForTrack } from "@/data/trackModuleResolver";
 import LanguageSelector from "@/components/LanguageSelector";
 import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
 import { courses as hierarchyCourses, programs } from "@/data/hierarchy";
@@ -63,13 +64,7 @@ export default function WorkspacePage() {
     return false;
   }, [user?.id, trackId]);
 
-  const modulesMap: Record<string, any[]> = {
-    backend: backendModules,
-    hce: backendModules,
-    lce: lceModules,
-    nce: lceModules, // Placeholder for NCE
-  };
-  const modules = modulesMap[trackId || "backend"] || backendModules;
+  const modules = useMemo(() => getModulesForTrack(trackId || "backend"), [trackId]);
   const initialTopicId = modules[0]?.topics[0]?.id || "t1";
 
   const [activeMode, setActiveMode] = useState<string>("learn");
@@ -77,7 +72,7 @@ export default function WorkspacePage() {
   const [expandedModules, setExpandedModules] = useState<string[]>([modules[0]?.id || "m1"]);
 
   useEffect(() => {
-    const newModules = modulesMap[trackId || "backend"] || backendModules;
+    const newModules = getModulesForTrack(trackId || "backend");
     const firstTopicId = newModules[0]?.topics[0]?.id || "t1";
     setActiveTopic(firstTopicId);
     setExpandedModules([newModules[0]?.id || "m1"]);
