@@ -39,13 +39,16 @@ export default function LoginPage() {
     if (!email.trim() || !password.trim()) { setError(t("auth.enterBoth")); return; }
 
     setLoading(true);
-    const result = await login(email, password);
-    setLoading(false);
-
-    if (!result.success) {
-      setError(result.error || t("auth.invalidCredentials"));
+    try {
+      const result = await login(email, password);
+      if (!result.success) {
+        setError(result.error || t("auth.invalidCredentials"));
+      }
+    } catch (err: any) {
+      setError("Unable to reach the server. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
     }
-    // Navigation happens automatically via auth state change
   };
 
   const fillDemo = () => { setEmail(DEMO_EMAIL); setPassword(DEMO_PASSWORD); setError(""); };

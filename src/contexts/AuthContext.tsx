@@ -190,8 +190,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     );
 
-    // THEN check existing session
-    supabase.auth.getSession().then(({ data: { session: existingSession } }) => {
+    // THEN check existing session with timeout
+    Promise.race([
+      supabase.auth.getSession(),
+      new Promise<{ data: { session: null } }>((resolve) =>
+        setTimeout(() => resolve({ data: { session: null } }), 10000)
+      ),
+    ]).then(({ data: { session: existingSession } }) => {
       setSession(existingSession);
       setAuthUser(existingSession?.user ?? null);
 
@@ -199,18 +204,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         fetchUserData(existingSession.user.id, existingSession.user.email || "");
       }
       setIsLoading(false);
+    }).catch(() => {
+      setIsLoading(false);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) return { success: false, error: error.message };
-    if (data.user) {
-      await fetchUserData(data.user.id, data.user.email || "");
+    try {
+      const { data, error } = await Promise.race([
+        supabase.auth.signInWithPassword({ email, password }),
+        new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error("TIMEOUT")), 15000)
+        ),
+      ]);
+      if (error) return { success: false, error: error.message };
+      if (data.user) {
+        await fetchUserData(data.user.id, data.user.email || "");
+      }
+      return { success: true };
+    } catch (err: any) {
+      if (err?.message === "TIMEOUT" || err?.message?.includes("Failed to fetch")) {
+        return { success: false, error: "Unable to reach the server. Please check your internet connection and try again." };
+      }
+      return { success: false, error: err?.message || "An unexpected error occurred." };
     }
-    return { success: true };
   };
 
   const logout = async () => {
