@@ -207,7 +207,45 @@
     "close": "Close",
     "views": "views",
     "learners": "learners",
-    "by": "by"
+    "by": "by",
+    "duration": {
+      "1week": "1 week",
+      "2weeks": "2 weeks",
+      "3weeks": "3 weeks",
+      "4weeks": "4 weeks",
+      "5weeks": "5 weeks",
+      "6weeks": "6 weeks",
+      "7weeks": "7 weeks",
+      "8weeks": "8 weeks",
+      "10weeks": "10 weeks",
+      "12weeks": "12 weeks",
+      "14weeks": "14 weeks",
+      "16weeks": "16 weeks"
+    },
+    "langs": {
+      "html": "HTML",
+      "css": "CSS",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "node": "Node.js",
+      "python": "Python",
+      "sql": "SQL",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "bash": "Bash",
+      "scala": "Scala",
+      "agnostic": "Agnostic",
+      "lowcode": "Low-Code",
+      "nocode": "No-Code",
+      "rest": "REST",
+      "graphql": "GraphQL",
+      "ai": "AI",
+      "devops": "DevOps",
+      "aws": "AWS",
+      "docker": "Docker",
+      "kubernetes": "Kubernetes"
+    }
   },
   "workspace": {
     "outline": "Outline",
@@ -589,7 +627,7 @@
     "apiIntegration": "API Integration",
     "apiIntegrationDesc": "Platform integration using MuleSoft, Workato, and API orchestration.",
     "internalTools": "Internal Tools",
-    "internalToolsDesc": "Admin dashboards and operational tools with Retool and Appsmith.",
+    "internalToolsDesc": "Admin dashboards and operational tools with Rentool and Appsmith.",
     "lceFoundations": "Low-Code Foundations",
     "lceFoundationsDesc": "Core concepts and tools for any low-code platform.",
     "lceDataModeling": "Data Modeling & DB in Low-Code",
@@ -615,41 +653,1979 @@
     "productLaunch": "Product Launch",
     "productLaunchDesc": "MVP launch with Webflow, Framer, and no-code landing pages.",
     "aiWorkflow": "AI Workflow Design",
-    "aiWorkflowDesc": "AI-powered workflows using ChatGPT, Claude, and prompt engineering."
-  },
-  "explore": {
-    "title": "Explore",
-    "heading": "Explore your career path",
-    "subheading": "Browse by category, role, program or course — your journey, your way.",
-    "recommended": "Recommended",
-    "byCategory": "By Category",
-    "byRole": "By Role",
-    "allPrograms": "All Programs",
-    "allCourses": "All Courses",
-    "searchPlaceholder": "Search roles, programs or courses...",
-    "roles": "Roles",
-    "programs": "Programs",
-    "courses": "Courses",
-    "program": "Program",
-    "backToCategories": "Back to Categories",
-    "personalizedFor": "Personalized for",
-    "basedOnProfile": "Based on your skill level, goals and preferences.",
-    "recommendedRoles": "Recommended Job Roles",
-    "recommendedPrograms": "Recommended Programs",
-    "highDemand": "High Demand",
-    "mediumDemand": "Medium Demand",
-    "lowDemand": "Low Demand",
-    "beginner": "Beginner",
-    "intermediate": "Intermediate",
-    "advanced": "Advanced",
-    "programObjective": "Program Objective",
-    "skillsGained": "Skills You'll Gain",
-    "prerequisites": "Prerequisites",
-    "coursesIncluded": "Courses Included",
-    "enrollInProgram": "Enroll in Full Program",
-    "orEnrollIndividual": "Or enroll in individual courses above",
-    "requiredSkills": "Required Skills",
-    "careerRoadmap": "Career Roadmap",
-    "startCareerPath": "Start This Career Path"
+    "aiWorkflowDesc": "AI-powered workflows using ChatGPT, Claude, and prompt engineering.",
+    "coreCS101": "CORE CS 101",
+    "coreProgPy": "CORE PROG PY",
+    "hceFront101": {
+      "title": "Frontend Engineering 101",
+      "desc": "Master the core of the web platform.",
+      "targetAudience": "Engineers wanting to master the fundamental building blocks of the web before adopting heavy frameworks. Essential for anyone wanting to build performant, accessible UIs natively.",
+      "outcomes": {
+        "o1": "Write semantic, accessible HTML5 layouts that rank high in SEO and support screen readers inherently",
+        "o2": "Style complex responsive grids and flexboxes using modern CSS3 natively without UI component libraries",
+        "o3": "Manipulate the Document Object Model (DOM) directly with high-performance Vanilla JavaScript and Event Delegation",
+        "o4": "Fetch and display dynamic data from external REST APIs using Promises/Async-Await without crashing the main thread",
+        "o5": "Configure modern module bundlers (Vite) and development servers for a rapid development lifecycle"
+      },
+      "modules": {
+        "m1": {
+          "title": "The Web Platform Architecture",
+          "desc": "How browsers parse text streams of HTML, CSS, and JS to paint pixels on a GPU.",
+          "outcomes": {
+            "o1": "Understand the Critical Rendering Path (DOM + CSSOM = Render Tree)",
+            "o2": "Write Semantic HTML for SEO and A11y out-of-the-box"
+          },
+          "topics": {
+            "t1": {
+              "title": "Semantic HTML & The Critical Rendering Path",
+              "what": "Semantic HTML uses specific tags (like <article>, <nav>, <main>) instead of generic <div> tags to give structural meaning to web content.",
+              "why": "A page built purely with <div> tags requires massive amounts of JavaScript to make accessible to screen readers, and is ranked poorly by search engines.",
+              "when": "This is the absolute first layer of any web architecture.",
+              "how": "Use native landmarks: <header>, <nav>, <main>, <section>, <article>, <aside>, and <footer>.",
+              "ecosystem": "Blink, WebKit, Gecko engines. Web Vitals: LCP, FID, CLS.",
+              "realWorld": "Google and major news sites use semantic structure for accessibility and SEO.",
+              "useCases": {
+                "u1": "SEO-friendly content heavy websites",
+                "u2": "Web accessibility for screen readers",
+                "u3": "Optimizing page load performance"
+              },
+              "advantages": {
+                "a1": "Superior accessibility and SEO",
+                "a2": "Clean, maintainable code",
+                "a3": "Performance gains"
+              },
+              "disadvantages": {
+                "d1": "Requires more semantic thought"
+              },
+              "interviewTip": "Explain the sequence: URL -> HTML -> DOM -> CSSOM -> Render Tree -> Layout -> Paint.",
+              "resumeBullet": "Optimized Critical Rendering Path for high-traffic pages, reducing LCP by 40%.",
+              "videos": {
+                "v1": {
+                  "title": "Web Performance: Critical Rendering Path",
+                  "author": "Google Chrome Developers",
+                  "views": "300K views",
+                  "duration": "45:20"
+                },
+                "v2": {
+                  "title": "Semantic HTML: What, Why, and How",
+                  "author": "Fireship",
+                  "views": "500K views",
+                  "duration": "12:15"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "Web Performance Fundamentals",
+                  "instructor": "Todd Gardner",
+                  "enrolled": "50K+",
+                  "duration": "4 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "Understanding the Critical Rendering Path",
+                  "publisher": "MDN Web Docs",
+                  "readTime": "25 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "The Blank White Screen of Death",
+                  "category": "Performance Architecture",
+                  "estimatedTime": "2 hours",
+                  "description": "A page remains white for 8 seconds on 3G connections due to a massive JS block in the <head>.",
+                  "analysis": "The DOM Parser is blocked by synchronous JS execution.",
+                  "layers": {
+                    "l1": "Network Layer",
+                    "l3": "JS Engine"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "The `defer` attribute",
+                      "justification": "Allows background download and deferred execution."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "Functionality delay of a few milliseconds"
+                  },
+                  "nfr": {
+                    "n1": "Page Load Performance (LCP)"
+                  },
+                  "kpis": {
+                    "k1": "LCP < 2.5s"
+                  },
+                  "insights": "Never block the main thread."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "CRP Sandbox",
+                  "desc": "Experiment with defer/async script loading."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "Semantic structure",
+                  "snippet": "<main><article>1</h1></article></main>"
+                },
+                "commit": "feat: implement semantic HTML5 landmarks",
+                "snippet": "<main>\n  <article>\n    <h1>Semantic Mastery</h1>\n  </article>\n</main>"
+              },
+              "community": {
+                "aiSummary": "Community focuses on the trade-offs between 'defer' and 'async'."
+              }
+            },
+            "t2": {
+              "title": "Scalable CSS Architecture",
+              "what": "Scalable CSS Architecture (BEM, SMACSS) manages large-scale styling without the 'Cascade' becoming a nightmare.",
+              "why": "Global CSS leads to side-effects where changing one style breaks 50 other pages.",
+              "when": "Crucial on Day 1 of any project.",
+              "how": "Use BEM: `.block__element--modifier` or Utility-First frameworks.",
+              "ecosystem": "PostCSS, Tailwind, BEM, CSS Modules, Styled Components.",
+              "realWorld": "Design Systems at Slack and Spotify are built on Design Tokens for instant global updates.",
+              "useCases": {
+                "u1": "Multi-tenant SaaS styling",
+                "u2": "Reducing CSS Bloat in enterprise apps",
+                "u3": "Reusable UI Component Library"
+              },
+              "advantages": {
+                "a1": "Eliminates side-effect bugs",
+                "a2": "Reduces CSS bundle sizes",
+                "a3": "Clear documentation standard"
+              },
+              "disadvantages": {
+                "d1": "BEM class names can become long."
+              },
+              "interviewTip": "Use BEM or CSS Modules to keep selectors flat and avoid specificity wars.",
+              "resumeBullet": "Architected a modular CSS system using BEM, resulting in 70% decrease in dead CSS.",
+              "videos": {
+                "v1": {
+                  "title": "BEM Methodology Explained",
+                  "author": "Coder's Guide",
+                  "views": "100K views",
+                  "duration": "12:15"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "Scalable CSS Architecture",
+                  "instructor": "Estelle Weyl",
+                  "enrolled": "15K+",
+                  "duration": "8 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "Maintainable CSS with BEM",
+                  "publisher": "BEM Official",
+                  "readTime": "20 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "The !important War",
+                  "category": "CSS Engineering",
+                  "estimatedTime": "2.5 hours",
+                  "description": "Modal background won't change due to global resets.",
+                  "analysis": "High specificity scores and global selectors cause the cascade to fail.",
+                  "layers": {
+                    "l1": "CSS Cascade",
+                    "l2": "Specificity Algorithms",
+                    "l3": "Shadow DOM"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "CSS Modules",
+                      "justification": "Automatically scopes classes to unique hashes."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "Higher HTML verbosity"
+                  },
+                  "nfr": {
+                    "n1": "Maintainability"
+                  },
+                  "kpis": {
+                    "k1": "Reduce !important usage to zero."
+                  },
+                  "insights": "Scope your styles or the cascade will scope you."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "BEM vs Utility Sandbox",
+                  "desc": "Compare BEM and Tailwind for a button component."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "BEM logic",
+                  "snippet": ".header { ... }\n.header__logo { ... }"
+                },
+                "commit": "style: refactor header to BEM",
+                "snippet": ".btn {\n  padding: 10px;\n}\n.btn--primary {\n  background: blue;\n}"
+              },
+              "community": {
+                "aiSummary": "CSS methodologies are essential for modern scalable applications."
+              }
+            }
+          }
+        },
+        "m2": {
+          "title": "Advanced Layout & Performance",
+          "desc": "Mastering the layout engines and optimization patterns.",
+          "outcomes": {
+            "o1": "Build complex grids without hacks",
+            "o2": "Optimize rendering performance"
+          },
+          "topics": {
+            "t1": {
+              "title": "Advanced Layouts: CSS Grid vs Flexbox Architecture",
+              "what": "Grid and Flexbox are the primary layout systems in modern front-end engineering.",
+              "why": "They allow fluid layouts without JavaScript intervention.",
+              "when": "Flex for components, Grid for page structure.",
+              "how": "Grid: `display: grid;`. Flex: `display: flex;`.",
+              "ecosystem": "Box Model, Flexbox, Grid, Responsive Design.",
+              "realWorld": "Netflix home screen uses CSS Grid for massive scale.",
+              "useCases": {
+                "u1": "Responsive dashboards",
+                "u2": "Modern application shells"
+              },
+              "advantages": {
+                "a1": "Reduces HTML nesting",
+                "a2": "True responsiveness"
+              },
+              "disadvantages": {
+                "d1": "Grid has a steep learning curve."
+              },
+              "interviewTip": "Flex is for content, Grid is for layouts.",
+              "resumeBullet": "Engineered a responsive enterprise dashboard using CSS Grid.",
+              "videos": {
+                "v1": {
+                  "title": "Flexbox vs CSS Grid",
+                  "author": "Web Dev Simplified",
+                  "views": "1.5M views",
+                  "duration": "20:15"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "Grid & Flexbox Masterclass",
+                  "instructor": "Wes Bos",
+                  "enrolled": "50K+",
+                  "duration": "12 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "A Complete Guide to Grid",
+                  "publisher": "CSS-Tricks",
+                  "readTime": "30 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "The Fractional Layout",
+                  "category": "Responsive Architecture",
+                  "estimatedTime": "2 hours",
+                  "description": "Static calculations fail to account for gutters properly.",
+                  "analysis": "Brittle CSS breaks when small styles change.",
+                  "layers": {
+                    "l1": "Rendering Engine",
+                    "l2": "Percentage Math"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "CSS Grid 'fr' units",
+                      "justification": "Browser handles borders and gaps internally."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "Legacy IE11 support issues"
+                  },
+                  "nfr": {
+                    "n1": "Responsiveness",
+                    "n2": "Performance"
+                  },
+                  "kpis": {
+                    "k1": "Reduce media queries by 50%."
+                  },
+                  "insights": "Let the grid engine do the math for you."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "Layout Sandbox",
+                  "desc": "Switch between Grid and Flex in real-time."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "grid rules",
+                  "snippet": ".container { display: grid; }"
+                },
+                "commit": "ui: replaced float with Grid",
+                "snippet": ".dashboard {\n  display: grid;\n  grid-template-columns: 1fr 3fr;\n}"
+              },
+              "community": {
+                "aiSummary": "Shift from float to flex/grid is a major front-end paradigm shift."
+              }
+            },
+            "t2": {
+              "title": "Advanced Browser Engines",
+              "what": "Understanding how Blink, WebKit, and Gecko handle high-performance animations and heavy computations.",
+              "why": "Different engines have different 'Jank' characteristics. Senior engineers know how to avoid the 'Layout Thrash'.",
+              "when": "Optimization phase of high-performance apps.",
+              "how": "Profile using Chrome DevTools Performance tab and use `requestAnimationFrame`.",
+              "ecosystem": "V8, JIT, Compositing, Main Thread, Worker Threads.",
+              "realWorld": "Google Search and YouTube optimize for millisecond-level paint times.",
+              "useCases": {
+                "u1": "Optimizing complex data visualizations",
+                "u2": "Ensuring 60FPS animations",
+                "u3": "Handling heavy computation without UI lag"
+              },
+              "advantages": {
+                "a1": "Near-native performance",
+                "a2": "Silky-smooth user interactions"
+              },
+              "disadvantages": {
+                "d1": "Micro-optimizations can lead to unreadable code."
+              },
+              "interviewTip": "Explain 'Layout Thrashing' as: 'Repeatedly reading and writing to the DOM in a way that forces the browser to recalculate layout multiple times per frame.'",
+              "resumeBullet": "Eliminated Layout Thrashing in a real-time analytics dashboard, improving frame-rate from 20 to 60 FPS.",
+              "videos": {
+                "v1": {
+                  "title": "How Browser Engines Work",
+                  "author": "Code Academy",
+                  "views": "200K views",
+                  "duration": "18:30"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "High Performance Browser Networking",
+                  "instructor": "Ilya Grigorik",
+                  "enrolled": "100K+",
+                  "duration": "Book/Course"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "Rendering Performance",
+                  "publisher": "web.dev",
+                  "readTime": "20 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "The Stuttering Scroll",
+                  "category": "Render Engineering",
+                  "estimatedTime": "3 hours",
+                  "description": "A page with 1,000 images stutters and lags significantly during scrolling.",
+                  "analysis": "The browser is trying to paint too many elements at once, exhausting the 'Compositing Thread'.",
+                  "layers": {
+                    "l1": "Main Thread",
+                    "l2": "Compositor Thread",
+                    "l3": "GPU"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "will-change: transform",
+                      "justification": "Signals to the browser to promote the element to its own GPU layer."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "Excessive layer creation can crash the GPU (Layer Explosion)."
+                  },
+                  "nfr": {
+                    "n1": "Smoothness (60 FPS)"
+                  },
+                  "kpis": {
+                    "k1": "0% Dropped Frames during scroll."
+                  },
+                  "insights": "Code for the GPU, not just the CPU."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "GPU Layer Sandbox",
+                  "desc": "Visualize browser 'Layers' and watch how they affect performance."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "perf tweaks",
+                  "snippet": "element { transform: translateZ(0); }"
+                },
+                "commit": "perf: promoted heavy elements to GPU layers",
+                "snippet": ".hero {\n  will-change: transform;\n  transform: translateZ(0);\n}"
+              },
+              "community": {
+                "aiSummary": "Rendering performance is the last frontier of front-end engineering."
+              }
+            }
+          }
+        },
+        "m3": {
+          "title": "Modern JavaScript & Interaction",
+          "desc": "Mastering the logic and interactive capabilities of the web platform.",
+          "outcomes": {
+            "o1": "Efficient event management",
+            "o2": "Deep understanding of browser APIs"
+          },
+          "topics": {
+            "t1": {
+              "title": "Dynamic Interactivity & Event Architecture",
+              "what": "Event Architecture studies how user interactions propagate through the Browser Object Model.",
+              "why": "Poorly handled listeners cause Memory Leaks and lag.",
+              "when": "Crucial forapps with massive grids or real-time dashboards.",
+              "how": "Use Event Delegation with a single parent listener.",
+              "ecosystem": "Event Loop, Bubbling, Delegation, Propagation.",
+              "realWorld": "Infinite Scroll on major social networks uses delegation for speed.",
+              "useCases": {
+                "u1": "Managing tables with 10k+ rows",
+                "u2": "Global keyboard shortcut systems"
+              },
+              "advantages": {
+                "a1": "Reduces memory footprint",
+                "a2": "Simplifies dynamic DOM injection"
+              },
+              "disadvantages": {
+                "d1": "Harder to debug event paths"
+              },
+              "interviewTip": "Event Delegation leverages the 'Bubble' phase for efficiency.",
+              "resumeBullet": "Optimized UI performance by 40% using centralized delegation architecture.",
+              "videos": {
+                "v1": {
+                  "title": "JavaScript Event Bubbling & Delegation",
+                  "author": "Traversy Media",
+                  "views": "800K views",
+                  "duration": "15:45"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "Modern JavaScript from the Beginning",
+                  "instructor": "Brad Traversy",
+                  "enrolled": "200K+",
+                  "duration": "21 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "How Event Delegation Works",
+                  "publisher": "David Walsh Blog",
+                  "readTime": "12 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "The Memory Leak Mystery",
+                  "category": "Performance Engineering",
+                  "description": "Stock ticker crashes browser after an hour due to 4GB RAM usage.",
+                  "analysis": "Listeners are attached to every new row but never removed.",
+                  "layers": {
+                    "l1": "V8 Garbage Collector",
+                    "l2": "BOM Dispatcher"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "Chrome DevTools Memory Profiler",
+                      "justification": "Take Heap Snapshots to find sticky objects."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "Centralized logic can be more complex."
+                  },
+                  "nfr": {
+                    "n1": "Flat memory usage"
+                  },
+                  "kpis": {
+                    "k1": "Total active listeners < 50."
+                  },
+                  "insights": "Stop doing what causes leaks."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "Delegation Sandbox",
+                  "desc": "Manage 1,000 buttons with one listener."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "delegation logic",
+                  "snippet": "parent.addEventListener('click', handler);"
+                },
+                "commit": "perf: refactored widget interactivity",
+                "snippet": "document.getElementById('app-root').addEventListener('click', (e) => {\n  const target = e.target.closest('[data-action]');\n  if (!target) return;\n  \n  const action = target.dataset.action;\n  if (action === 'delete') handleDelete(target);\n});"
+              },
+              "community": {
+                "aiSummary": "Event Bubbling is a senior-level architectural tool."
+              }
+            },
+            "t2": {
+              "title": "Modern Browser APIs & Storage",
+              "what": "Browser APIs (Observer, Storage, Geolocation) provide native desktop-app capabilities.",
+              "why": "Avoid hacks like window.onscroll; use native observers for battery-efficient lazy loading.",
+              "when": "When building Offline-First or high-end animation apps.",
+              "how": "Native JS: `new IntersectionObserver()`, `localStorage`, `indexedDB`.",
+              "ecosystem": "Intersection Observer, Web Storage, IndexedDB, Web Workers.",
+              "realWorld": "Google Maps uses Geolocation for instant positioning.",
+              "useCases": {
+                "u1": "Lazy loading images",
+                "u2": "Offline drafting systems"
+              },
+              "advantages": {
+                "a1": "Zero-latency storage",
+                "a2": "Battery-efficient animation"
+              },
+              "disadvantages": {
+                "d1": "Storage limits (5MB for LocalStorage)."
+              },
+              "interviewTip": "Intersection Observer runs in the browser loop, not the JS thread.",
+              "resumeBullet": " aumentó initial page load speed by 60% using native lazy-loading.",
+              "videos": {
+                "v1": {
+                  "title": "Intersection Observer API Explained",
+                  "author": "Web Dev Simplified",
+                  "views": "400K views",
+                  "duration": "14:20"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "Browser APIs Masterclass",
+                  "instructor": "Frontend Masters",
+                  "enrolled": "30K+",
+                  "duration": "6 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "Intersection Observer Guide",
+                  "publisher": "Chrome Developers",
+                  "readTime": "15 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "The Infinite Jump",
+                  "category": "UX Engineering",
+                  "description": "Infinite scroll list jumps and users lose their place.",
+                  "analysis": "Sudden layout shifts due to unreserved space for new items.",
+                  "layers": {
+                    "l1": "Layout Engine",
+                    "l2": "Network Latency"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "Lighthouse CLS",
+                      "justification": "Measures physical page movement during loading."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "Skeleton loaders extra design effort"
+                  },
+                  "nfr": {
+                    "n1": "Accessibility"
+                  },
+                  "kpis": {
+                    "k1": "CLS score <= 0.1."
+                  },
+                  "insights": "Smoothness is a technical feature."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "Lazy Loader Sandbox",
+                  "desc": "Watch images load as they enter the viewport."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "lazy observer logic",
+                  "snippet": "new IntersectionObserver(handler).observe(el);"
+                },
+                "commit": "perf: implemented lazy reveals",
+                "snippet": "const obs = new IntersectionObserver((entries) => {\n  entries.forEach(entry => {\n    if (entry.isIntersecting) entry.target.src = entry.target.dataset.src;\n  });\n});"
+              },
+              "community": {
+                "aiSummary": "Browser APIs bridge the gap between document coding and platform engineering."
+              }
+            }
+          }
+        },
+        "m4": {
+          "title": "Full-Stack Integration & PWAs",
+          "desc": "Connecting to servers and building offline-ready applications.",
+          "outcomes": {
+            "o1": "Async patterns for network requests",
+            "o2": "Offline first architecture"
+          },
+          "topics": {
+            "t1": {
+              "title": "Asynchronous Engineering & Network Patterns",
+              "what": "Promises and Async/Await handle long-running operations like API calls.",
+              "why": "JavaScript is single-threaded; async keeps the UI active during fetches.",
+              "when": "Talking to databases or external APIs.",
+              "how": "Syntax: `await fetch()`. Logic: Parallel promises.",
+              "ecosystem": "Promises, Async/Await, Fetch API, Event Loop.",
+              "realWorld": "Checking bank balances happens while UI stays responsive.",
+              "useCases": {
+                "u1": "Fetching real-time data",
+                "u2": "Background profile saves"
+              },
+              "advantages": {
+                "a1": "Non-blocking UX",
+                "a2": "Parallel fetching"
+              },
+              "disadvantages": {
+                "d1": "Avoid callback hell with async/await."
+              },
+              "interviewTip": "Event Loop picks from Callback Queue to Call Stack when empty.",
+              "resumeBullet": "Reduced fetch latency by 45% using parallel promise resolution.",
+              "videos": {
+                "v1": {
+                  "title": "Async/Await in 10 Minutes",
+                  "author": "Web Dev Simplified",
+                  "views": "2M views",
+                  "duration": "10:15"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "Advanced Asynchronous JavaScript",
+                  "instructor": "Pluralsight",
+                  "enrolled": "40K+",
+                  "duration": "8 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "The Event Loop",
+                  "publisher": "MDN Web Docs",
+                  "readTime": "25 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "The Race Condition",
+                  "category": "Network Engineering",
+                  "description": "User search box shows outdated results as requests finish out of order.",
+                  "analysis": "Unpredictable asynchronous task completion order.",
+                  "layers": {
+                    "l1": "Network Transport",
+                    "l2": "Event Loop"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "AbortController",
+                      "justification": "Cancels old requests when new ones start."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "Debouncing vs Throttling choices"
+                  },
+                  "nfr": {
+                    "n1": "Reliability"
+                  },
+                  "kpis": {
+                    "k1": "Zero stale results displayed."
+                  },
+                  "insights": "Dispatch order is not arrival order."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "Async Fetch Sandbox",
+                  "desc": "Simulate slow network parallel streams."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "async patterns",
+                  "snippet": "const data = await Promise.all([...]);"
+                },
+                "commit": "network: parallelized API fetches",
+                "snippet": "const data = await Promise.all([fetch(u1), fetch(u2)]);"
+              },
+              "community": {
+                "aiSummary": "Event Loop is the engine; understand it to avoid UI lag."
+              }
+            },
+            "t2": {
+              "title": "Progressive Web Apps & Offline Architecture",
+              "what": "PWAs use Service Workers to cache files for offline availability.",
+              "why": "Mobile internet is spotty; PWAs work in tunnels or planes.",
+              "when": "Mobile-first experiences or field worker tools.",
+              "how": "Register sw.js with Stale-While-Revalidate caching.",
+              "ecosystem": "Service Workers, Manifest, Cache Storage, Offline-First.",
+              "realWorld": "Starbucks PWA increased conversion by 80%.",
+              "useCases": {
+                "u1": "Offline article reading",
+                "u2": "Syncing work in zones without internet"
+              },
+              "advantages": {
+                "a1": "Works without internet",
+                "a2": "Home screen installable",
+                "a3": "Massive return visit speed"
+              },
+              "disadvantages": {
+                "d1": "Complexity of cache invalidation."
+              },
+              "interviewTip": "PWAs are just standard apps following the PWA checklist.",
+              "resumeBullet": "Engineered an offline-first PWA for zero-connectivity environments.",
+              "videos": {
+                "v1": {
+                  "title": "PWA Tutorial",
+                  "author": "The Net Ninja",
+                  "views": "300K views",
+                  "duration": "25:40"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "Offline Web Apps",
+                  "instructor": "Udacity",
+                  "enrolled": "15K+",
+                  "duration": "2 weeks"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "Service Workers Guide",
+                  "publisher": "web.dev",
+                  "readTime": "20 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "The Cache Invalidation Trap",
+                  "category": "Cache Engineering",
+                  "description": "Users see old versions because service workers stay active.",
+                  "analysis": "Sticky service workers don't update until tabs are closed.",
+                  "layers": {
+                    "l1": "HTTP Headers",
+                    "l2": "Service Worker Lifecycle"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "Workbox.js",
+                      "justification": "Manages SW lifecycle automatically."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "Network-First vs Cache-First strategies"
+                  },
+                  "nfr": {
+                    "n1": "Reliability"
+                  },
+                  "kpis": {
+                    "k1": "Reduce version mismatch tickets to zero."
+                  },
+                  "insights": "Cache invalidation is a hard problem."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "PWA Lifecycle Sandbox",
+                  "desc": "Simulate offline mode and caching."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "offline logic",
+                  "snippet": "self.addEventListener('fetch', handler);"
+                },
+                "commit": "feat: offline-first support",
+                "snippet": "self.addEventListener('fetch', (e) => e.respondWith(caches.match(e.request)));"
+              },
+              "community": {
+                "aiSummary": "PWAs universalize web apps."
+              }
+            }
+          }
+        }
+      },
+      "capstone": {
+        "title": "The 'Omni-Channel' E-Commerce Engine",
+        "description": "Build a high-performance e-commerce dashboard that works offline, lazy-loads 1,000+ products, and uses a BEM design system.",
+        "skills": {
+          "s1": "Advanced Grid/Flex Layouts",
+          "s2": "PWA & Service Workers",
+          "s3": "Event Delegation Architecture",
+          "s4": "BEM Design System",
+          "s5": "Performance Profiling"
+        },
+        "steps": {
+          "step1": {
+            "title": "Atomic Design System",
+            "objective": "Build core components using BEM and CSS Variables.",
+            "skills": {
+              "s1": "CSS Variables",
+              "s2": "BEM",
+              "s3": "Responsive Typography"
+            }
+          },
+          "step2": {
+            "title": "Grid Dashboard Layout",
+            "objective": "Architect app shell using CSS Grid.",
+            "skills": {
+              "s1": "CSS Grid",
+              "s2": "Flexbox Alignment",
+              "s3": "Container Queries"
+            }
+          },
+          "step4": {
+            "title": "The Offline Edge",
+            "objective": "Implement Service Worker for catalog caching.",
+            "skills": {
+              "step5": {
+                "title": "Performance Optimization",
+                "objective": "Audit with Lighthouse and implement native lazy-loading.",
+                "skills": {
+                  "s1": "Lighthouse Audits",
+                  "s2": "Intersection Observer",
+                  "s3": "Web Vitals"
+                }
+              }
+            }
+          }
+        }
+      },
+      "hceBack101": {
+        "title": "High-Code Backend Engineering 101",
+        "duration": "12 Weeks",
+        "languages": "English / Hindi",
+        "prerequisites": "Advanced JavaScript, Basic SQL, Networking Basics",
+        "targetAudience": "Frontend Developers moving to Fullstack, Aspiring System Architects",
+        "learningOutcomes": [
+          "Architect scalable REST & gRPC systems",
+          "Master ACID transactions and NoSQL scaling",
+          "Implement Zero-Trust security & JWT Auth",
+          "Build Event-Driven architectures with Message Queues"
+        ],
+        "m1": {
+          "title": "The Foundation: Protocols & Networking",
+          "description": "Mastering the low-level communication that powers the modern web.",
+          "outcomes": [
+            "Deep dive into OSI Model & TCP/UDP",
+            "Configure Nginx for Load Balancing & Caching",
+            "Understand DNS, SSL/TLS, and HTTP/3"
+          ],
+          "t1": {
+            "title": "OSI Model, TCP/IP & DNS",
+            "what": "The architectural framework for how data moves across the internet.",
+            "why": "Without understanding packets and frames, you cannot debug high-latency systems or secure internal networks.",
+            "when": "Mandatory for every backend developer and SRE.",
+            "how": "Using tools like Wireshark to inspect packets and dig/nslookup for DNS resolution.",
+            "ecosystem": "Wireshark, TCPDump, BIND, Route53.",
+            "realWorld": "Cloudflare uses these protocols at the edge to mitigate DDoS attacks and speed up world-wide content delivery.",
+            "u1": "Debugging network latency",
+            "u2": "Configuring public DNS",
+            "u3": "Implementing firewall rules",
+            "a1": "Standardized communication",
+            "a2": "Robust error handling",
+            "d1": "Significant overhead",
+            "d2": "Complexity in implementation",
+            "interviewTip": "Be able to explain the 3-way handshake in detail.",
+            "resumeBullet": "Optimized network packet flow, reducing latency by 15% through protocol tuning.",
+            "v1": {
+              "title": "Networking Basics",
+              "author": "NetworkChuck",
+              "views": "3.2M views"
+            },
+            "v2": {
+              "title": "TCP vs UDP",
+              "author": "PowerCert",
+              "views": "1.5M views"
+            },
+            "v3": {
+              "title": "DNS Explained",
+              "author": "ByteByteGo",
+              "views": "1.2M views"
+            },
+            "v4": {
+              "title": "Advanced OSI",
+              "author": "TGL Pro",
+              "views": "10K"
+            },
+            "mooc1": {
+              "title": "Computer Networking",
+              "instructor": "Georgia Tech",
+              "enrolled": "1.2M+"
+            },
+            "mooc2": {
+              "title": "Network Protocols",
+              "instructor": "Udemy Expert",
+              "enrolled": "80K+"
+            },
+            "blog1": {
+              "title": "Cloudflare OSI Guide",
+              "publisher": "Cloudflare",
+              "readTime": "12 min"
+            },
+            "blog2": {
+              "title": "AWS Route53 Deep Dive",
+              "publisher": "AWS Blog",
+              "readTime": "15 min"
+            },
+            "s1": {
+              "title": "Network Debugging for E-commerce",
+              "category": "Networking",
+              "estimatedTime": "4 hours",
+              "scenarioDescription": "A checkout service is timing out during high traffic. Is it DNS, TCP congestion, or application logic?",
+              "problemAnalysis": "Bottleneck in the TCP handshake during peak load.",
+              "layer1": "Load Balancer",
+              "layer2": "Edge Network",
+              "tool1Justification": "Using Wireshark to pinpoint the exact level where packets are dropping.",
+              "tradeOff1": "Latency vs Accuracy during packet inspection.",
+              "nfr1": "Availability: 99.99%",
+              "kpi1": "Request recovery time < 500ms",
+              "keyInsights": "TCP Congestion control is a common silent performance killer."
+            }
+          },
+          "t2": {
+            "title": "Load Balancing & Reverse Proxies",
+            "what": "Distributing traffic across multiple servers to ensure high availability.",
+            "why": "One server will eventually fail. Load balancing prevents single points of failure.",
+            "when": "Whenever scaling beyond a single instance.",
+            "how": "Using Nginx, HAProxy, or Cloud Load Balancers (AWS ALB).",
+            "ecosystem": "Nginx, HAProxy, Envoy, Traefik.",
+            "realWorld": "Netflix uses Envoy proxy to manage millions of concurrent microservice calls.",
+            "u1": "Scaling web apps",
+            "u2": "SSL Termination",
+            "u3": "Blue-Green deployments",
+            "a1": "Scalability",
+            "a2": "High availability",
+            "d1": "Increased complexity",
+            "d2": "Potential bottleneck if misconfigured",
+            "interviewTip": "Understand Round Robin vs Least Connections algorithms.",
+            "resumeBullet": "Implemented Nginx reverse proxy, improving system throughput by 40%.",
+            "v1": {
+              "title": "Nginx Tutorial",
+              "author": "Traversy",
+              "views": "1.2M views"
+            },
+            "v2": {
+              "title": "Load Balancing Explained",
+              "author": "Fireship",
+              "views": "900K views"
+            },
+            "v3": {
+              "title": "Nginx in Production",
+              "author": "TGL Pro",
+              "views": "14K views"
+            },
+            "mooc1": {
+              "title": "Nginx Fundamentals",
+              "instructor": "Udemy Expert",
+              "enrolled": "45K+"
+            },
+            "blog1": {
+              "title": "AWS Load Balancing",
+              "publisher": "AWS",
+              "readTime": "10 min"
+            },
+            "blog2": {
+              "title": "DigitalOcean Nginx Guide",
+              "publisher": "DigitalOcean",
+              "readTime": "18 min"
+            },
+            "s1": {
+              "title": "Global Scaling for Video Streaming",
+              "category": "System Design",
+              "estimatedTime": "6 hours",
+              "scenarioDescription": "Design a load balancing layer that routes users to the nearest healthy datacenter.",
+              "problemAnalysis": "Geographic latency is causing buffering for international users.",
+              "layer1": "Anycast DNS",
+              "layer2": "L7 Load Balancer",
+              "tool1Justification": "Nginx for its robust L7 routing and caching capabilities.",
+              "tradeOff1": "Complexity of multi-region vs cost of single region.",
+              "nfr1": "Reliability: 99.9%",
+              "kpi1": "Global latency < 100ms",
+              "keyInsights": "Health checks are the core of any reliable load balancer."
+            }
+          },
+          "t3": {
+            "title": "Distributed Systems & CAP Theorem",
+            "what": "The trade-offs between Consistency, Availability, and Partition Tolerance.",
+            "why": "In a distributed world, you cannot have all three. You must choose based on business needs.",
+            "when": "Building any system with more than one database node.",
+            "how": "By selecting the right database (SQL vs NoSQL) and consensus algorithms.",
+            "ecosystem": "DynamoDB, Spanner, Paxos, Raft.",
+            "realWorld": "Google Spanner uses TrueTime to provide global consistency at the cost of slight latency.",
+            "u1": "Choosing a database",
+            "u2": "Designing for faults",
+            "a1": "Scalability at global level",
+            "a2": "Fault tolerance",
+            "d1": "Data eventual consistency issues",
+            "interviewTip": "Explain how a bank might prioritize C over A during a network split.",
+            "resumeBullet": "Redesigned distributed architecture, ensuring 99.99% availability during network splits.",
+            "v1": {
+              "title": "CAP Theorem",
+              "author": "InterviewReady",
+              "views": "340K views"
+            },
+            "v2": {
+              "title": "System Design Fundamentals",
+              "author": "Gayle McDowell",
+              "views": "1.9M views"
+            },
+            "mooc1": {
+              "title": "Cloud Computing",
+              "instructor": "Illinois Uni",
+              "enrolled": "150K+"
+            },
+            "blog1": {
+              "title": "CAP Theorem Simplified",
+              "publisher": "freeCodeCamp",
+              "readTime": "8 min"
+            },
+            "blog2": {
+              "title": "Inside Spanner",
+              "publisher": "Google Cloud",
+              "readTime": "10 min"
+            },
+            "s1": {
+              "title": "Consistent Hashing for Caching",
+              "category": "Distributed Systems",
+              "estimatedTime": "5 hours",
+              "scenarioDescription": "Implement a caching layer that minimizes re-shuffling when nodes are added or removed.",
+              "problemAnalysis": "Standard modulo hashing causes 99% cache miss on node failure.",
+              "layer1": "Application Layer",
+              "layer2": "Redis Cluster",
+              "tool1Justification": "Consistent Hashing Algorithm for minimal partition movement.",
+              "tradeOff1": "Implementation complexity vs cluster stability.",
+              "nfr1": "Performance: < 10ms cache lookup",
+              "kpi1": "Cache hit ratio > 85% during scaling",
+              "keyInsights": "Consistent hashing is fundamental for scalable stateful systems."
+            }
+          }
+        },
+        "m2": {
+          "title": "API Design & Communication",
+          "description": "Building standard, high-performance interfaces.",
+          "t1": {
+            "title": "Idempotent API Design",
+            "what": "Ensuring repeated requests have the same effect as a single request.",
+            "why": "Prevents double charging or duplicate record creation during retries.",
+            "when": "Critical for payments and mutations.",
+            "how": "Using unique Idempotency-Keys and Redis locks.",
+            "ecosystem": "Stripe, Redis, HTTP PUT/PATCH.",
+            "realWorld": "Stripe uses Idempotency-Keys for every single transaction.",
+            "u1": "Financial services",
+            "u2": "Retry mechanisms",
+            "u3": "Message processing",
+            "a1": "Data safety",
+            "a2": "Client resiliency",
+            "d1": "Storage overhead",
+            "d2": "Locking overhead",
+            "interviewTip": "Explain why POST is not idempotent by default, but PUT is.",
+            "resumeBullet": "Implemented enterprise-grade idempotency, eliminating 100% of duplicate transactions.",
+            "v1": {
+              "title": "Idempotency in APIs",
+              "author": "Hussein Nasser",
+              "views": "320K views"
+            },
+            "v2": {
+              "title": "Stripe Idempotency",
+              "author": "ByteByteGo",
+              "views": "150K views"
+            },
+            "blog1": {
+              "title": "Stripe Idempotency Guide",
+              "publisher": "Stripe",
+              "readTime": "10 min"
+            },
+            "blog2": {
+              "title": "Uber Idempotency",
+              "publisher": "Uber Engineering",
+              "readTime": "12 min"
+            },
+            "s1": {
+              "title": "Designing the Idempotency Middleware",
+              "category": "Fintech",
+              "estimatedTime": "6-8 hours",
+              "scenarioDescription": "Build a robust middleware interceptor that catches every incoming transaction request.",
+              "problemAnalysis": "Parallel race conditions in bank transfers.",
+              "layer1": "API Gateway",
+              "layer2": "Redis Cache",
+              "layer3": "DB",
+              "tool1Justification": "Redis SETNX for atomic locking.",
+              "tradeOff1": "Redis speed vs DB persistence.",
+              "nfr1": "Consistency: Zero double mutations.",
+              "kpi1": "0% duplicates in 1M test inputs",
+              "keyInsights": "Atomic operations are your only defense against concurrency.",
+              "summary": "Focus on Redis SETNX for atomic locks.",
+              "author": "James L.",
+              "role": "Principal Engineer",
+              "level": "Expert",
+              "badge": "Cloud Architect"
+            },
+            "community": {
+              "aiSummary": "Use atomic locks, do not rely on database application-level IF statements.",
+              "s1": {
+                "summary": "Atomic locks are mandatory.",
+                "author": "James L.",
+                "role": "Principal Engineer",
+                "level": "Expert",
+                "badge": "Cloud Architect"
+              },
+              "s2": {
+                "summary": "Nginx caching can help but idempotency is app-level.",
+                "author": "Sarah A.",
+                "role": "SRE",
+                "level": "Expert",
+                "badge": "SRE"
+              }
+            },
+            "git": {
+              "commitMessage": "feat: Add redis SETNX idempotency middleware"
+            }
+          },
+          "t2": {
+            "title": "REST vs GraphQL vs gRPC",
+            "what": "Comparing different communication protocols and styles.",
+            "why": "Different constraints require different tools for optimization.",
+            "when": "When starting a new service or migrating legacy ones.",
+            "how": "Defining contracts via OpenAPI, Protobuf, or GraphQL Schemas.",
+            "ecosystem": "Apollo, Protoc, Swagger.",
+            "realWorld": "Netflix uses gRPC for internal and GraphQL for external APIs.",
+            "u1": "Public APIs (REST)",
+            "u2": "Internal microservices (gRPC)",
+            "u3": "Mobile apps (GraphQL)",
+            "a1": "Type safety (gRPC/GraphQL)",
+            "a2": "Standardization (REST)",
+            "d1": "REST over-fetching",
+            "d2": "gRPC complexity",
+            "interviewTip": "Know when to choose gRPC (performance) over REST (flexibility).",
+            "resumeBullet": "Reduced internal latency by 70% by migrating microservices to gRPC.",
+            "v1": {
+              "title": "REST vs GraphQL",
+              "author": "Hussein Nasser",
+              "views": "500K views"
+            },
+            "v2": {
+              "title": "gRPC in 100 Seconds",
+              "author": "Fireship",
+              "views": "300K views"
+            },
+            "mooc1": {
+              "title": "API Design",
+              "instructor": "Udemy",
+              "enrolled": "120K+"
+            },
+            "blog1": {
+              "title": "REST Guide",
+              "publisher": "restfulapi.net",
+              "readTime": "15 min"
+            },
+            "blog2": {
+              "title": "GraphQL Learn",
+              "publisher": "GraphQL.org",
+              "readTime": "15 min"
+            },
+            "s1": {
+              "title": "Migrating to gRPC",
+              "category": "Architecture",
+              "estimatedTime": "10 hours",
+              "scenarioDescription": "Migrate a high-traffic REST service to gRPC to reduce CPU overhead and latency.",
+              "problemAnalysis": "JSON parsing is consuming 40% of service CPU.",
+              "layer1": "Envoy Sidecar",
+              "layer2": "gRPC Server",
+              "tool1Justification": "Protobuf for binary serialization efficiency.",
+              "tradeOff1": "Binary vs Human-readable data.",
+              "nfr1": "Efficiency: 50% CPU reduction.",
+              "kpi1": "P99 latency < 5ms",
+              "keyInsights": "Contracts prevent breaking changes in polyglot systems.",
+              "summary": "Protobuf is significantly faster than JSON parsing.",
+              "author": "Mike K.",
+              "role": "Backend Dev",
+              "level": "Advanced",
+              "badge": "Top Solution"
+            },
+            "pg1": {
+              "title": "REST vs GraphQL",
+              "description": "Comparison of query results."
+            },
+            "git": {
+              "commitMessage": "feat: Add GraphQL schema",
+              "f1": {
+                "code": "type User { id: ID! name: String! }"
+              }
+            },
+            "community": {
+              "aiSummary": "gRPC for internal, REST/GraphQL for external.",
+              "s1": {
+                "summary": "gRPC reduced our inter-service latency drastically.",
+                "author": "Mike K.",
+                "role": "Backend Dev",
+                "level": "Advanced",
+                "badge": "Top Solution"
+              }
+            }
+          }
+        }
+      },
+      "hceDevops101": {
+        "title": "HCE DevOps 101: Linux, Docker & CI/CD Foundations",
+        "description": "Master the tools that power modern product teams: Linux fundamentals, Docker containerization, and automated CI/CD pipelines from scratch.",
+        "targetAudience": "Junior developers, fresh graduates, and anyone looking to break into DevOps & cloud engineering.",
+        "outcomes": {
+          "o1": "Administer Linux servers confidently",
+          "o2": "Build and secure Docker containers",
+          "o3": "Automate testing and deployments with GitHub Actions",
+          "o4": "Write Python/Bash scripts to automate ops tasks",
+          "o5": "Understand and use Git branching strategies for teams"
+        },
+        "m1": {
+          "title": "Linux Fundamentals & Shell Mastery",
+          "description": "Navigate, control, and automate Linux systems from the terminal.",
+          "outcomes": {
+            "o1": "Master file system navigation and permissions",
+            "o2": "Write reusable Bash scripts",
+            "o3": "Manage processes, users and system services"
+          }
+        },
+        "m2": {
+          "title": "Networking, SSH & Security Basics",
+          "description": "Secure your infrastructure by mastering SSH, firewall rules, and network diagnostics.",
+          "outcomes": {
+            "o1": "Set up secure SSH key-based authentication",
+            "o2": "Configure firewall rules with UFW/iptables",
+            "o3": "Diagnose network issues with standard CLI tools"
+          }
+        },
+        "m3": {
+          "title": "Docker & Container Architecture",
+          "description": "Package applications into reproducible, secure containers ready for any environment.",
+          "outcomes": {
+            "o1": "Write optimized multi-stage Dockerfiles",
+            "o2": "Orchestrate multi-service apps with Docker Compose",
+            "o3": "Understand container networking and volumes"
+          }
+        },
+        "m4": {
+          "title": "Python & Bash Scripting for Automation",
+          "description": "Automate repetitive operations, system checks, and data processing tasks.",
+          "outcomes": {
+            "o1": "Write Python scripts to automate DevOps tasks",
+            "o2": "Build parameterized Bash automation scripts",
+            "o3": "Schedule and monitor automated jobs with cron"
+          }
+        },
+        "m5": {
+          "title": "Git Branching Strategies & CI/CD Pipelines",
+          "description": "Implement professional Git workflows and automate your entire build-test-deploy cycle.",
+          "outcomes": {
+            "o1": "Implement Git Flow and trunk-based development",
+            "o2": "Build CI/CD pipelines that auto-test and deploy",
+            "o3": "Integrate security scanning into pipelines"
+          }
+        },
+        "t1": {
+          "title": "Linux File System, Permissions & Process Management",
+          "what": "The Linux filesystem hierarchy and its permission model (owner/group/others, read/write/execute).",
+          "why": "Every cloud server runs Linux. Without this knowledge, you cannot secure, debug, or operate any production system.",
+          "when": "Whenever you provision a server, deploy to cloud VMs, or debug production incidents.",
+          "how": "Using chmod, chown, ps, kill, and systemctl commands to control the system.",
+          "ecosystem": "Ubuntu, Debian, CentOS, AWS EC2, Google Compute Engine, systemd.",
+          "realWorld": "Netflix engineers use Linux process management to ensure their Java processes never exceed memory thresholds on EC2 instances.",
+          "useCases": {
+            "uc1": "Server hardening and access control",
+            "uc2": "Running background services with systemd",
+            "uc3": "Diagnosing CPU/memory bottlenecks in production"
+          },
+          "advantages": {
+            "ad1": "Universal: 90%+ of cloud infrastructure runs Linux",
+            "ad2": "Granular permission model prevents security breaches",
+            "ad3": "Process management enables zero-downtime deployments"
+          },
+          "disadvantages": {
+            "da1": "Steep initial learning curve for GUI-trained developers",
+            "da2": "Misconfigured permissions can lock out entire teams"
+          },
+          "interviewTip": "Be able to explain chmod 600, 755, and 777 and the security implications of each.",
+          "resumeBullet": "Hardened Linux servers using principle of least privilege, eliminating unauthorized access incidents.",
+          "videos": {
+            "v1": {
+              "title": "Linux for Hackers (and Developers)",
+              "author": "NetworkChuck",
+              "views": "4.2M views",
+              "duration": "18 min"
+            },
+            "v2": {
+              "title": "Linux Permissions Explained",
+              "author": "Fireship",
+              "views": "1.1M views",
+              "duration": "8 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "Introduction to Linux (LFS101)",
+              "instructor": "Linux Foundation",
+              "enrolled": "600K+",
+              "duration": "40 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "Linux File System & Permissions Deep Dive",
+              "publisher": "FreeBSD Handbook",
+              "readTime": "20 min"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "Securing a Rogue Process on a Production API Server",
+              "description": "An unknown process is consuming 100% CPU on your production server. Identify it, kill it, and prevent it from restarting.",
+              "analysis": "Without process management skills, a single misbehaving process can bring down an entire service for all users.",
+              "tools": {
+                "j1": "chown/usermod to isolate the process user, and systemctl to remove its autostart entry."
+              },
+              "tradeOffs": {
+                "t1": "Killing immediately vs. capturing logs for post-mortem analysis."
+              },
+              "nfr": {
+                "n1": "Recovery Time Objective (RTO) < 2 minutes."
+              },
+              "kpis": {
+                "k1": "CPU usage returns to < 10% within 120 seconds."
+              },
+              "insights": "Always run services under dedicated, least-privilege system users, never as root."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "Linux File Permissions Workshop",
+              "description": "Practice chmod symbolic and octal modes to set precise access controls on sensitive files."
+            }
+          },
+          "git": {
+            "commit": "security: Isolate API service under dedicated non-root user",
+            "f1": {
+              "content": "#!/bin/bash\nuseradd -r -s /bin/false apiuser\nchown -R apiuser:apiuser /var/app\nchmod 750 /var/app"
+            },
+            "snippetCode": "#!/bin/bash\n# Harden: run as non-root\nuseradd -r apiuser\nchown -R apiuser /var/app"
+          },
+          "community": {
+            "summary": "The #1 security advice from senior engineers: never run anything as root in production. Always use dedicated service accounts with minimal permissions."
+          }
+        },
+        "t3": {
+          "title": "Docker: Containerizing Applications with Multi-Stage Builds",
+          "what": "Docker packages your application and all its dependencies into a portable, isolated unit called a container.",
+          "why": "Eliminates 'it works on my machine' forever. Containers are identical across dev, staging, and production environments.",
+          "when": "For every application you deploy to the cloud or share across a team.",
+          "how": "Writing Dockerfiles, building images, and running containers with docker run and docker compose.",
+          "ecosystem": "Docker Hub, GitHub Container Registry, AWS ECR, Google Artifact Registry, BuildKit.",
+          "realWorld": "Airbnb containerized 1,000+ microservices with Docker to achieve consistent deployments across data centers worldwide.",
+          "useCases": {
+            "uc1": "Packaging Node.js/Python/Go apps for cloud deployment",
+            "uc2": "Running local development environments identically across teams",
+            "uc3": "Creating minimal, secure production images with multi-stage builds"
+          },
+          "advantages": {
+            "ad1": "Environment parity eliminates deployment surprises",
+            "ad2": "Multi-stage builds slash image size by 80%+",
+            "ad3": "Instant container spin-up vs. minutes for VMs"
+          },
+          "disadvantages": {
+            "da1": "Container security requires expertise (secret management, image scanning)",
+            "da2": "Not ideal for stateful applications without proper persistent volume management"
+          },
+          "interviewTip": "Explain the difference between COPY and ADD in a Dockerfile, and why multi-stage builds reduce attack surface.",
+          "resumeBullet": "Reduced production Docker image sizes by 75% using multi-stage builds, cutting deployment times by 40%.",
+          "videos": {
+            "v1": {
+              "title": "Docker Tutorial for Beginners",
+              "author": "TechWorld with Nana",
+              "views": "9.1M views",
+              "duration": "1 hr 47 min"
+            },
+            "v2": {
+              "title": "Multi-Stage Docker Builds",
+              "author": "Fireship",
+              "views": "710K views",
+              "duration": "7 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "Docker Mastery: with Kubernetes & Swarm",
+              "instructor": "Bret Fisher",
+              "enrolled": "200K+",
+              "duration": "19 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "10 Docker Image Security Best Practices",
+              "publisher": "Snyk",
+              "readTime": "14 min"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "Shrink a 2GB Production Docker Image to Under 200MB",
+              "description": "Your team's Docker image takes 8 minutes to push/pull during deployments, slowing down releases.",
+              "analysis": "Large images contain build tools, dev dependencies, and source maps — none of which should exist in production.",
+              "layers": {
+                "l1": "Build Stage (Node/npm/compiler)",
+                "l2": "Runtime Stage (Alpine + dist only)",
+                "l3": "Final Image Push to Registry"
+              },
+              "tools": {
+                "j1": "BuildKit's cache mounts and multi-stage COPY allow surgical control over what ends up in the production layer."
+              },
+              "tradeOffs": {
+                "t1": "Build complexity increases slightly, but deployment speed and security improve drastically."
+              },
+              "nfr": {
+                "n1": "Image size < 200MB. Pull time < 45 seconds on standard network."
+              },
+              "kpis": {
+                "k1": "Deployment pipeline duration reduced from 12 to 4 minutes."
+              },
+              "insights": "Use .dockerignore aggressively. Your node_modules, .git folder, and tests should NEVER be in a production image."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "Multi-Stage Dockerfile Builder",
+              "description": "Write a two-stage Dockerfile that compiles a Node.js app and copies only the artifact to an Alpine runtime image."
+            }
+          },
+          "git": {
+            "commit": "perf: Implement multi-stage Docker build, reducing image from 2.1GB to 185MB",
+            "f1": {
+              "content": "FROM node:20-alpine AS build\nWORKDIR /app\nCOPY package.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build\n\nFROM node:20-alpine\nCOPY --from=build /app/dist ./dist\nCMD [\"node\", \"dist/index.js\"]"
+            },
+            "snippetCode": "# Only the final stage ends up in the production image\nFROM node:20-alpine AS build\nRUN npm run build\n\nFROM node:20-alpine AS runner\nCOPY --from=build /app/dist ./dist"
+          },
+          "community": {
+            "summary": "Senior engineers consistently emphasize: build for production, not development. Multi-stage builds and .dockerignore files are non-negotiable in any professional CI/CD pipeline."
+          }
+        },
+        "t5": {
+          "title": "Git Branching Strategies & GitHub Actions CI/CD",
+          "what": "Structured Git workflows (Git Flow, Trunk-Based) and automated pipelines that test, build, and deploy code on every push.",
+          "why": "Manual deployments cause 80% of outages. CI/CD eliminates human error and ensures only tested code reaches production.",
+          "when": "Immediately on any team project with more than one developer or any project with a staging/production environment.",
+          "how": "Using Git branches for feature isolation and YAML-based GitHub Actions workflows to automate the entire software lifecycle.",
+          "ecosystem": "GitHub Actions, GitLab CI, Jenkins, CircleCI, ArgoCD, SonarQube.",
+          "realWorld": "Amazon deploys to production an average of every 11.6 seconds. This is only possible with fully automated CI/CD pipelines.",
+          "useCases": {
+            "uc1": "Automatically running tests on every pull request",
+            "uc2": "Deploying to staging on merge to main, production on tag",
+            "uc3": "Scanning for secrets and vulnerabilities before code ships"
+          },
+          "advantages": {
+            "ad1": "Automated testing catches regressions before production",
+            "ad2": "Consistent, repeatable deployments across all environments",
+            "ad3": "Audit trail of every deployment with rollback capability"
+          },
+          "disadvantages": {
+            "da1": "Initial pipeline setup requires significant time investment",
+            "da2": "Complex pipelines become fragile if not properly maintained"
+          },
+          "interviewTip": "Be able to explain the difference between continuous delivery (human approval gate) and continuous deployment (fully automated).",
+          "resumeBullet": "Designed and implemented a GitHub Actions CI/CD pipeline reducing release cycle from weekly to multiple times per day.",
+          "videos": {
+            "v1": {
+              "title": "GitHub Actions Tutorial",
+              "author": "TechWorld with Nana",
+              "views": "3.7M views",
+              "duration": "32 min"
+            },
+            "v2": {
+              "title": "CI/CD Explained in 100 Seconds",
+              "author": "Fireship",
+              "views": "1.8M views",
+              "duration": "2 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "GitHub Actions: Automate Your Workflow",
+              "instructor": "GitHub Skills",
+              "enrolled": "500K+",
+              "duration": "6 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "Continuous Delivery & DevOps: Google's Blueprint",
+              "publisher": "Google Cloud",
+              "readTime": "15 min"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "A Secret Credential Was Committed to the Public GitHub Repo",
+              "description": "A developer accidentally committed an AWS API key to a public repository. It has been live for 3 hours and costs are spiking.",
+              "analysis": "Once a secret is committed to Git history, it persists even after deletion from HEAD. The attacker already likely scraped it.",
+              "layers": {
+                "l1": "Git History Sanitization (BFG/git-filter-repo)",
+                "l2": "Secret Rotation (AWS IAM Key Revocation)",
+                "l3": "Prevention (Pre-commit hooks, TruffleHog CI scan)"
+              },
+              "tools": {
+                "j1": "TruffleHog scans Git history for high-entropy strings to detect secrets committed at any point in history."
+              },
+              "tradeOffs": {
+                "t1": "Rewriting Git history (force push) is disruptive to team but mandatory after a credential leak."
+              },
+              "nfr": {
+                "n1": "MTTR (Mean Time to Remediation) < 15 minutes for leaked credential."
+              },
+              "kpis": {
+                "k1": "Zero recurrence of secret leaks after implementing pre-commit hooks."
+              },
+              "insights": "Secrets should NEVER live in code. Use a secret manager (AWS Secrets Manager, HashiCorp Vault) from day one."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "Build Your First CI Pipeline",
+              "description": "Write a GitHub Actions workflow that installs dependencies, runs tests, and reports results on every push to main."
+            }
+          },
+          "git": {
+            "commit": "ci: Add GitHub Actions pipeline with test, build, and security scan stages",
+            "f1": {
+              "content": "name: CI\non:\n  push:\n    branches: [main]\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: npm install && npm test"
+            },
+            "snippetCode": "# Full CI/CD Pipeline\nname: CI\non: [push]\njobs:\n  pipeline:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: npm install\n      - run: npm test\n      - run: npm run build"
+          },
+          "community": {
+            "summary": "The single highest-ROI engineering investment for most teams is building a reliable CI pipeline. It is universally considered non-negotiable for professional software development."
+          }
+        },
+        "capstone": {
+          "title": "Operation: Production-Ready Cloud App",
+          "description": "Deploy a full-stack application to a cloud VM using Docker, secure it with HTTPS, and automate its deployment via GitHub Actions.",
+          "skills": {
+            "s1": "Linux Server Administration",
+            "s2": "Docker & Docker Compose",
+            "s3": "GitHub Actions CI/CD",
+            "s4": "Nginx Reverse Proxy",
+            "s5": "SSL/TLS Certificate Management"
+          },
+          "steps": {
+            "p1": {
+              "title": "Provision & Harden a Cloud VM",
+              "description": "Create an Ubuntu server on AWS/GCP, configure SSH keys, set up a non-root user, and configure UFW firewall rules."
+            },
+            "p2": {
+              "title": "Containerize the Application",
+              "description": "Write a multi-stage Dockerfile and docker-compose.yml for the web app and its database."
+            },
+            "p3": {
+              "title": "Configure Nginx & SSL",
+              "description": "Set up Nginx as a reverse proxy and obtain a free Let's Encrypt SSL certificate."
+            },
+            "p4": {
+              "title": "Build the CI/CD Pipeline",
+              "description": "Create a GitHub Actions workflow that automatically builds, tests, and SSHs into the server to deploy the new container on every push to main."
+            }
+          }
+        }
+      },
+      "hceDevops201": {
+        "title": "HCE DevOps 201: Kubernetes, Terraform & SRE Mastery",
+        "description": "Operate planet-scale infrastructure. Master Terraform IaC, Kubernetes orchestration, Prometheus/Grafana observability, and Site Reliability Engineering principles.",
+        "targetAudience": "Mid-to-senior DevOps engineers, SREs, and platform engineers with solid Docker and CI/CD experience.",
+        "outcomes": {
+          "o1": "Provision multi-region cloud infrastructure with Terraform",
+          "o2": "Deploy and operate production-grade Kubernetes clusters",
+          "o3": "Build world-class observability stacks with Prometheus & Grafana",
+          "o4": "Define and enforce SLOs/SLIs/Error Budgets as an SRE",
+          "o5": "Implement GitOps workflows with ArgoCD"
+        },
+        "m1": {
+          "title": "Terraform & Infrastructure as Code",
+          "description": "Declare, version-control, and automate the provisioning of entire cloud environments.",
+          "outcomes": {
+            "o1": "Write production-grade Terraform modules",
+            "o2": "Manage remote state safely with S3/GCS backends",
+            "o3": "Handle infrastructure drift and state conflicts"
+          }
+        },
+        "m2": {
+          "title": "Kubernetes: Pods, Deployments & Advanced Scheduling",
+          "description": "Deploy, autoscale, and operate containerized applications on enterprise Kubernetes clusters.",
+          "outcomes": {
+            "o1": "Deploy with zero-downtime rolling updates",
+            "o2": "Configure HPA and VPA for intelligent autoscaling",
+            "o3": "Manage cluster resources with namespaces and quotas"
+          }
+        },
+        "m3": {
+          "title": "SRE: Observability, SLOs & Incident Management",
+          "description": "Build the monitoring, alerting, and incident management systems that ensure reliability.",
+          "outcomes": {
+            "o1": "Instrument applications with Prometheus metrics",
+            "o2": "Define actionable SLIs, SLOs, and Error Budgets",
+            "o3": "Build multi-stage incident response runbooks"
+          }
+        },
+        "m4": {
+          "title": "GitOps & ArgoCD",
+          "description": "Make your Git repository the single source of truth for all cluster state.",
+          "outcomes": {
+            "o1": "Deploy applications declaratively with ArgoCD",
+            "o2": "Implement automated drift detection and reconciliation",
+            "o3": "Build blue-green and canary deployments with Argo Rollouts"
+          }
+        },
+        "m5": {
+          "title": "Security, Secrets & Zero-Trust Networking",
+          "description": "Harden your Kubernetes cluster with RBAC, network policies, and enterprise secret management.",
+          "outcomes": {
+            "o1": "Implement Kubernetes RBAC and Pod Security Standards",
+            "o2": "Manage secrets with HashiCorp Vault and External Secrets Operator",
+            "o3": "Enforce zero-trust networking with Calico network policies"
+          }
+        },
+        "t1": {
+          "title": "Terraform: Infrastructure as Code from Zero to Production",
+          "what": "Terraform allows you to define cloud infrastructure (VMs, databases, networks) in declarative code that can be versioned, reviewed, and automated.",
+          "why": "Manual cloud console clicks are not reproducible, auditable, or teamwork-friendly. IaC is the standard in every mature engineering organization.",
+          "when": "Any time you provision cloud resources — from a single EC2 instance to a multi-region, multi-cloud architecture.",
+          "how": "Writing .tf files with providers, resources, and outputs. Running terraform plan, apply, and destroy to manage the lifecycle.",
+          "ecosystem": "Terraform, Terragrunt, Pulumi, AWS CDK, OpenTofu, Atlantis, Spacelift.",
+          "realWorld": "Stripe manages tens of thousands of cloud resources across multiple providers with Terraform, ensuring every change is peer-reviewed before applying.",
+          "useCases": {
+            "uc1": "Spinning up identical staging and production environments",
+            "uc2": "Automating disaster recovery infrastructure provisioning",
+            "uc3": "Managing multi-region deployments consistently"
+          },
+          "advantages": {
+            "ad1": "Full infrastructure reproducibility eliminates environment drift",
+            "ad2": "Peer-reviewed infrastructure changes via pull requests",
+            "ad3": "One command to destroy and rebuild entire environments"
+          },
+          "disadvantages": {
+            "da1": "State file management is complex at scale and requires locking",
+            "da2": "Steep learning curve for teams unfamiliar with declarative paradigms"
+          },
+          "interviewTip": "Explain the difference between terraform plan and apply, and why remote state with locking is mandatory in team environments.",
+          "resumeBullet": "Migrated 200+ manual cloud resources to Terraform IaC, reducing provisioning time from 3 days to 15 minutes.",
+          "videos": {
+            "v1": {
+              "title": "Terraform Course for Beginners",
+              "author": "freeCodeCamp",
+              "views": "2.8M views",
+              "duration": "2 hr 45 min"
+            },
+            "v2": {
+              "title": "Terraform in 100 Seconds",
+              "author": "Fireship",
+              "views": "900K views",
+              "duration": "2 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "Terraform: Getting Started",
+              "instructor": "Pluralsight",
+              "enrolled": "150K+",
+              "duration": "9 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "A Comprehensive Guide to Terraform",
+              "publisher": "Gruntwork",
+              "readTime": "25 min"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "Recovering from a Terraform State Corruption After a Team Conflict",
+              "description": "Two engineers applied changes simultaneously without state locking, causing conflicting state entries and failed applies.",
+              "analysis": "Without remote state locking (e.g., DynamoDB for S3 backends), race conditions corrupt the state file, making Terraform unusable until manually resolved.",
+              "tools": {
+                "j1": "terraform import allows re-importing manually created resources back into state, while terraform state rm removes orphaned references."
+              },
+              "tradeOffs": {
+                "t1": "Manual state surgery is risky and requires team coordination. Investing 30 mins in proper remote state setup saves hours of future incidents."
+              },
+              "nfr": {
+                "n1": "State backend must have 100% consistency guarantees (strong read-after-write, atomic locks)."
+              },
+              "kpis": {
+                "k1": "Zero state corruption incidents after enabling DynamoDB locking."
+              },
+              "insights": "Remote state with locking is non-negotiable on any team. Use S3 + DynamoDB (AWS) or GCS (GCP) from day one, not later."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "Provision Your First Cloud Resource with Terraform",
+              "description": "Write a Terraform config to provision an EC2 instance and an S3 bucket, then output the public IP."
+            }
+          },
+          "git": {
+            "commit": "infra: Add Terraform module for production VPC and EC2 autoscaling group",
+            "f1": {
+              "content": "terraform {\n  backend \"s3\" {\n    bucket         = \"my-terraform-state\"\n    key            = \"prod/terraform.tfstate\"\n    region         = \"us-east-1\"\n    dynamodb_table = \"terraform-locks\"\n  }\n}"
+            },
+            "snippetCode": "# Always use remote state in team environments\nterraform {\n  backend \"s3\" {\n    bucket         = \"my-tfstate\"\n    dynamodb_table = \"tf-locks\"\n  }\n}"
+          },
+          "community": {
+            "summary": "The Terraform community is united on one principle: never use local state in production. Remote backends with locking prevent data loss and team conflicts universally."
+          }
+        },
+        "t2": {
+          "title": "Kubernetes: Deployments, Services & Horizontal Pod Autoscaling",
+          "what": "Kubernetes (K8s) is the industry-standard container orchestration platform for deploying, scaling, and managing containerized applications.",
+          "why": "Without orchestration, you manually manage server capacity, deployments, and failures. Kubernetes automates all of this at scale.",
+          "when": "When your application needs high availability, autoscaling, or multi-service deployment on more than one server.",
+          "how": "Declaring Kubernetes manifests (Deployments, Services, ConfigMaps, HPAs) in YAML and applying them with kubectl.",
+          "ecosystem": "kubectl, Helm, Kustomize, ArgoCD, GKE, EKS, AKS, k3s.",
+          "realWorld": "Google runs billions of containers per week internally on Borg (Kubernetes' predecessor). Every major tech company now runs Kubernetes in production.",
+          "useCases": {
+            "uc1": "Auto-scaling to handle traffic spikes during product launches",
+            "uc2": "Rolling zero-downtime deployments for microservices",
+            "uc3": "Resource management ensuring no single pod starves others"
+          },
+          "advantages": {
+            "ad1": "Self-healing: automatically restarts failed containers",
+            "ad2": "Declarative: desired state is always enforced",
+            "ad3": "Rich ecosystem of CNCF tools integrates natively"
+          },
+          "disadvantages": {
+            "da1": "Significant operational complexity — not appropriate for simple apps",
+            "da2": "Networking model is complex and requires deep understanding to debug"
+          },
+          "interviewTip": "Explain the difference between a Pod and a Deployment, and what HPA (Horizontal Pod Autoscaler) monitors to scale.",
+          "resumeBullet": "Deployed and operated production Kubernetes workloads serving 50K+ concurrent users with 99.95% uptime.",
+          "videos": {
+            "v1": {
+              "title": "Kubernetes Tutorial for Beginners",
+              "author": "TechWorld with Nana",
+              "views": "11M views",
+              "duration": "3 hr 18 min"
+            },
+            "v2": {
+              "title": "Kubernetes Explained in 6 Minutes",
+              "author": "Fireship",
+              "views": "2.4M views",
+              "duration": "6 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "Certified Kubernetes Administrator (CKA) Prep",
+              "instructor": "Linux Foundation",
+              "enrolled": "200K+",
+              "duration": "35 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "Kubernetes Objects: The Definitive Guide",
+              "publisher": "Kubernetes.io",
+              "readTime": "30 min"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "Diagnosing an OOMKilled Pod Crash Loop in Production",
+              "description": "A critical payments microservice is stuck in a CrashLoopBackOff. kubectl describe shows OOMKilled reason.",
+              "analysis": "The container's memory limit in its Kubernetes resource spec is too low for peak-traffic request volumes, causing the OOM killer to terminate it.",
+              "tools": {
+                "j1": "Resource Quotas and LimitRanges establish memory floors and ceilings. VPA (Vertical Pod Autoscaler) can then recommend optimal resource values based on actual usage."
+              },
+              "tradeOffs": {
+                "t1": "Setting limits too high wastes cluster resources. Too low causes OOMKills. Always profile production workloads to find the correct range."
+              },
+              "nfr": {
+                "n1": "P99 latency < 200ms. Zero OOMKill events under normal load."
+              },
+              "kpis": {
+                "k1": "Pod restarts per hour = 0 after tuning resource limits."
+              },
+              "insights": "Always set both requests AND limits. Requests guarantee scheduling, limits prevent noisy neighbor problems."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "Deploy a 3-Replica App & Autoscale It",
+              "description": "Write a Deployment and HPA manifest, then simulate CPU load to watch Kubernetes scale your pods automatically."
+            }
+          },
+          "git": {
+            "commit": "feat: Add HPA for payments service with CPU and memory scale targets",
+            "f1": {
+              "content": "apiVersion: autoscaling/v2\nkind: HorizontalPodAutoscaler\nmetadata:\n  name: payments-hpa\nspec:\n  scaleTargetRef:\n    apiVersion: apps/v1\n    kind: Deployment\n    name: payments\n  minReplicas: 2\n  maxReplicas: 20\n  metrics:\n  - type: Resource\n    resource:\n      name: cpu\n      target:\n        type: Utilization\n        averageUtilization: 70"
+            },
+            "snippetCode": "# HPA: Scale when CPU exceeds 70%\nscaleTargetRef:\n  name: payments\nminReplicas: 2\nmaxReplicas: 20\nmetrics:\n- type: Resource\n  resource:\n    name: cpu\n    target:\n      averageUtilization: 70"
+          },
+          "community": {
+            "summary": "Senior SREs emphasize: start with sane resource limits and let VPA guide you to production-accurate values. Most Kubernetes incidents are caused by misconfigured resource limits, not application bugs."
+          }
+        },
+        "t3": {
+          "title": "SRE: SLIs, SLOs, Error Budgets & Prometheus Alerting",
+          "what": "Site Reliability Engineering (SRE) is the practice of applying software engineering rigor to operations — measuring, automating, and improving reliability systematically.",
+          "why": "Without SLOs and error budgets, reliability is a feeling, not a number. SRE turns reliability into a measurable, actionable product requirement.",
+          "when": "In any service that has a user-facing API or user experience that must meet defined availability guarantees.",
+          "how": "Defining SLIs (metrics), SLOs (targets), and Error Budgets (tolerance), then alerting on burn rate with Prometheus and Grafana.",
+          "ecosystem": "Prometheus, Grafana, OpenTelemetry, PagerDuty, Alertmanager, Google SRE Book.",
+          "realWorld": "Google's SRE teams use Error Budgets to balance reliability vs. feature velocity. If the error budget is exhausted, no new features ship until reliability is restored.",
+          "useCases": {
+            "uc1": "Setting formal uptime SLAs for enterprise customers",
+            "uc2": "Building automated burn-rate alerts before SLO breach",
+            "uc3": "Using error budgets to make data-driven release decisions"
+          },
+          "advantages": {
+            "ad1": "Transforms reliability from intuition to measurable engineering",
+            "ad2": "Error budgets create objective, team-wide reliability contracts",
+            "ad3": "Burn-rate alerting catches problems before customers notice"
+          },
+          "disadvantages": {
+            "da1": "Requires buy-in from product, engineering, and leadership",
+            "da2": "Complex PromQL queries and alerting rules require expertise to tune correctly"
+          },
+          "interviewTip": "Be able to calculate an error budget: if SLO is 99.9%, the error budget for 30 days is 0.1% of 43,200 minutes = 43.2 minutes of allowed downtime.",
+          "resumeBullet": "Implemented SLI/SLO framework and Prometheus burn-rate alerting, reducing MTTD (Mean Time to Detect) from 30 min to 90 seconds.",
+          "videos": {
+            "v1": {
+              "title": "Site Reliability Engineering Explained",
+              "author": "Google Cloud",
+              "views": "720K views",
+              "duration": "12 min"
+            },
+            "v2": {
+              "title": "Prometheus for Beginners",
+              "author": "TechWorld with Nana",
+              "views": "1.4M views",
+              "duration": "27 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "Site Reliability Engineering: Measuring and Managing Reliability",
+              "instructor": "Google / Coursera",
+              "enrolled": "120K+",
+              "duration": "18 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "Google SRE Book (Free Online)",
+              "publisher": "Google",
+              "readTime": "Book"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "Your SLO Is Breaching — Diagnose the Error Budget Burn",
+              "description": "Grafana alerts show the 30-day error budget for the checkout API will be exhausted in 4 hours at the current burn rate, but no obvious errors appear in logs.",
+              "analysis": "High burn rate can indicate latency degradation (slow responses that still return 200 OK) rather than outright errors — a silent failure mode that standard error-rate alerts miss.",
+              "tools": {
+                "j1": "Prometheus multi-window, multi-burn-rate alerting as defined in the Google SRE Workbook catches both short-term spikes and slow, sustained degradation."
+              },
+              "tradeOffs": {
+                "t1": "Tight SLOs (99.99%) leave almost no room for releases. Loose SLOs (99%) are too permissive. Choose based on customer contracts and incident impact."
+              },
+              "nfr": {
+                "n1": "P99 latency < 500ms. Error rate < 0.1% of all requests over 30 days."
+              },
+              "kpis": {
+                "k1": "MTTD < 2 minutes. Error budget consumption < 50% per month."
+              },
+              "insights": "Alerting on error rate alone is insufficient. Always alert on error budget BURN RATE using both short (1h) and long (6h) windows simultaneously."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "Write PromQL SLO Queries",
+              "description": "Use PromQL to calculate the ratio of good requests to total requests and express it as a 28-day rolling SLO percentage."
+            }
+          },
+          "git": {
+            "commit": "sre: Add multi-window burn-rate alerting rules for checkout SLO",
+            "f1": {
+              "content": "groups:\n- name: slo.rules\n  rules:\n  - alert: CheckoutHighBurnRate\n    expr: |\n      (\n        sum(rate(http_requests_total{job=\"checkout\",code!~\"5..\"}[5m]))\n        /\n        sum(rate(http_requests_total{job=\"checkout\"}[5m]))\n      ) < 0.999\n    for: 2m\n    labels:\n      severity: page"
+            },
+            "snippetCode": "# Alert when error rate exceeds SLO threshold\nexpr: |\n  sum(rate(http_requests_total{code!~\"5..\"}[5m]))\n  / sum(rate(http_requests_total[5m])) < 0.999"
+          },
+          "community": {
+            "summary": "The SRE community agrees: the most valuable insight from Google's SRE book is the Error Budget concept. It creates a shared language between product (who wants features) and ops (who wants reliability). Both sides win when the budget is managed well."
+          }
+        },
+        "capstone": {
+          "title": "Operation: Planet-Scale Platform",
+          "description": "Provision a production-grade, multi-environment Kubernetes platform on a major cloud provider using Terraform, deploy a microservice with ArgoCD, and build a full observability stack.",
+          "skills": {
+            "s1": "Terraform Modules & Remote State",
+            "s2": "Kubernetes Workloads & Networking",
+            "s3": "Helm Chart Authoring",
+            "s4": "Prometheus/Grafana Observability",
+            "s5": "ArgoCD GitOps"
+          },
+          "steps": {
+            "p1": {
+              "title": "Provision the Kubernetes Cluster with Terraform",
+              "description": "Write Terraform modules to create a GKE/EKS cluster with separate node pools for system and application workloads."
+            },
+            "p2": {
+              "title": "Deploy the Application with ArgoCD",
+              "description": "Connect ArgoCD to a Git repository and configure automated sync to deploy the microservice Helm chart on every commit."
+            },
+            "p3": {
+              "title": "Build the Observability Stack",
+              "description": "Deploy Prometheus and Grafana using the kube-prometheus-stack Helm chart and create custom dashboards for your service's SLIs."
+            },
+            "p4": {
+              "title": "Define and Alert on SLOs",
+              "description": "Write Prometheus alerting rules based on multi-window burn rate to page on-call when the error budget is being consumed too fast."
+            }
+          }
+        }
+      },
+      "explore": {
+        "title": "Explore",
+        "heading": "Explore your career path",
+        "subheading": "Browse by category, role, program or course — your journey, your way.",
+        "recommended": "Recommended",
+        "byCategory": "By Category",
+        "byRole": "By Role",
+        "allPrograms": "All Programs",
+        "allCourses": "All Courses",
+        "searchPlaceholder": "Search roles, programs or courses...",
+        "roles": "Roles",
+        "programs": "Programs",
+        "courses": "Courses",
+        "program": "Program",
+        "backToCategories": "Back to Categories",
+        "personalizedFor": "Personalized for",
+        "basedOnProfile": "Based on your skill level, goals and preferences.",
+        "recommendedRoles": "Recommended Job Roles",
+        "recommendedPrograms": "Recommended Programs",
+        "highDemand": "High Demand",
+        "mediumDemand": "Medium Demand",
+        "lowDemand": "Low Demand",
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced",
+        "programObjective": "Program Objective",
+        "skillsGained": "Skills You'll Gain",
+        "prerequisites": "Prerequisites",
+        "coursesIncluded": "Courses Included",
+        "enrollInProgram": "Enroll in Full Program",
+        "orEnrollIndividual": "Or enroll in individual courses above",
+        "requiredSkills": "Required Skills",
+        "careerRoadmap": "Career Roadmap",
+        "startCareerPath": "Start This Career Path"
+      }
+    }
   }
 }

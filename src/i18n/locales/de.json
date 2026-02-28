@@ -1,0 +1,2631 @@
+{
+  "nav": {
+    "signIn": "[DE] Sign In",
+    "getStarted": "[DE] Get Started Free",
+    "explore": "[DE] Explore",
+    "tracks": "[DE] Tracks",
+    "dashboard": "[DE] Dashboard",
+    "profile": "[DE] Profile",
+    "signOut": "[DE] Sign Out",
+    "viewProfile": "[DE] View Profile",
+    "language": "[DE] Language"
+  },
+  "landing": {
+    "badge": "[DE] This isn't an LMS. It's an Engineering OS.",
+    "heroTitle1": "[DE] Learn. Think.",
+    "heroTitle2": "[DE] Build. Ship.",
+    "heroDesc": "[DE] AI-augmented engineering workspace where every module builds your capstone, and every concept connects to your career.",
+    "startJourney": "[DE] Start Your Journey",
+    "exploreTracks": "[DE] Explore Tracks",
+    "activeLearners": "[DE] Active Learners",
+    "engineeringTracks": "[DE] Engineering Tracks",
+    "handsOnModules": "[DE] Hands-on Modules",
+    "completionRate": "[DE] Completion Rate",
+    "featuresTitle": "[DE] Everything you need to be Job-Ready",
+    "featuresDesc": "[DE] Not just courses. A complete engineering workspace with AI, projects, community, and career tools from day one.",
+    "choosePathTitle": "[DE] Choose Your Path",
+    "choosePathDesc": "[DE] From high-code engineering to no-code product building — we've got you covered.",
+    "highCode": "[DE] High Code",
+    "lowCode": "[DE] Low Code",
+    "noCode": "[DE] No Code",
+    "trustedTitle": "[DE] Trusted by engineers worldwide",
+    "readyTitle": "[DE] Ready to level up?",
+    "readyDesc": "[DE] Join thousands of engineers building real projects.",
+    "copyright": "[DE] © 2026 Talencia Global · Great Talent. Global Opportunity.",
+    "forEngineers": "[DE] For engineers who code from scratch",
+    "buildFaster": "[DE] Build faster with platforms & code",
+    "buildWithoutCode": "[DE] Build without writing code"
+  },
+  "features": {
+    "aiLearning": "[DE] AI-Augmented Learning",
+    "aiLearningDesc": "[DE] Multi-LLM assistant that knows your context and adapts to your pace.",
+    "buildWhile": "[DE] Build While You Learn",
+    "buildWhileDesc": "[DE] Every module contributes to a real-world capstone project.",
+    "deepTopic": "[DE] Deep Topic Framework",
+    "deepTopicDesc": "[DE] 8-layer coverage: What, Why, How, Architecture, and Interview prep.",
+    "skillProfiling": "[DE] Skill-Based Profiling",
+    "skillProfilingDesc": "[DE] Rate yourself, track growth, and get personalized recommendations.",
+    "jobReadiness": "[DE] Job Readiness Score",
+    "jobReadinessDesc": "[DE] Real-time readiness assessment against industry benchmarks.",
+    "premiumContent": "[DE] Premium Content Library",
+    "premiumContentDesc": "[DE] Curated videos, blogs, and MOOCs from top creators."
+  },
+  "auth": {
+    "createAccount": "[DE] Create your account",
+    "welcomeBack": "[DE] Welcome back",
+    "fullName": "[DE] Full Name",
+    "email": "[DE] Email",
+    "password": "[DE] Password",
+    "continue": "[DE] Continue",
+    "signInBtn": "[DE] Sign In",
+    "alreadyHaveAccount": "[DE] Already have an account?",
+    "dontHaveAccount": "[DE] Don't have an account?",
+    "signUp": "[DE] Sign Up",
+    "signInLink": "[DE] Sign In",
+    "demoCredentials": "[DE] Demo Credentials",
+    "tapToFill": "[DE] (Tap to fill)",
+    "uploadResume": "[DE] Upload Resume",
+    "uploadResumeDesc": "[DE] To auto-fill your profile (Coming Soon)",
+    "invalidCredentials": "[DE] Invalid credentials. Please use the demo credentials below.",
+    "enterBoth": "[DE] Please enter both email and password.",
+    "enterName": "[DE] Please enter your name."
+  },
+  "onboarding": {
+    "personalDetails": "[DE] Personal Details",
+    "academicBackground": "[DE] Academic Background",
+    "skillsAssessment": "[DE] Skills & Self-Assessment",
+    "experienceProjects": "[DE] Experience & Projects",
+    "learningPreferences": "[DE] Learning Preferences",
+    "reviewStart": "[DE] Review & Start",
+    "stepOf": "[DE] Step {{current}} of {{total}} · Optional fields can be skipped",
+    "back": "[DE] Back",
+    "next": "[DE] Next",
+    "startLearning": "[DE] Start Learning",
+    "phone": "[DE] Phone",
+    "dateOfBirth": "[DE] Date of Birth",
+    "gender": "[DE] Gender",
+    "city": "[DE] City",
+    "state": "[DE] State",
+    "country": "[DE] Country",
+    "nativeLanguage": "[DE] Native Language",
+    "languagesYouKnow": "[DE] Languages You Know",
+    "linkedin": "[DE] LinkedIn",
+    "github": "[DE] GitHub",
+    "college": "[DE] College / University",
+    "degree": "[DE] Degree",
+    "branch": "[DE] Branch / Major",
+    "cgpa": "[DE] CGPA / GPA",
+    "graduationYear": "[DE] Graduation Year",
+    "tenthPercent": "[DE] 10th %",
+    "twelfthPercent": "[DE] 12th %",
+    "skillsDesc": "[DE] Add skills and rate yourself from 1-10 on Conceptual understanding and Hands-on experience.",
+    "quickAddSkills": "[DE] Quick Add Popular Skills",
+    "typeSkill": "[DE] Or type a skill...",
+    "add": "[DE] Add",
+    "remove": "[DE] Remove",
+    "conceptual": "[DE] Conceptual",
+    "handsOn": "[DE] Hands-on",
+    "currentRole": "[DE] Current Role",
+    "yearsExp": "[DE] Years of Experience",
+    "company": "[DE] Company",
+    "certifications": "[DE] Certifications",
+    "certName": "[DE] Certification Name",
+    "issuer": "[DE] Issuer",
+    "year": "[DE] Year",
+    "techStack": "[DE] Tech Stack",
+    "internships": "[DE] Internships",
+    "role": "[DE] Role",
+    "duration": "[DE] Duration",
+    "projects": "[DE] Projects",
+    "projectTitle": "[DE] Project Title",
+    "url": "[DE] URL",
+    "skillLevel": "[DE] Your Skill Level",
+    "yourGoal": "[DE] Your Goal",
+    "preferredLang": "[DE] Preferred Programming Language",
+    "preferredStack": "[DE] Preferred Stack",
+    "personal": "[DE] Personal",
+    "academic": "[DE] Academic",
+    "skills": "[DE] Skills",
+    "experience": "[DE] Experience",
+    "preferences": "[DE] Preferences",
+    "select": "[DE] Select"
+  },
+  "tracks": {
+    "title": "[DE] Learning Tracks",
+    "chooseTrack": "[DE] Choose Your Track",
+    "trackDesc": "[DE] Each track builds a real-world product from scratch to deployment.",
+    "recommended": "[DE] Recommended for You",
+    "searchTracks": "[DE] Search tracks...",
+    "allTracks": "[DE] All Tracks",
+    "noResults": "[DE] No tracks found matching your search.",
+    "forYou": "[DE] For You",
+    "modules": "[DE] Modules",
+    "weeks": "[DE] Weeks"
+  },
+  "dashboard": {
+    "title": "[DE] Performance Dashboard",
+    "jobReadiness": "[DE] Job Readiness",
+    "topicsMastered": "[DE] Topics Mastered",
+    "practiceScore": "[DE] Practice Score",
+    "aiInteractions": "[DE] AI Interactions",
+    "projectMaturity": "[DE] Project Maturity",
+    "gitContributions": "[DE] Git Contributions",
+    "readinessScore": "[DE] Readiness Score",
+    "masteryHeatmap": "[DE] Mastery Heatmap",
+    "practiceAccuracy": "[DE] Practice Accuracy",
+    "weeklyProgress": "[DE] Weekly Progress",
+    "focusAreas": "[DE] Recommended Focus Areas",
+    "certificate": "[DE] Track Completion Certificate",
+    "certificateDesc": "[DE] Complete all 48 topics to unlock your Backend Engineering certificate",
+    "roleAlignment": "[DE] Role Alignment",
+    "remaining": "[DE] remaining"
+  },
+  "profile": {
+    "title": "[DE] Profile",
+    "overview": "[DE] Overview",
+    "skills": "[DE] Skills",
+    "experience": "[DE] Experience",
+    "academic": "[DE] Academic",
+    "edit": "[DE] Edit",
+    "save": "[DE] Save",
+    "saved": "[DE] Saved",
+    "notSet": "[DE] Not Set",
+    "personalSection": "[DE] Personal",
+    "socialLinks": "[DE] Social & Links",
+    "languagesPrefs": "[DE] Languages & Preferences",
+    "portfolio": "[DE] Portfolio",
+    "knownLanguages": "[DE] Known Languages",
+    "preferredProgramming": "[DE] Preferred Programming Language",
+    "preferredStack": "[DE] Preferred Stack",
+    "noSkills": "[DE] No skills added yet. Click edit to add ratings.",
+    "avg": "[DE] Avg",
+    "professional": "[DE] Professional",
+    "noCertifications": "[DE] No certifications added",
+    "noInternships": "[DE] No internships added",
+    "noProjects": "[DE] No projects added",
+    "education": "[DE] Education",
+    "myDashboard": "[DE] My Dashboard",
+    "myTracks": "[DE] My Tracks"
+  },
+  "goals": {
+    "getJob": "[DE] Get a Job",
+    "internship": "[DE] Get an Internship",
+    "upskill": "[DE] Upskill",
+    "switchDomain": "[DE] Switch Domain",
+    "startup": "[DE] Build a Startup"
+  },
+  "levels": {
+    "beginner": "[DE] Beginner",
+    "intermediate": "[DE] Intermediate",
+    "advanced": "[DE] Advanced"
+  },
+  "common": {
+    "male": "[DE] Male",
+    "female": "[DE] Female",
+    "nonBinary": "[DE] Non-binary",
+    "preferNotToSay": "[DE] Prefer not to say",
+    "close": "[DE] Close",
+    "views": "[DE] views",
+    "learners": "[DE] learners",
+    "by": "[DE] by",
+    "duration": {
+      "1week": "[DE] 1 week",
+      "2weeks": "[DE] 2 weeks",
+      "3weeks": "[DE] 3 weeks",
+      "4weeks": "[DE] 4 weeks",
+      "5weeks": "[DE] 5 weeks",
+      "6weeks": "[DE] 6 weeks",
+      "7weeks": "[DE] 7 weeks",
+      "8weeks": "[DE] 8 weeks",
+      "10weeks": "[DE] 10 weeks",
+      "12weeks": "[DE] 12 weeks",
+      "14weeks": "[DE] 14 weeks",
+      "16weeks": "[DE] 16 weeks"
+    },
+    "langs": {
+      "html": "[DE] HTML",
+      "css": "[DE] CSS",
+      "javascript": "[DE] JavaScript",
+      "typescript": "[DE] TypeScript",
+      "node": "[DE] Node.js",
+      "python": "[DE] Python",
+      "sql": "[DE] SQL",
+      "java": "[DE] Java",
+      "go": "[DE] Go",
+      "rust": "[DE] Rust",
+      "bash": "[DE] Bash",
+      "scala": "[DE] Scala",
+      "agnostic": "[DE] Agnostic",
+      "lowcode": "[DE] Low-Code",
+      "nocode": "[DE] No-Code",
+      "rest": "[DE] REST",
+      "graphql": "[DE] GraphQL",
+      "ai": "[DE] AI",
+      "devops": "[DE] DevOps",
+      "aws": "[DE] AWS",
+      "docker": "[DE] Docker",
+      "kubernetes": "[DE] Kubernetes"
+    }
+  },
+  "workspace": {
+    "outline": "[DE] Outline",
+    "backendEngineering": "[DE] Backend Engineering",
+    "allTracks": "[DE] All Tracks",
+    "knowledgeGraph": "[DE] Knowledge Graph",
+    "knowledgeGraphDesc": "[DE] Interactive concept dependency map",
+    "learnMode": "[DE] Learn Mode",
+    "practiceMode": "[DE] Practice Mode",
+    "exploreMode": "[DE] Explore Mode",
+    "learn": "[DE] Learn",
+    "practice": "[DE] Practice",
+    "explore": "[DE] Explore",
+    "focusMode": "[DE] Focus Mode",
+    "aiAssistant": "[DE] AI Assistant",
+    "thinkingCanvas": "[DE] Thinking Canvas",
+    "openAiAssistant": "[DE] Open AI Assistant",
+    "openKnowledgeGraph": "[DE] Open Knowledge Graph",
+    "aiDeepDive": "[DE] AI Deep Dive",
+    "aiDeepDiveDesc": "[DE] Open the AI assistant panel to explore",
+    "withMultipleLLMs": "[DE] with multiple LLMs.",
+    "exploreConceptsVisually": "[DE] Explore concepts visually",
+    "coreConceptFramework": "[DE] Core Concept Framework",
+    "videoResources": "[DE] Video Resources",
+    "moocReferences": "[DE] MOOC References",
+    "blogsDocumentation": "[DE] Blogs & Documentation",
+    "scenarioBasedProblems": "[DE] Scenario Based Problems",
+    "codePlayground": "[DE] Code Playground",
+    "gitPublishing": "[DE] Git Publishing",
+    "community": "[DE] Community",
+    "capstoneProject": "[DE] Capstone Project",
+    "gitSimulation": "[DE] Git Simulation",
+    "communitySolutions": "[DE] Community Solutions",
+    "what": "[DE] What",
+    "why": "[DE] Why",
+    "when": "[DE] When",
+    "howItWorks": "[DE] How it Works",
+    "techEcosystem": "[DE] Tech Ecosystem",
+    "realWorldExamples": "[DE] Real World Examples",
+    "useCases": "[DE] Use Cases",
+    "advantages": "[DE] Advantages",
+    "disadvantages": "[DE] Disadvantages",
+    "interviewPerspective": "[DE] Interview Perspective",
+    "resumeFraming": "[DE] Resume Framing",
+    "publicVideos": "[DE] Public Videos",
+    "platformAuthorizedVideos": "[DE] Platform Authorized Videos",
+    "unlocked": "[DE] Unlocked",
+    "premium": "[DE] Premium",
+    "premiumContent": "[DE] Premium Content",
+    "premiumContentDesc": "[DE] This video is part of premium content.",
+    "unlockThisVideo": "[DE] Unlock this video",
+    "maybeLater": "[DE] Maybe later",
+    "videoPlayer": "[DE] Video Player",
+    "mockPlayer": "[DE] (Mock — Actual player will be embedded)",
+    "constraints": "[DE] Constraints",
+    "deliverable": "[DE] Deliverable",
+    "startThisChallenge": "[DE] Start this challenge",
+    "examples": "[DE] Examples",
+    "run": "[DE] Run",
+    "output": "[DE] Output",
+    "gitPublishingSimulation": "[DE] Git Publishing Simulation",
+    "commitMessage": "[DE] Commit message...",
+    "pushToRemote": "[DE] Push to Remote",
+    "merged": "[DE] Merged",
+    "files": "[DE] Files",
+    "selectAFile": "[DE] Select a file",
+    "pushedTo": "[DE] Pushed to",
+    "open": "[DE] Open",
+    "filesChanged": "[DE] Files Changed",
+    "merging": "[DE] Merging...",
+    "squashAndMerge": "[DE] Squash and Merge",
+    "prMergedSuccess": "[DE] PR #47 successfully merged into main",
+    "singleLLM": "[DE] Single LLM",
+    "multiLLM": "[DE] Multi-LLM",
+    "consultant": "[DE] Consultant",
+    "activeModels": "[DE] Active Models",
+    "compareResponses": "[DE] Compare responses from multiple LLMs",
+    "synthesizedAnswer": "[DE] Get a synthesized answer from all models",
+    "ask": "[DE] Ask",
+    "askAllModels": "[DE] Ask All Models",
+    "generatingResponses": "[DE] Generating responses...",
+    "context": "[DE] Context",
+    "consultantSynthesis": "[DE] Consultant Synthesis",
+    "addNoteHighlight": "[DE] Add a note, highlight or thought...",
+    "ctrlEnterSave": "[DE] Ctrl+Enter to save",
+    "exportNotes": "[DE] Export Notes",
+    "flashcard": "[DE] Flashcard",
+    "highlight": "[DE] Highlight",
+    "note": "[DE] Note",
+    "toFlashcard": "[DE] → Flashcard",
+    "askAI": "[DE] Ask AI",
+    "thinking": "[DE] Thinking...",
+    "aiInsight": "[DE] AI Insight",
+    "aiSummaryBestApproach": "[DE] AI summary of technical best approach",
+    "topSolution": "[DE] Top Solution",
+    "upvote": "[DE] Upvote",
+    "comment": "[DE] Comment",
+    "mastered": "[DE] Mastered — consistent effort!",
+    "inProgress": "[DE] In Progress — keep learning!",
+    "needsAttention": "[DE] Needs Attention — start this topic.",
+    "done": "[DE] Done"
+  },
+  "notFound": {
+    "title": "[DE] 404",
+    "desc": "[DE] Oops! Page Not Found",
+    "returnHome": "[DE] Return Home"
+  },
+  "trackContent": {
+    "m1": {
+      "title": "[DE] Foundations of Backend Engineering"
+    },
+    "m2": {
+      "title": "[DE] Database Engineering"
+    },
+    "lcem1": {
+      "title": "[DE] Foundations of Low-Code Engineering"
+    },
+    "t1": {
+      "title": "[DE] What is Backend Engineering?",
+      "what": "[DE] Backend engineering is the discipline of building server-side systems that power applications — APIs, databases, authentication, business logic, and infrastructure.",
+      "why": "[DE] Every product needs a reliable, scalable backend. Frontend is the face; backend is the brain and backbone. Without it, no data persists, no logic executes, no system scales.",
+      "when": "[DE] Whenever you build anything beyond a static page: user accounts, data storage, real-time features, payments, AI integrations, or multi-service architectures.",
+      "how": "[DE] A client sends an HTTP request → the server routes it → middleware processes auth/validation → a handler executes business logic → the database is queried → a response is returned.",
+      "ecosystem": "[DE] Node.js, Python (Django/Flask/FastAPI), Go, Java (Spring Boot), Rust, PostgreSQL, Redis, RabbitMQ, Kafka, Docker, Kubernetes, AWS/GCP/Azure.",
+      "realWorld": "[DE] Netflix processes 2+ billion API requests daily. Stripe's backend handles payment processing across 46 countries. Uber's backend orchestrates 25M+ rides daily.",
+      "useCases": [
+        "[DE] REST/GraphQL APIs",
+        "[DE] Authentication & authorization",
+        "[DE] Background job processing",
+        "[DE] Real-time event streaming",
+        "[DE] Data pipeline orchestration"
+      ],
+      "advantages": [
+        "[DE] Full control over data and business logic",
+        "[DE] Language-agnostic — choose the best tool",
+        "[DE] Scales independently from frontend",
+        "[DE] Security boundaries at the server level"
+      ],
+      "disadvantages": [
+        "[DE] Complexity grows with scale",
+        "[DE] Debugging distributed systems is hard",
+        "[DE] Infrastructure costs at scale",
+        "[DE] Deep understanding of networking required"
+      ],
+      "interviewTip": "[DE] When asked 'What does a backend engineer do?', go beyond 'write APIs.' Talk about system reliability, data integrity, scalability patterns, and operational excellence.",
+      "resumeBullet": "[DE] Designed and implemented RESTful backend services handling 10K+ requests/sec with <50ms p99 latency using Node.js and PostgreSQL."
+    },
+    "lcet1": {
+      "title": "[DE] What is Low-Code Engineering?",
+      "what": "[DE] Low-code engineering is the discipline of building software applications using visual development platforms that minimize the need for manual hand-coding. It combines pre-built components, visual models, and automated workflows.",
+      "why": "[DE] It significantly reduces time-to-market, addresses the shortage of specialized skills, and allows for rapid prototyping and deployment of enterprise-grade applications.",
+      "when": "[DE] Ideal for business process automation, internal tools, customer portals, and when speed of delivery is more critical than low-level system control.",
+      "how": "[DE] Developers use drag-and-drop interfaces to design UIs, define data models, and orchestrate logic via visual flows, adding custom code only for complex integrations or unique logic.",
+      "ecosystem": "[DE] OutSystems, Mendix, Microsoft Power Platform, Appian, ServiceNow, Salesforce Lightning, APIs, connectors, and cloud services.",
+      "realWorld": "[DE] A global logistics firm used a low-code platform to build a comprehensive freight tracking system in just 4 weeks, a project previously estimated at 6 months.",
+      "useCases": [
+        "[DE] Enterprise Portals",
+        "[DE] Workflow Automation",
+        "[DE] Legacy System Extension",
+        "[DE] Mobile Field Apps",
+        "[DE] Internal Dashboards"
+      ],
+      "advantages": [
+        "[DE] 10x Development Speed",
+        "[DE] Lower maintenance burden",
+        "[DE] Bridge IT-Business gap",
+        "[DE] Rapid iteration and deployment"
+      ],
+      "disadvantages": [
+        "[DE] Platform dependency (Lock-in)",
+        "[DE] Less control over runtime/infra",
+        "[DE] Extensibility limits with complex logic",
+        "[DE] Platform licensing costs"
+      ],
+      "interviewTip": "[DE] Emphasize how low-code is a strategic choice for business agility, not a replacement for 'real' coding. Highlight your ability to extend low-code with custom logic when needed.",
+      "resumeBullet": "[DE] Accelerated application delivery by 75% using low-code platforms for a fleet management system, integrating with legacy SOAP APIs via custom connectors."
+    },
+    "t2": {
+      "title": "[DE] HTTP, REST & API Design",
+      "what": "[DE] REST (Representational State Transfer) is an architectural style for designing networked applications using HTTP methods to perform CRUD operations.",
+      "why": "[DE] REST is the lingua franca of web APIs. Understanding it deeply separates junior developers from engineers who can design systems that last.",
+      "when": "[DE] Whenever you need machine-to-machine or client-server communication. REST is ideal for stateless, cacheable, resource-oriented interactions.",
+      "how": "[DE] Resources are identified by URIs. HTTP methods (GET, POST, PUT, PATCH, DELETE) map to operations. Status codes communicate outcomes.",
+      "ecosystem": "[DE] OpenAPI/Swagger, Postman, cURL, Express.js, FastAPI, Spring Boot, API Gateway (AWS/GCP), rate limiters, API versioning strategies.",
+      "realWorld": "[DE] GitHub's REST API serves millions of developers daily. Stripe's API is considered the gold standard.",
+      "useCases": [
+        "[DE] Public/partner APIs",
+        "[DE] Mobile app backends",
+        "[DE] Microservice communication",
+        "[DE] CRUD applications",
+        "[DE] Webhook integrations"
+      ],
+      "advantages": [
+        "[DE] Simple and well-understood",
+        "[DE] Stateless — easy to scale",
+        "[DE] Cacheable with HTTP semantics",
+        "[DE] Massive tooling ecosystem"
+      ],
+      "disadvantages": [
+        "[DE] Over-fetching and under-fetching",
+        "[DE] No real-time push (polling/WebSocket needed)",
+        "[DE] Can become chatty for complex operations",
+        "[DE] Versioning can be painful"
+      ],
+      "interviewTip": "[DE] Know the difference between PUT and PATCH. Understand idempotency. Be able to design a clean API for any domain in under 5 minutes.",
+      "resumeBullet": "[DE] Architected RESTful API layer with OpenAPI spec, versioning strategy, and rate limiting, reducing integration time by 60%."
+    },
+    "t3": {
+      "title": "[DE] SQL & Relational Databases",
+      "what": "[DE] Relational databases organize data into tables with defined schemas, relationships (via foreign keys), and use SQL for querying. They guarantee ACID properties.",
+      "why": "[DE] Most business data is inherently relational. Understanding SQL deeply is non-negotiable for any backend engineer.",
+      "when": "[DE] When you need strong consistency, complex queries with joins, transactions, or well-structured data with clear relationships.",
+      "how": "[DE] Data is stored in rows within tables. Indexes speed up reads. Query planners optimize execution. Transactions ensure atomicity.",
+      "ecosystem": "[DE] PostgreSQL, MySQL, SQLite, SQL Server. ORMs: Prisma, TypeORM, Sequelize, SQLAlchemy, Hibernate.",
+      "realWorld": "[DE] Instagram runs on PostgreSQL and handles billions of rows. Banks rely on ACID-compliant databases for transactions.",
+      "useCases": [
+        "[DE] User data storage",
+        "[DE] Financial transactions",
+        "[DE] Inventory management",
+        "[DE] Content management",
+        "[DE] Analytics and reporting"
+      ],
+      "advantages": [
+        "[DE] ACID guarantees",
+        "[DE] Mature tooling and community",
+        "[DE] Complex queries with JOINs",
+        "[DE] Schema enforcement"
+      ],
+      "disadvantages": [
+        "[DE] Vertical scaling limits",
+        "[DE] Schema migrations can be painful",
+        "[DE] Not ideal for unstructured data",
+        "[DE] Can be slower for simple key-value lookups"
+      ],
+      "interviewTip": "[DE] Be ready to write complex SQL queries on the spot. Know the difference between INNER JOIN, LEFT JOIN, and CROSS JOIN. Understand indexing trade-offs.",
+      "resumeBullet": "[DE] Optimized PostgreSQL queries reducing p95 latency from 800ms to 45ms through strategic indexing and query plan analysis."
+    }
+  },
+  "hierarchy": {
+    "highCode": "[DE] High Code Engineering",
+    "highCodeDesc": "[DE] Build from scratch with full control over code, architecture, and infra.",
+    "lowCode": "[DE] Low Code Engineering",
+    "lowCodeDesc": "[DE] Build faster by combining platforms and code for enterprise automation.",
+    "noCode": "[DE] No Code Engineering",
+    "noCodeDesc": "[DE] Build products, workflows, and businesses without writing code."
+  },
+  "roles": {
+    "backendDev": "[DE] Backend Developer",
+    "backendDevDesc": "[DE] Design, build, and maintain server-side applications, APIs, databases, and infra that power products.",
+    "frontendDev": "[DE] Frontend Developer",
+    "frontendDevDesc": "[DE] Build responsive, performant, and accessible UIs using modern JavaScript frameworks.",
+    "fullstackDev": "[DE] Full Stack Developer",
+    "fullstackDevDesc": "[DE] Own the entire application stack — from UI components to database queries and deployment.",
+    "aiEngineer": "[DE] AI Engineer",
+    "aiEngineerDesc": "[DE] Build production AI systems using LLMs, agentic frameworks, and ML Ops pipelines.",
+    "dataEngineer": "[DE] Data Engineer",
+    "dataEngineerDesc": "[DE] Design and maintain data pipelines, warehouses, and analytics infra at scale.",
+    "devopsEngineer": "[DE] DevOps Engineer",
+    "devopsEngineerDesc": "[DE] Automate infrastructure, CI/CD, monitoring, and ensure system reliability.",
+    "systemArchitect": "[DE] System Architect",
+    "systemArchitectDesc": "[DE] Design distributed systems, scalability patterns, and high-availability architectures.",
+    "automationEngineer": "[DE] Automation Engineer",
+    "automationEngineerDesc": "[DE] Build and optimize business workflow automations using low-code platforms.",
+    "integrationSpecialist": "[DE] Integration Specialist",
+    "integrationSpecialistDesc": "[DE] Connect enterprise systems, APIs, and data sources into unified workflows.",
+    "internalToolsDev": "[DE] Internal Tools Developer",
+    "internalToolsDevDesc": "[DE] Build admin dashboards and internal applications using low-code platforms.",
+    "lowCodeDeveloper": "[DE] Low-Code Developer",
+    "lowCodeDeveloperDesc": "[DE] Build end-to-end enterprise apps using visual development platforms with minimal custom code.",
+    "appBuilder": "[DE] App Builder",
+    "appBuilderDesc": "[DE] Design and deploy business apps using low-code tooling.",
+    "citizenDeveloperLead": "[DE] Citizen Developer Lead",
+    "citizenDeveloperLeadDesc": "[DE] Lead and govern low-code citizen development initiatives.",
+    "bpmAnalyst": "[DE] BPM Analyst",
+    "bpmAnalystDesc": "[DE] Analyze and optimize business processes using low-code automation.",
+    "workflowDesigner": "[DE] Workflow Designer",
+    "workflowDesignerDesc": "[DE] Create efficient workflows and automations on low-code platforms.",
+    "enterpriseLowCodeArchitect": "[DE] Enterprise Low-Code Architect",
+    "enterpriseLowCodeArchitectDesc": "[DE] Develop scalable, secure low-code solutions for large organizations.",
+    "solutionsEngineerLce": "[DE] Solutions Engineer (LCE)",
+    "solutionsEngineerLceDesc": "[DE] Integrate complex systems and APIs in low-code environments.",
+    "apiConnectorDeveloper": "[DE] API Connector Developer",
+    "apiConnectorDeveloperDesc": "[DE] Build and maintain API connectors for low-code platforms.",
+    "mobileLowCodeDeveloper": "[DE] Mobile Low-Code Developer",
+    "mobileLowCodeDeveloperDesc": "[DE] Develop mobile apps using low-code tools and UI frameworks.",
+    "citizenDeveloperMobile": "[DE] Citizen Developer (Mobile)",
+    "citizenDeveloperMobileDesc": "[DE] Create mobile apps without traditional coding.",
+    "lowCodeAiDeveloper": "[DE] Low-Code AI Developer",
+    "lowCodeAiDeveloperDesc": "[DE] Integrate AI services into low-code applications.",
+    "citizenDataScientist": "[DE] Citizen Data Scientist",
+    "citizenDataScientistDesc": "[DE] Perform data analysis using low-code AI features.",
+    "productManager": "[DE] Product Manager / Launcher",
+    "productManagerDesc": "[DE] Launch MVPs, landing pages, and products without writing code.",
+    "aiOpsAnalyst": "[DE] AI Operations Analyst",
+    "aiOpsAnalystDesc": "[DE] Design and optimize AI-powered business workflows using prompt engineering and AI tools."
+  },
+  "programs": {
+    "backendMastery": "[DE] Backend Engineering Mastery",
+    "backendMasteryDesc": "[DE] Master the entire backend engineering stack from APIs to system design.",
+    "backendMasteryObj": "[DE] Build production-grade backend systems with REST APIs, databases, caching, message queues, and scalable architecture.",
+    "apiSpecialist": "[DE] API Design Specialist",
+    "apiSpecialistDesc": "[DE] Deep dive into API design patterns, GraphQL, gRPC, and API security.",
+    "apiSpecialistObj": "[DE] Design and implement world-class APIs following best practices from Stripe, GitHub, and Twilio.",
+    "frontendMastery": "[DE] Frontend Engineering Mastery",
+    "frontendMasteryDesc": "[DE] Master modern frontend engineering with React, TypeScript, and performance optimization.",
+    "frontendMasteryObj": "[DE] Build production-ready component libraries and SPAs with accessibility, testing, and performance.",
+    "fullstackMastery": "[DE] Full Stack Engineering Mastery",
+    "fullstackMasteryDesc": "[DE] Own the stack from React components to database design and deployment.",
+    "fullstackMasteryObj": "[DE] Build and deploy end-to-end SaaS applications with modern full-stack technology.",
+    "aiEngineering": "[DE] AI Native Engineering",
+    "aiEngineeringDesc": "[DE] Build production AI applications with LLMs, agents, and ML Ops.",
+    "aiEngineeringObj": "[DE] Build AI-powered applications using LLM development, agentic AI, and production ML pipelines.",
+    "dataEngineering": "[DE] Data Engineering",
+    "dataEngineeringDesc": "[DE] Design and build data pipelines, warehouses, and real-time analytics systems.",
+    "dataEngineeringObj": "[DE] Build real-time data pipelines using Spark, Kafka, Airflow, and modern data stack tools.",
+    "devopsCloud": "[DE] DevOps & Cloud Engineering",
+    "devopsCloudDesc": "[DE] Master CI/CD, Infrastructure as Code, and cloud-native operations.",
+    "devopsCloudObj": "[DE] Automate deployment, monitoring, and infrastructure using AWS, Kubernetes, and Terraform.",
+    "systemDesign": "[DE] System Design Mastery",
+    "systemDesignDesc": "[DE] Design distributed systems and scalable architectures for senior engineering roles.",
+    "systemDesignObj": "[DE] Master distributed system patterns, scalability, high availability, and architecture trade-offs.",
+    "businessAutomation": "[DE] Business Automation",
+    "businessAutomationDesc": "[DE] Automate business workflows using Zapier, n8n, and Power Automate.",
+    "businessAutomationObj": "[DE] Design and deploy end-to-end business workflow automations without traditional coding.",
+    "apiIntegration": "[DE] API Integration Platforms",
+    "apiIntegrationDesc": "[DE] Connect enterprise systems and APIs into unified integration platforms.",
+    "apiIntegrationObj": "[DE] Build multi-platform integration hubs connecting enterprise systems.",
+    "internalTools": "[DE] Internal Tools Builder",
+    "internalToolsDesc": "[DE] Build admin dashboards and internal tools using low-code platforms.",
+    "internalToolsObj": "[DE] Create custom admin dashboards and operational tools with Retool and Appsmith.",
+    "lceApp": "[DE] Low-Code Application Development",
+    "lceAppDesc": "[DE] Master building enterprise apps with any low-code platform.",
+    "lceAppObj": "[DE] Develop scalable low-code applications for business requirements.",
+    "lceBpm": "[DE] Business Process Automation",
+    "lceBpmDesc": "[DE] Automate and optimize business workflows using low-code tools.",
+    "lceBpmObj": "[DE] Design and implement automated business processes.",
+    "lceEnterprise": "[DE] Enterprise Low-Code Solutions",
+    "lceEnterpriseDesc": "[DE] Architect and deploy large-scale low-code systems.",
+    "lceEnterpriseObj": "[DE] Build enterprise-grade low-code architectures.",
+    "lceIntegrate": "[DE] Integration Engineering with Low-Code",
+    "lceIntegrateDesc": "[DE] Connect systems via APIs and low-code connectors.",
+    "lceIntegrateObj": "[DE] Create seamless low-code integrations.",
+    "lceMobile": "[DE] Mobile Low-Code Development",
+    "lceMobileDesc": "[DE] Build mobile apps with low-code platforms.",
+    "lceMobileObj": "[DE] Deploy mobile solutions without extensive coding.",
+    "lceAi": "[DE] AI-Powered Low-Code",
+    "lceAiDesc": "[DE] Add AI capabilities to low-code applications.",
+    "lceAiObj": "[DE] Utilize AI services to enhance low-code apps.",
+    "productLaunch": "[DE] Product Launch Studio",
+    "productLaunchDesc": "[DE] Launch MVPs with landing pages, waitlists, and analytics — no code required.",
+    "productLaunchObj": "[DE] Launch a full MVP with landing pages, waitlists, and analytics using no-code tools.",
+    "aiWorkflows": "[DE] AI Workflow Design",
+    "aiWorkflowsDesc": "[DE] Design AI-powered business workflows using ChatGPT, Claude, and automation tools.",
+    "aiWorkflowsObj": "[DE] Build AI-powered business workflows using prompt engineering and AI tool chains."
+  },
+  "courses": {
+    "backendFundamentals": "[DE] Backend Fundamentals",
+    "backendFundamentalsDesc": "[DE] HTTP, REST APIs, server architecture, middleware, error handling, and backend patterns.",
+    "databaseEngineering": "[DE] Database Engineering",
+    "databaseEngineeringDesc": "[DE] SQL, PostgreSQL, indexing, query optimization, transactions, and schema design.",
+    "backendAdvanced": "[DE] Advanced Backend Engineering",
+    "backendAdvancedDesc": "[DE] Caching, message queues, microservices, scaling patterns, and production readiness.",
+    "apiDesignAdvanced": "[DE] Advanced API Design",
+    "apiDesignAdvancedDesc": "[DE] GraphQL, gRPC, API security, documentation, versioning, and advanced patterns.",
+    "frontendEngineering": "[DE] Frontend Engineering",
+    "frontendEngineeringDesc": "[DE] React, TypeScript, component architecture, state management, and performance.",
+    "fullstackIntegration": "[DE] Full Stack Integration",
+    "fullstackIntegrationDesc": "[DE] Connecting frontend to backend and building end-to-end applications with deployment.",
+    "aiNative": "[DE] AI Native Development",
+    "aiNativeDesc": "[DE] LLM development, agentic AI, ML operations, and AI-powered applications.",
+    "dataEng": "[DE] Data Engineering",
+    "dataEngDesc": "[DE] Data pipelines, Spark, Kafka, Airflow, dbt, and data warehouse design.",
+    "devops": "[DE] DevOps & Cloud",
+    "devopsDesc": "[DE] CI/CD, Kubernetes, Terraform, AWS, monitoring, and infrastructure automation.",
+    "systemDesign": "[DE] System Design",
+    "systemDesignDesc": "[DE] Distributed systems, scalability, high availability, and architecture patterns.",
+    "automation": "[DE] Business Automation",
+    "automationDesc": "[DE] Workflow automation with Zapier, n8n, and Power Automate.",
+    "apiIntegration": "[DE] API Integration",
+    "apiIntegrationDesc": "[DE] Platform integration using MuleSoft, Workato, and API orchestration.",
+    "internalTools": "[DE] Internal Tools",
+    "internalToolsDesc": "[DE] Admin dashboards and operational tools with Rentool and Appsmith.",
+    "lceFoundations": "[DE] Low-Code Foundations",
+    "lceFoundationsDesc": "[DE] Core concepts and tools for any low-code platform.",
+    "lceDataModeling": "[DE] Data Modeling & DB in Low-Code",
+    "lceDataModelingDesc": "[DE] Design and manage data in low-code applications.",
+    "lceLogicWorkflows": "[DE] Business Logic & Workflows",
+    "lceLogicWorkflowsDesc": "[DE] Implement logic and automated workflows visually.",
+    "lceUiUx": "[DE] UI/UX Design for Low-Code Apps",
+    "lceUiUxDesc": "[DE] Craft user interfaces using low-code design elements.",
+    "lceSecurity": "[DE] Security & Governance in Low-Code",
+    "lceSecurityDesc": "[DE] Ensure compliance and secure setup on low-code platforms.",
+    "lceIntegrationApis": "[DE] Integration & APIs",
+    "lceIntegrationApisDesc": "[DE] Build API connections and external integrations.",
+    "lceAiServices": "[DE] AI Services & Low-Code",
+    "lceAiServicesDesc": "[DE] Utilize AI offerings within low-code environments.",
+    "lceMobileDev": "[DE] Mobile Low-Code Development",
+    "lceMobileDevDesc": "[DE] Hands-on mobile app creation in low-code.",
+    "lceDevops": "[DE] DevOps for Low-Code",
+    "lceDevopsDesc": "[DE] Deploy and maintain low-code solutions reliably.",
+    "lceAdvanced": "[DE] Advanced Low-Code Patterns",
+    "lceAdvancedDesc": "[DE] Explore complex patterns and enterprise strategies.",
+    "lceCapstone": "[DE] Capstone Project",
+    "lceCapstoneDesc": "[DE] Real-world project encapsulating all LCE skills.",
+    "productLaunch": "[DE] Product Launch",
+    "productLaunchDesc": "[DE] MVP launch with Webflow, Framer, and no-code landing pages.",
+    "aiWorkflow": "[DE] AI Workflow Design",
+    "aiWorkflowDesc": "[DE] AI-powered workflows using ChatGPT, Claude, and prompt engineering.",
+    "coreCS101": "[DE] CORE CS 101",
+    "coreProgPy": "[DE] CORE PROG PY",
+    "hceFront101": {
+      "title": "[DE] Frontend Engineering 101",
+      "desc": "[DE] Master the core of the web platform.",
+      "targetAudience": "[DE] Engineers wanting to master the fundamental building blocks of the web before adopting heavy frameworks. Essential for anyone wanting to build performant, accessible UIs natively.",
+      "outcomes": {
+        "o1": "[DE] Write semantic, accessible HTML5 layouts that rank high in SEO and support screen readers inherently",
+        "o2": "[DE] Style complex responsive grids and flexboxes using modern CSS3 natively without UI component libraries",
+        "o3": "[DE] Manipulate the Document Object Model (DOM) directly with high-performance Vanilla JavaScript and Event Delegation",
+        "o4": "[DE] Fetch and display dynamic data from external REST APIs using Promises/Async-Await without crashing the main thread",
+        "o5": "[DE] Configure modern module bundlers (Vite) and development servers for a rapid development lifecycle"
+      },
+      "modules": {
+        "m1": {
+          "title": "[DE] The Web Platform Architecture",
+          "desc": "[DE] How browsers parse text streams of HTML, CSS, and JS to paint pixels on a GPU.",
+          "outcomes": {
+            "o1": "[DE] Understand the Critical Rendering Path (DOM + CSSOM = Render Tree)",
+            "o2": "[DE] Write Semantic HTML for SEO and A11y out-of-the-box"
+          },
+          "topics": {
+            "t1": {
+              "title": "[DE] Semantic HTML & The Critical Rendering Path",
+              "what": "[DE] Semantic HTML uses specific tags (like <article>, <nav>, <main>) instead of generic <div> tags to give structural meaning to web content.",
+              "why": "[DE] A page built purely with <div> tags requires massive amounts of JavaScript to make accessible to screen readers, and is ranked poorly by search engines.",
+              "when": "[DE] This is the absolute first layer of any web architecture.",
+              "how": "[DE] Use native landmarks: <header>, <nav>, <main>, <section>, <article>, <aside>, and <footer>.",
+              "ecosystem": "[DE] Blink, WebKit, Gecko engines. Web Vitals: LCP, FID, CLS.",
+              "realWorld": "[DE] Google and major news sites use semantic structure for accessibility and SEO.",
+              "useCases": {
+                "u1": "[DE] SEO-friendly content heavy websites",
+                "u2": "[DE] Web accessibility for screen readers",
+                "u3": "[DE] Optimizing page load performance"
+              },
+              "advantages": {
+                "a1": "[DE] Superior accessibility and SEO",
+                "a2": "[DE] Clean, maintainable code",
+                "a3": "[DE] Performance gains"
+              },
+              "disadvantages": {
+                "d1": "[DE] Requires more semantic thought"
+              },
+              "interviewTip": "[DE] Explain the sequence: URL -> HTML -> DOM -> CSSOM -> Render Tree -> Layout -> Paint.",
+              "resumeBullet": "[DE] Optimized Critical Rendering Path for high-traffic pages, reducing LCP by 40%.",
+              "videos": {
+                "v1": {
+                  "title": "[DE] Web Performance: Critical Rendering Path",
+                  "author": "[DE] Google Chrome Developers",
+                  "views": "[DE] 300K views",
+                  "duration": "[DE] 45:20"
+                },
+                "v2": {
+                  "title": "[DE] Semantic HTML: What, Why, and How",
+                  "author": "[DE] Fireship",
+                  "views": "[DE] 500K views",
+                  "duration": "[DE] 12:15"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "[DE] Web Performance Fundamentals",
+                  "instructor": "[DE] Todd Gardner",
+                  "enrolled": "[DE] 50K+",
+                  "duration": "[DE] 4 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "[DE] Understanding the Critical Rendering Path",
+                  "publisher": "[DE] MDN Web Docs",
+                  "readTime": "[DE] 25 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "[DE] The Blank White Screen of Death",
+                  "category": "[DE] Performance Architecture",
+                  "estimatedTime": "[DE] 2 hours",
+                  "description": "[DE] A page remains white for 8 seconds on 3G connections due to a massive JS block in the <head>.",
+                  "analysis": "[DE] The DOM Parser is blocked by synchronous JS execution.",
+                  "layers": {
+                    "l1": "[DE] Network Layer",
+                    "l3": "[DE] JS Engine"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "[DE] The `defer` attribute",
+                      "justification": "[DE] Allows background download and deferred execution."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "[DE] Functionality delay of a few milliseconds"
+                  },
+                  "nfr": {
+                    "n1": "[DE] Page Load Performance (LCP)"
+                  },
+                  "kpis": {
+                    "k1": "[DE] LCP < 2.5s"
+                  },
+                  "insights": "[DE] Never block the main thread."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "[DE] CRP Sandbox",
+                  "desc": "[DE] Experiment with defer/async script loading."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "[DE] Semantic structure",
+                  "snippet": "[DE] <main><article>1</h1></article></main>"
+                },
+                "commit": "[DE] feat: implement semantic HTML5 landmarks",
+                "snippet": "[DE] <main>\n  <article>\n    <h1>Semantic Mastery</h1>\n  </article>\n</main>"
+              },
+              "community": {
+                "aiSummary": "[DE] Community focuses on the trade-offs between 'defer' and 'async'."
+              }
+            },
+            "t2": {
+              "title": "[DE] Scalable CSS Architecture",
+              "what": "[DE] Scalable CSS Architecture (BEM, SMACSS) manages large-scale styling without the 'Cascade' becoming a nightmare.",
+              "why": "[DE] Global CSS leads to side-effects where changing one style breaks 50 other pages.",
+              "when": "[DE] Crucial on Day 1 of any project.",
+              "how": "[DE] Use BEM: `.block__element--modifier` or Utility-First frameworks.",
+              "ecosystem": "[DE] PostCSS, Tailwind, BEM, CSS Modules, Styled Components.",
+              "realWorld": "[DE] Design Systems at Slack and Spotify are built on Design Tokens for instant global updates.",
+              "useCases": {
+                "u1": "[DE] Multi-tenant SaaS styling",
+                "u2": "[DE] Reducing CSS Bloat in enterprise apps",
+                "u3": "[DE] Reusable UI Component Library"
+              },
+              "advantages": {
+                "a1": "[DE] Eliminates side-effect bugs",
+                "a2": "[DE] Reduces CSS bundle sizes",
+                "a3": "[DE] Clear documentation standard"
+              },
+              "disadvantages": {
+                "d1": "[DE] BEM class names can become long."
+              },
+              "interviewTip": "[DE] Use BEM or CSS Modules to keep selectors flat and avoid specificity wars.",
+              "resumeBullet": "[DE] Architected a modular CSS system using BEM, resulting in 70% decrease in dead CSS.",
+              "videos": {
+                "v1": {
+                  "title": "[DE] BEM Methodology Explained",
+                  "author": "[DE] Coder's Guide",
+                  "views": "[DE] 100K views",
+                  "duration": "[DE] 12:15"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "[DE] Scalable CSS Architecture",
+                  "instructor": "[DE] Estelle Weyl",
+                  "enrolled": "[DE] 15K+",
+                  "duration": "[DE] 8 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "[DE] Maintainable CSS with BEM",
+                  "publisher": "[DE] BEM Official",
+                  "readTime": "[DE] 20 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "[DE] The !important War",
+                  "category": "[DE] CSS Engineering",
+                  "estimatedTime": "[DE] 2.5 hours",
+                  "description": "[DE] Modal background won't change due to global resets.",
+                  "analysis": "[DE] High specificity scores and global selectors cause the cascade to fail.",
+                  "layers": {
+                    "l1": "[DE] CSS Cascade",
+                    "l2": "[DE] Specificity Algorithms",
+                    "l3": "[DE] Shadow DOM"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "[DE] CSS Modules",
+                      "justification": "[DE] Automatically scopes classes to unique hashes."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "[DE] Higher HTML verbosity"
+                  },
+                  "nfr": {
+                    "n1": "[DE] Maintainability"
+                  },
+                  "kpis": {
+                    "k1": "[DE] Reduce !important usage to zero."
+                  },
+                  "insights": "[DE] Scope your styles or the cascade will scope you."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "[DE] BEM vs Utility Sandbox",
+                  "desc": "[DE] Compare BEM and Tailwind for a button component."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "[DE] BEM logic",
+                  "snippet": "[DE] .header { ... }\n.header__logo { ... }"
+                },
+                "commit": "[DE] style: refactor header to BEM",
+                "snippet": "[DE] .btn {\n  padding: 10px;\n}\n.btn--primary {\n  background: blue;\n}"
+              },
+              "community": {
+                "aiSummary": "[DE] CSS methodologies are essential for modern scalable applications."
+              }
+            }
+          }
+        },
+        "m2": {
+          "title": "[DE] Advanced Layout & Performance",
+          "desc": "[DE] Mastering the layout engines and optimization patterns.",
+          "outcomes": {
+            "o1": "[DE] Build complex grids without hacks",
+            "o2": "[DE] Optimize rendering performance"
+          },
+          "topics": {
+            "t1": {
+              "title": "[DE] Advanced Layouts: CSS Grid vs Flexbox Architecture",
+              "what": "[DE] Grid and Flexbox are the primary layout systems in modern front-end engineering.",
+              "why": "[DE] They allow fluid layouts without JavaScript intervention.",
+              "when": "[DE] Flex for components, Grid for page structure.",
+              "how": "[DE] Grid: `display: grid;`. Flex: `display: flex;`.",
+              "ecosystem": "[DE] Box Model, Flexbox, Grid, Responsive Design.",
+              "realWorld": "[DE] Netflix home screen uses CSS Grid for massive scale.",
+              "useCases": {
+                "u1": "[DE] Responsive dashboards",
+                "u2": "[DE] Modern application shells"
+              },
+              "advantages": {
+                "a1": "[DE] Reduces HTML nesting",
+                "a2": "[DE] True responsiveness"
+              },
+              "disadvantages": {
+                "d1": "[DE] Grid has a steep learning curve."
+              },
+              "interviewTip": "[DE] Flex is for content, Grid is for layouts.",
+              "resumeBullet": "[DE] Engineered a responsive enterprise dashboard using CSS Grid.",
+              "videos": {
+                "v1": {
+                  "title": "[DE] Flexbox vs CSS Grid",
+                  "author": "[DE] Web Dev Simplified",
+                  "views": "[DE] 1.5M views",
+                  "duration": "[DE] 20:15"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "[DE] Grid & Flexbox Masterclass",
+                  "instructor": "[DE] Wes Bos",
+                  "enrolled": "[DE] 50K+",
+                  "duration": "[DE] 12 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "[DE] A Complete Guide to Grid",
+                  "publisher": "[DE] CSS-Tricks",
+                  "readTime": "[DE] 30 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "[DE] The Fractional Layout",
+                  "category": "[DE] Responsive Architecture",
+                  "estimatedTime": "[DE] 2 hours",
+                  "description": "[DE] Static calculations fail to account for gutters properly.",
+                  "analysis": "[DE] Brittle CSS breaks when small styles change.",
+                  "layers": {
+                    "l1": "[DE] Rendering Engine",
+                    "l2": "[DE] Percentage Math"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "[DE] CSS Grid 'fr' units",
+                      "justification": "[DE] Browser handles borders and gaps internally."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "[DE] Legacy IE11 support issues"
+                  },
+                  "nfr": {
+                    "n1": "[DE] Responsiveness",
+                    "n2": "[DE] Performance"
+                  },
+                  "kpis": {
+                    "k1": "[DE] Reduce media queries by 50%."
+                  },
+                  "insights": "[DE] Let the grid engine do the math for you."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "[DE] Layout Sandbox",
+                  "desc": "[DE] Switch between Grid and Flex in real-time."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "[DE] grid rules",
+                  "snippet": "[DE] .container { display: grid; }"
+                },
+                "commit": "[DE] ui: replaced float with Grid",
+                "snippet": "[DE] .dashboard {\n  display: grid;\n  grid-template-columns: 1fr 3fr;\n}"
+              },
+              "community": {
+                "aiSummary": "[DE] Shift from float to flex/grid is a major front-end paradigm shift."
+              }
+            },
+            "t2": {
+              "title": "[DE] Advanced Browser Engines",
+              "what": "[DE] Understanding how Blink, WebKit, and Gecko handle high-performance animations and heavy computations.",
+              "why": "[DE] Different engines have different 'Jank' characteristics. Senior engineers know how to avoid the 'Layout Thrash'.",
+              "when": "[DE] Optimization phase of high-performance apps.",
+              "how": "[DE] Profile using Chrome DevTools Performance tab and use `requestAnimationFrame`.",
+              "ecosystem": "[DE] V8, JIT, Compositing, Main Thread, Worker Threads.",
+              "realWorld": "[DE] Google Search and YouTube optimize for millisecond-level paint times.",
+              "useCases": {
+                "u1": "[DE] Optimizing complex data visualizations",
+                "u2": "[DE] Ensuring 60FPS animations",
+                "u3": "[DE] Handling heavy computation without UI lag"
+              },
+              "advantages": {
+                "a1": "[DE] Near-native performance",
+                "a2": "[DE] Silky-smooth user interactions"
+              },
+              "disadvantages": {
+                "d1": "[DE] Micro-optimizations can lead to unreadable code."
+              },
+              "interviewTip": "[DE] Explain 'Layout Thrashing' as: 'Repeatedly reading and writing to the DOM in a way that forces the browser to recalculate layout multiple times per frame.'",
+              "resumeBullet": "[DE] Eliminated Layout Thrashing in a real-time analytics dashboard, improving frame-rate from 20 to 60 FPS.",
+              "videos": {
+                "v1": {
+                  "title": "[DE] How Browser Engines Work",
+                  "author": "[DE] Code Academy",
+                  "views": "[DE] 200K views",
+                  "duration": "[DE] 18:30"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "[DE] High Performance Browser Networking",
+                  "instructor": "[DE] Ilya Grigorik",
+                  "enrolled": "[DE] 100K+",
+                  "duration": "[DE] Book/Course"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "[DE] Rendering Performance",
+                  "publisher": "[DE] web.dev",
+                  "readTime": "[DE] 20 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "[DE] The Stuttering Scroll",
+                  "category": "[DE] Render Engineering",
+                  "estimatedTime": "[DE] 3 hours",
+                  "description": "[DE] A page with 1,000 images stutters and lags significantly during scrolling.",
+                  "analysis": "[DE] The browser is trying to paint too many elements at once, exhausting the 'Compositing Thread'.",
+                  "layers": {
+                    "l1": "[DE] Main Thread",
+                    "l2": "[DE] Compositor Thread",
+                    "l3": "[DE] GPU"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "[DE] will-change: transform",
+                      "justification": "[DE] Signals to the browser to promote the element to its own GPU layer."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "[DE] Excessive layer creation can crash the GPU (Layer Explosion)."
+                  },
+                  "nfr": {
+                    "n1": "[DE] Smoothness (60 FPS)"
+                  },
+                  "kpis": {
+                    "k1": "[DE] 0% Dropped Frames during scroll."
+                  },
+                  "insights": "[DE] Code for the GPU, not just the CPU."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "[DE] GPU Layer Sandbox",
+                  "desc": "[DE] Visualize browser 'Layers' and watch how they affect performance."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "[DE] perf tweaks",
+                  "snippet": "[DE] element { transform: translateZ(0); }"
+                },
+                "commit": "[DE] perf: promoted heavy elements to GPU layers",
+                "snippet": "[DE] .hero {\n  will-change: transform;\n  transform: translateZ(0);\n}"
+              },
+              "community": {
+                "aiSummary": "[DE] Rendering performance is the last frontier of front-end engineering."
+              }
+            }
+          }
+        },
+        "m3": {
+          "title": "[DE] Modern JavaScript & Interaction",
+          "desc": "[DE] Mastering the logic and interactive capabilities of the web platform.",
+          "outcomes": {
+            "o1": "[DE] Efficient event management",
+            "o2": "[DE] Deep understanding of browser APIs"
+          },
+          "topics": {
+            "t1": {
+              "title": "[DE] Dynamic Interactivity & Event Architecture",
+              "what": "[DE] Event Architecture studies how user interactions propagate through the Browser Object Model.",
+              "why": "[DE] Poorly handled listeners cause Memory Leaks and lag.",
+              "when": "[DE] Crucial forapps with massive grids or real-time dashboards.",
+              "how": "[DE] Use Event Delegation with a single parent listener.",
+              "ecosystem": "[DE] Event Loop, Bubbling, Delegation, Propagation.",
+              "realWorld": "[DE] Infinite Scroll on major social networks uses delegation for speed.",
+              "useCases": {
+                "u1": "[DE] Managing tables with 10k+ rows",
+                "u2": "[DE] Global keyboard shortcut systems"
+              },
+              "advantages": {
+                "a1": "[DE] Reduces memory footprint",
+                "a2": "[DE] Simplifies dynamic DOM injection"
+              },
+              "disadvantages": {
+                "d1": "[DE] Harder to debug event paths"
+              },
+              "interviewTip": "[DE] Event Delegation leverages the 'Bubble' phase for efficiency.",
+              "resumeBullet": "[DE] Optimized UI performance by 40% using centralized delegation architecture.",
+              "videos": {
+                "v1": {
+                  "title": "[DE] JavaScript Event Bubbling & Delegation",
+                  "author": "[DE] Traversy Media",
+                  "views": "[DE] 800K views",
+                  "duration": "[DE] 15:45"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "[DE] Modern JavaScript from the Beginning",
+                  "instructor": "[DE] Brad Traversy",
+                  "enrolled": "[DE] 200K+",
+                  "duration": "[DE] 21 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "[DE] How Event Delegation Works",
+                  "publisher": "[DE] David Walsh Blog",
+                  "readTime": "[DE] 12 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "[DE] The Memory Leak Mystery",
+                  "category": "[DE] Performance Engineering",
+                  "description": "[DE] Stock ticker crashes browser after an hour due to 4GB RAM usage.",
+                  "analysis": "[DE] Listeners are attached to every new row but never removed.",
+                  "layers": {
+                    "l1": "[DE] V8 Garbage Collector",
+                    "l2": "[DE] BOM Dispatcher"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "[DE] Chrome DevTools Memory Profiler",
+                      "justification": "[DE] Take Heap Snapshots to find sticky objects."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "[DE] Centralized logic can be more complex."
+                  },
+                  "nfr": {
+                    "n1": "[DE] Flat memory usage"
+                  },
+                  "kpis": {
+                    "k1": "[DE] Total active listeners < 50."
+                  },
+                  "insights": "[DE] Stop doing what causes leaks."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "[DE] Delegation Sandbox",
+                  "desc": "[DE] Manage 1,000 buttons with one listener."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "[DE] delegation logic",
+                  "snippet": "[DE] parent.addEventListener('click', handler);"
+                },
+                "commit": "[DE] perf: refactored widget interactivity",
+                "snippet": "[DE] document.getElementById('app-root').addEventListener('click', (e) => {\n  const target = e.target.closest('[data-action]');\n  if (!target) return;\n  \n  const action = target.dataset.action;\n  if (action === 'delete') handleDelete(target);\n});"
+              },
+              "community": {
+                "aiSummary": "[DE] Event Bubbling is a senior-level architectural tool."
+              }
+            },
+            "t2": {
+              "title": "[DE] Modern Browser APIs & Storage",
+              "what": "[DE] Browser APIs (Observer, Storage, Geolocation) provide native desktop-app capabilities.",
+              "why": "[DE] Avoid hacks like window.onscroll; use native observers for battery-efficient lazy loading.",
+              "when": "[DE] When building Offline-First or high-end animation apps.",
+              "how": "[DE] Native JS: `new IntersectionObserver()`, `localStorage`, `indexedDB`.",
+              "ecosystem": "[DE] Intersection Observer, Web Storage, IndexedDB, Web Workers.",
+              "realWorld": "[DE] Google Maps uses Geolocation for instant positioning.",
+              "useCases": {
+                "u1": "[DE] Lazy loading images",
+                "u2": "[DE] Offline drafting systems"
+              },
+              "advantages": {
+                "a1": "[DE] Zero-latency storage",
+                "a2": "[DE] Battery-efficient animation"
+              },
+              "disadvantages": {
+                "d1": "[DE] Storage limits (5MB for LocalStorage)."
+              },
+              "interviewTip": "[DE] Intersection Observer runs in the browser loop, not the JS thread.",
+              "resumeBullet": "[DE]  aumentó initial page load speed by 60% using native lazy-loading.",
+              "videos": {
+                "v1": {
+                  "title": "[DE] Intersection Observer API Explained",
+                  "author": "[DE] Web Dev Simplified",
+                  "views": "[DE] 400K views",
+                  "duration": "[DE] 14:20"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "[DE] Browser APIs Masterclass",
+                  "instructor": "[DE] Frontend Masters",
+                  "enrolled": "[DE] 30K+",
+                  "duration": "[DE] 6 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "[DE] Intersection Observer Guide",
+                  "publisher": "[DE] Chrome Developers",
+                  "readTime": "[DE] 15 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "[DE] The Infinite Jump",
+                  "category": "[DE] UX Engineering",
+                  "description": "[DE] Infinite scroll list jumps and users lose their place.",
+                  "analysis": "[DE] Sudden layout shifts due to unreserved space for new items.",
+                  "layers": {
+                    "l1": "[DE] Layout Engine",
+                    "l2": "[DE] Network Latency"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "[DE] Lighthouse CLS",
+                      "justification": "[DE] Measures physical page movement during loading."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "[DE] Skeleton loaders extra design effort"
+                  },
+                  "nfr": {
+                    "n1": "[DE] Accessibility"
+                  },
+                  "kpis": {
+                    "k1": "[DE] CLS score <= 0.1."
+                  },
+                  "insights": "[DE] Smoothness is a technical feature."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "[DE] Lazy Loader Sandbox",
+                  "desc": "[DE] Watch images load as they enter the viewport."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "[DE] lazy observer logic",
+                  "snippet": "[DE] new IntersectionObserver(handler).observe(el);"
+                },
+                "commit": "[DE] perf: implemented lazy reveals",
+                "snippet": "[DE] const obs = new IntersectionObserver((entries) => {\n  entries.forEach(entry => {\n    if (entry.isIntersecting) entry.target.src = entry.target.dataset.src;\n  });\n});"
+              },
+              "community": {
+                "aiSummary": "[DE] Browser APIs bridge the gap between document coding and platform engineering."
+              }
+            }
+          }
+        },
+        "m4": {
+          "title": "[DE] Full-Stack Integration & PWAs",
+          "desc": "[DE] Connecting to servers and building offline-ready applications.",
+          "outcomes": {
+            "o1": "[DE] Async patterns for network requests",
+            "o2": "[DE] Offline first architecture"
+          },
+          "topics": {
+            "t1": {
+              "title": "[DE] Asynchronous Engineering & Network Patterns",
+              "what": "[DE] Promises and Async/Await handle long-running operations like API calls.",
+              "why": "[DE] JavaScript is single-threaded; async keeps the UI active during fetches.",
+              "when": "[DE] Talking to databases or external APIs.",
+              "how": "[DE] Syntax: `await fetch()`. Logic: Parallel promises.",
+              "ecosystem": "[DE] Promises, Async/Await, Fetch API, Event Loop.",
+              "realWorld": "[DE] Checking bank balances happens while UI stays responsive.",
+              "useCases": {
+                "u1": "[DE] Fetching real-time data",
+                "u2": "[DE] Background profile saves"
+              },
+              "advantages": {
+                "a1": "[DE] Non-blocking UX",
+                "a2": "[DE] Parallel fetching"
+              },
+              "disadvantages": {
+                "d1": "[DE] Avoid callback hell with async/await."
+              },
+              "interviewTip": "[DE] Event Loop picks from Callback Queue to Call Stack when empty.",
+              "resumeBullet": "[DE] Reduced fetch latency by 45% using parallel promise resolution.",
+              "videos": {
+                "v1": {
+                  "title": "[DE] Async/Await in 10 Minutes",
+                  "author": "[DE] Web Dev Simplified",
+                  "views": "[DE] 2M views",
+                  "duration": "[DE] 10:15"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "[DE] Advanced Asynchronous JavaScript",
+                  "instructor": "[DE] Pluralsight",
+                  "enrolled": "[DE] 40K+",
+                  "duration": "[DE] 8 hours"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "[DE] The Event Loop",
+                  "publisher": "[DE] MDN Web Docs",
+                  "readTime": "[DE] 25 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "[DE] The Race Condition",
+                  "category": "[DE] Network Engineering",
+                  "description": "[DE] User search box shows outdated results as requests finish out of order.",
+                  "analysis": "[DE] Unpredictable asynchronous task completion order.",
+                  "layers": {
+                    "l1": "[DE] Network Transport",
+                    "l2": "[DE] Event Loop"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "[DE] AbortController",
+                      "justification": "[DE] Cancels old requests when new ones start."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "[DE] Debouncing vs Throttling choices"
+                  },
+                  "nfr": {
+                    "n1": "[DE] Reliability"
+                  },
+                  "kpis": {
+                    "k1": "[DE] Zero stale results displayed."
+                  },
+                  "insights": "[DE] Dispatch order is not arrival order."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "[DE] Async Fetch Sandbox",
+                  "desc": "[DE] Simulate slow network parallel streams."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "[DE] async patterns",
+                  "snippet": "[DE] const data = await Promise.all([...]);"
+                },
+                "commit": "[DE] network: parallelized API fetches",
+                "snippet": "[DE] const data = await Promise.all([fetch(u1), fetch(u2)]);"
+              },
+              "community": {
+                "aiSummary": "[DE] Event Loop is the engine; understand it to avoid UI lag."
+              }
+            },
+            "t2": {
+              "title": "[DE] Progressive Web Apps & Offline Architecture",
+              "what": "[DE] PWAs use Service Workers to cache files for offline availability.",
+              "why": "[DE] Mobile internet is spotty; PWAs work in tunnels or planes.",
+              "when": "[DE] Mobile-first experiences or field worker tools.",
+              "how": "[DE] Register sw.js with Stale-While-Revalidate caching.",
+              "ecosystem": "[DE] Service Workers, Manifest, Cache Storage, Offline-First.",
+              "realWorld": "[DE] Starbucks PWA increased conversion by 80%.",
+              "useCases": {
+                "u1": "[DE] Offline article reading",
+                "u2": "[DE] Syncing work in zones without internet"
+              },
+              "advantages": {
+                "a1": "[DE] Works without internet",
+                "a2": "[DE] Home screen installable",
+                "a3": "[DE] Massive return visit speed"
+              },
+              "disadvantages": {
+                "d1": "[DE] Complexity of cache invalidation."
+              },
+              "interviewTip": "[DE] PWAs are just standard apps following the PWA checklist.",
+              "resumeBullet": "[DE] Engineered an offline-first PWA for zero-connectivity environments.",
+              "videos": {
+                "v1": {
+                  "title": "[DE] PWA Tutorial",
+                  "author": "[DE] The Net Ninja",
+                  "views": "[DE] 300K views",
+                  "duration": "[DE] 25:40"
+                }
+              },
+              "moocs": {
+                "m1": {
+                  "title": "[DE] Offline Web Apps",
+                  "instructor": "[DE] Udacity",
+                  "enrolled": "[DE] 15K+",
+                  "duration": "[DE] 2 weeks"
+                }
+              },
+              "blogs": {
+                "b1": {
+                  "title": "[DE] Service Workers Guide",
+                  "publisher": "[DE] web.dev",
+                  "readTime": "[DE] 20 min"
+                }
+              },
+              "scenarios": {
+                "s1": {
+                  "title": "[DE] The Cache Invalidation Trap",
+                  "category": "[DE] Cache Engineering",
+                  "description": "[DE] Users see old versions because service workers stay active.",
+                  "analysis": "[DE] Sticky service workers don't update until tabs are closed.",
+                  "layers": {
+                    "l1": "[DE] HTTP Headers",
+                    "l2": "[DE] Service Worker Lifecycle"
+                  },
+                  "tools": {
+                    "t1": {
+                      "name": "[DE] Workbox.js",
+                      "justification": "[DE] Manages SW lifecycle automatically."
+                    }
+                  },
+                  "tradeOffs": {
+                    "t1": "[DE] Network-First vs Cache-First strategies"
+                  },
+                  "nfr": {
+                    "n1": "[DE] Reliability"
+                  },
+                  "kpis": {
+                    "k1": "[DE] Reduce version mismatch tickets to zero."
+                  },
+                  "insights": "[DE] Cache invalidation is a hard problem."
+                }
+              },
+              "playgrounds": {
+                "p1": {
+                  "title": "[DE] PWA Lifecycle Sandbox",
+                  "desc": "[DE] Simulate offline mode and caching."
+                }
+              },
+              "git": {
+                "f1": {
+                  "content": "[DE] offline logic",
+                  "snippet": "[DE] self.addEventListener('fetch', handler);"
+                },
+                "commit": "[DE] feat: offline-first support",
+                "snippet": "[DE] self.addEventListener('fetch', (e) => e.respondWith(caches.match(e.request)));"
+              },
+              "community": {
+                "aiSummary": "[DE] PWAs universalize web apps."
+              }
+            }
+          }
+        }
+      },
+      "capstone": {
+        "title": "[DE] The 'Omni-Channel' E-Commerce Engine",
+        "description": "[DE] Build a high-performance e-commerce dashboard that works offline, lazy-loads 1,000+ products, and uses a BEM design system.",
+        "skills": {
+          "s1": "[DE] Advanced Grid/Flex Layouts",
+          "s2": "[DE] PWA & Service Workers",
+          "s3": "[DE] Event Delegation Architecture",
+          "s4": "[DE] BEM Design System",
+          "s5": "[DE] Performance Profiling"
+        },
+        "steps": {
+          "step1": {
+            "title": "[DE] Atomic Design System",
+            "objective": "[DE] Build core components using BEM and CSS Variables.",
+            "skills": {
+              "s1": "[DE] CSS Variables",
+              "s2": "[DE] BEM",
+              "s3": "[DE] Responsive Typography"
+            }
+          },
+          "step2": {
+            "title": "[DE] Grid Dashboard Layout",
+            "objective": "[DE] Architect app shell using CSS Grid.",
+            "skills": {
+              "s1": "[DE] CSS Grid",
+              "s2": "[DE] Flexbox Alignment",
+              "s3": "[DE] Container Queries"
+            }
+          },
+          "step4": {
+            "title": "[DE] The Offline Edge",
+            "objective": "[DE] Implement Service Worker for catalog caching.",
+            "skills": {
+              "step5": {
+                "title": "[DE] Performance Optimization",
+                "objective": "[DE] Audit with Lighthouse and implement native lazy-loading.",
+                "skills": {
+                  "s1": "[DE] Lighthouse Audits",
+                  "s2": "[DE] Intersection Observer",
+                  "s3": "[DE] Web Vitals"
+                }
+              }
+            }
+          }
+        }
+      },
+      "hceBack101": {
+        "title": "[DE] High-Code Backend Engineering 101",
+        "duration": "[DE] 12 Weeks",
+        "languages": "[DE] English / Hindi",
+        "prerequisites": "[DE] Advanced JavaScript, Basic SQL, Networking Basics",
+        "targetAudience": "[DE] Frontend Developers moving to Fullstack, Aspiring System Architects",
+        "learningOutcomes": [
+          "[DE] Architect scalable REST & gRPC systems",
+          "[DE] Master ACID transactions and NoSQL scaling",
+          "[DE] Implement Zero-Trust security & JWT Auth",
+          "[DE] Build Event-Driven architectures with Message Queues"
+        ],
+        "m1": {
+          "title": "[DE] The Foundation: Protocols & Networking",
+          "description": "[DE] Mastering the low-level communication that powers the modern web.",
+          "outcomes": [
+            "[DE] Deep dive into OSI Model & TCP/UDP",
+            "[DE] Configure Nginx for Load Balancing & Caching",
+            "[DE] Understand DNS, SSL/TLS, and HTTP/3"
+          ],
+          "t1": {
+            "title": "[DE] OSI Model, TCP/IP & DNS",
+            "what": "[DE] The architectural framework for how data moves across the internet.",
+            "why": "[DE] Without understanding packets and frames, you cannot debug high-latency systems or secure internal networks.",
+            "when": "[DE] Mandatory for every backend developer and SRE.",
+            "how": "[DE] Using tools like Wireshark to inspect packets and dig/nslookup for DNS resolution.",
+            "ecosystem": "[DE] Wireshark, TCPDump, BIND, Route53.",
+            "realWorld": "[DE] Cloudflare uses these protocols at the edge to mitigate DDoS attacks and speed up world-wide content delivery.",
+            "u1": "[DE] Debugging network latency",
+            "u2": "[DE] Configuring public DNS",
+            "u3": "[DE] Implementing firewall rules",
+            "a1": "[DE] Standardized communication",
+            "a2": "[DE] Robust error handling",
+            "d1": "[DE] Significant overhead",
+            "d2": "[DE] Complexity in implementation",
+            "interviewTip": "[DE] Be able to explain the 3-way handshake in detail.",
+            "resumeBullet": "[DE] Optimized network packet flow, reducing latency by 15% through protocol tuning.",
+            "v1": {
+              "title": "[DE] Networking Basics",
+              "author": "[DE] NetworkChuck",
+              "views": "[DE] 3.2M views"
+            },
+            "v2": {
+              "title": "[DE] TCP vs UDP",
+              "author": "[DE] PowerCert",
+              "views": "[DE] 1.5M views"
+            },
+            "v3": {
+              "title": "[DE] DNS Explained",
+              "author": "[DE] ByteByteGo",
+              "views": "[DE] 1.2M views"
+            },
+            "v4": {
+              "title": "[DE] Advanced OSI",
+              "author": "[DE] TGL Pro",
+              "views": "[DE] 10K"
+            },
+            "mooc1": {
+              "title": "[DE] Computer Networking",
+              "instructor": "[DE] Georgia Tech",
+              "enrolled": "[DE] 1.2M+"
+            },
+            "mooc2": {
+              "title": "[DE] Network Protocols",
+              "instructor": "[DE] Udemy Expert",
+              "enrolled": "[DE] 80K+"
+            },
+            "blog1": {
+              "title": "[DE] Cloudflare OSI Guide",
+              "publisher": "[DE] Cloudflare",
+              "readTime": "[DE] 12 min"
+            },
+            "blog2": {
+              "title": "[DE] AWS Route53 Deep Dive",
+              "publisher": "[DE] AWS Blog",
+              "readTime": "[DE] 15 min"
+            },
+            "s1": {
+              "title": "[DE] Network Debugging for E-commerce",
+              "category": "[DE] Networking",
+              "estimatedTime": "[DE] 4 hours",
+              "scenarioDescription": "[DE] A checkout service is timing out during high traffic. Is it DNS, TCP congestion, or application logic?",
+              "problemAnalysis": "[DE] Bottleneck in the TCP handshake during peak load.",
+              "layer1": "[DE] Load Balancer",
+              "layer2": "[DE] Edge Network",
+              "tool1Justification": "[DE] Using Wireshark to pinpoint the exact level where packets are dropping.",
+              "tradeOff1": "[DE] Latency vs Accuracy during packet inspection.",
+              "nfr1": "[DE] Availability: 99.99%",
+              "kpi1": "[DE] Request recovery time < 500ms",
+              "keyInsights": "[DE] TCP Congestion control is a common silent performance killer."
+            }
+          },
+          "t2": {
+            "title": "[DE] Load Balancing & Reverse Proxies",
+            "what": "[DE] Distributing traffic across multiple servers to ensure high availability.",
+            "why": "[DE] One server will eventually fail. Load balancing prevents single points of failure.",
+            "when": "[DE] Whenever scaling beyond a single instance.",
+            "how": "[DE] Using Nginx, HAProxy, or Cloud Load Balancers (AWS ALB).",
+            "ecosystem": "[DE] Nginx, HAProxy, Envoy, Traefik.",
+            "realWorld": "[DE] Netflix uses Envoy proxy to manage millions of concurrent microservice calls.",
+            "u1": "[DE] Scaling web apps",
+            "u2": "[DE] SSL Termination",
+            "u3": "[DE] Blue-Green deployments",
+            "a1": "[DE] Scalability",
+            "a2": "[DE] High availability",
+            "d1": "[DE] Increased complexity",
+            "d2": "[DE] Potential bottleneck if misconfigured",
+            "interviewTip": "[DE] Understand Round Robin vs Least Connections algorithms.",
+            "resumeBullet": "[DE] Implemented Nginx reverse proxy, improving system throughput by 40%.",
+            "v1": {
+              "title": "[DE] Nginx Tutorial",
+              "author": "[DE] Traversy",
+              "views": "[DE] 1.2M views"
+            },
+            "v2": {
+              "title": "[DE] Load Balancing Explained",
+              "author": "[DE] Fireship",
+              "views": "[DE] 900K views"
+            },
+            "v3": {
+              "title": "[DE] Nginx in Production",
+              "author": "[DE] TGL Pro",
+              "views": "[DE] 14K views"
+            },
+            "mooc1": {
+              "title": "[DE] Nginx Fundamentals",
+              "instructor": "[DE] Udemy Expert",
+              "enrolled": "[DE] 45K+"
+            },
+            "blog1": {
+              "title": "[DE] AWS Load Balancing",
+              "publisher": "[DE] AWS",
+              "readTime": "[DE] 10 min"
+            },
+            "blog2": {
+              "title": "[DE] DigitalOcean Nginx Guide",
+              "publisher": "[DE] DigitalOcean",
+              "readTime": "[DE] 18 min"
+            },
+            "s1": {
+              "title": "[DE] Global Scaling for Video Streaming",
+              "category": "[DE] System Design",
+              "estimatedTime": "[DE] 6 hours",
+              "scenarioDescription": "[DE] Design a load balancing layer that routes users to the nearest healthy datacenter.",
+              "problemAnalysis": "[DE] Geographic latency is causing buffering for international users.",
+              "layer1": "[DE] Anycast DNS",
+              "layer2": "[DE] L7 Load Balancer",
+              "tool1Justification": "[DE] Nginx for its robust L7 routing and caching capabilities.",
+              "tradeOff1": "[DE] Complexity of multi-region vs cost of single region.",
+              "nfr1": "[DE] Reliability: 99.9%",
+              "kpi1": "[DE] Global latency < 100ms",
+              "keyInsights": "[DE] Health checks are the core of any reliable load balancer."
+            }
+          },
+          "t3": {
+            "title": "[DE] Distributed Systems & CAP Theorem",
+            "what": "[DE] The trade-offs between Consistency, Availability, and Partition Tolerance.",
+            "why": "[DE] In a distributed world, you cannot have all three. You must choose based on business needs.",
+            "when": "[DE] Building any system with more than one database node.",
+            "how": "[DE] By selecting the right database (SQL vs NoSQL) and consensus algorithms.",
+            "ecosystem": "[DE] DynamoDB, Spanner, Paxos, Raft.",
+            "realWorld": "[DE] Google Spanner uses TrueTime to provide global consistency at the cost of slight latency.",
+            "u1": "[DE] Choosing a database",
+            "u2": "[DE] Designing for faults",
+            "a1": "[DE] Scalability at global level",
+            "a2": "[DE] Fault tolerance",
+            "d1": "[DE] Data eventual consistency issues",
+            "interviewTip": "[DE] Explain how a bank might prioritize C over A during a network split.",
+            "resumeBullet": "[DE] Redesigned distributed architecture, ensuring 99.99% availability during network splits.",
+            "v1": {
+              "title": "[DE] CAP Theorem",
+              "author": "[DE] InterviewReady",
+              "views": "[DE] 340K views"
+            },
+            "v2": {
+              "title": "[DE] System Design Fundamentals",
+              "author": "[DE] Gayle McDowell",
+              "views": "[DE] 1.9M views"
+            },
+            "mooc1": {
+              "title": "[DE] Cloud Computing",
+              "instructor": "[DE] Illinois Uni",
+              "enrolled": "[DE] 150K+"
+            },
+            "blog1": {
+              "title": "[DE] CAP Theorem Simplified",
+              "publisher": "[DE] freeCodeCamp",
+              "readTime": "[DE] 8 min"
+            },
+            "blog2": {
+              "title": "[DE] Inside Spanner",
+              "publisher": "[DE] Google Cloud",
+              "readTime": "[DE] 10 min"
+            },
+            "s1": {
+              "title": "[DE] Consistent Hashing for Caching",
+              "category": "[DE] Distributed Systems",
+              "estimatedTime": "[DE] 5 hours",
+              "scenarioDescription": "[DE] Implement a caching layer that minimizes re-shuffling when nodes are added or removed.",
+              "problemAnalysis": "[DE] Standard modulo hashing causes 99% cache miss on node failure.",
+              "layer1": "[DE] Application Layer",
+              "layer2": "[DE] Redis Cluster",
+              "tool1Justification": "[DE] Consistent Hashing Algorithm for minimal partition movement.",
+              "tradeOff1": "[DE] Implementation complexity vs cluster stability.",
+              "nfr1": "[DE] Performance: < 10ms cache lookup",
+              "kpi1": "[DE] Cache hit ratio > 85% during scaling",
+              "keyInsights": "[DE] Consistent hashing is fundamental for scalable stateful systems."
+            }
+          }
+        },
+        "m2": {
+          "title": "[DE] API Design & Communication",
+          "description": "[DE] Building standard, high-performance interfaces.",
+          "t1": {
+            "title": "[DE] Idempotent API Design",
+            "what": "[DE] Ensuring repeated requests have the same effect as a single request.",
+            "why": "[DE] Prevents double charging or duplicate record creation during retries.",
+            "when": "[DE] Critical for payments and mutations.",
+            "how": "[DE] Using unique Idempotency-Keys and Redis locks.",
+            "ecosystem": "[DE] Stripe, Redis, HTTP PUT/PATCH.",
+            "realWorld": "[DE] Stripe uses Idempotency-Keys for every single transaction.",
+            "u1": "[DE] Financial services",
+            "u2": "[DE] Retry mechanisms",
+            "u3": "[DE] Message processing",
+            "a1": "[DE] Data safety",
+            "a2": "[DE] Client resiliency",
+            "d1": "[DE] Storage overhead",
+            "d2": "[DE] Locking overhead",
+            "interviewTip": "[DE] Explain why POST is not idempotent by default, but PUT is.",
+            "resumeBullet": "[DE] Implemented enterprise-grade idempotency, eliminating 100% of duplicate transactions.",
+            "v1": {
+              "title": "[DE] Idempotency in APIs",
+              "author": "[DE] Hussein Nasser",
+              "views": "[DE] 320K views"
+            },
+            "v2": {
+              "title": "[DE] Stripe Idempotency",
+              "author": "[DE] ByteByteGo",
+              "views": "[DE] 150K views"
+            },
+            "blog1": {
+              "title": "[DE] Stripe Idempotency Guide",
+              "publisher": "[DE] Stripe",
+              "readTime": "[DE] 10 min"
+            },
+            "blog2": {
+              "title": "[DE] Uber Idempotency",
+              "publisher": "[DE] Uber Engineering",
+              "readTime": "[DE] 12 min"
+            },
+            "s1": {
+              "title": "[DE] Designing the Idempotency Middleware",
+              "category": "[DE] Fintech",
+              "estimatedTime": "[DE] 6-8 hours",
+              "scenarioDescription": "[DE] Build a robust middleware interceptor that catches every incoming transaction request.",
+              "problemAnalysis": "[DE] Parallel race conditions in bank transfers.",
+              "layer1": "[DE] API Gateway",
+              "layer2": "[DE] Redis Cache",
+              "layer3": "[DE] DB",
+              "tool1Justification": "[DE] Redis SETNX for atomic locking.",
+              "tradeOff1": "[DE] Redis speed vs DB persistence.",
+              "nfr1": "[DE] Consistency: Zero double mutations.",
+              "kpi1": "[DE] 0% duplicates in 1M test inputs",
+              "keyInsights": "[DE] Atomic operations are your only defense against concurrency.",
+              "summary": "[DE] Focus on Redis SETNX for atomic locks.",
+              "author": "[DE] James L.",
+              "role": "[DE] Principal Engineer",
+              "level": "[DE] Expert",
+              "badge": "[DE] Cloud Architect"
+            },
+            "community": {
+              "aiSummary": "[DE] Use atomic locks, do not rely on database application-level IF statements.",
+              "s1": {
+                "summary": "[DE] Atomic locks are mandatory.",
+                "author": "[DE] James L.",
+                "role": "[DE] Principal Engineer",
+                "level": "[DE] Expert",
+                "badge": "[DE] Cloud Architect"
+              },
+              "s2": {
+                "summary": "[DE] Nginx caching can help but idempotency is app-level.",
+                "author": "[DE] Sarah A.",
+                "role": "[DE] SRE",
+                "level": "[DE] Expert",
+                "badge": "[DE] SRE"
+              }
+            },
+            "git": {
+              "commitMessage": "[DE] feat: Add redis SETNX idempotency middleware"
+            }
+          },
+          "t2": {
+            "title": "[DE] REST vs GraphQL vs gRPC",
+            "what": "[DE] Comparing different communication protocols and styles.",
+            "why": "[DE] Different constraints require different tools for optimization.",
+            "when": "[DE] When starting a new service or migrating legacy ones.",
+            "how": "[DE] Defining contracts via OpenAPI, Protobuf, or GraphQL Schemas.",
+            "ecosystem": "[DE] Apollo, Protoc, Swagger.",
+            "realWorld": "[DE] Netflix uses gRPC for internal and GraphQL for external APIs.",
+            "u1": "[DE] Public APIs (REST)",
+            "u2": "[DE] Internal microservices (gRPC)",
+            "u3": "[DE] Mobile apps (GraphQL)",
+            "a1": "[DE] Type safety (gRPC/GraphQL)",
+            "a2": "[DE] Standardization (REST)",
+            "d1": "[DE] REST over-fetching",
+            "d2": "[DE] gRPC complexity",
+            "interviewTip": "[DE] Know when to choose gRPC (performance) over REST (flexibility).",
+            "resumeBullet": "[DE] Reduced internal latency by 70% by migrating microservices to gRPC.",
+            "v1": {
+              "title": "[DE] REST vs GraphQL",
+              "author": "[DE] Hussein Nasser",
+              "views": "[DE] 500K views"
+            },
+            "v2": {
+              "title": "[DE] gRPC in 100 Seconds",
+              "author": "[DE] Fireship",
+              "views": "[DE] 300K views"
+            },
+            "mooc1": {
+              "title": "[DE] API Design",
+              "instructor": "[DE] Udemy",
+              "enrolled": "[DE] 120K+"
+            },
+            "blog1": {
+              "title": "[DE] REST Guide",
+              "publisher": "[DE] restfulapi.net",
+              "readTime": "[DE] 15 min"
+            },
+            "blog2": {
+              "title": "[DE] GraphQL Learn",
+              "publisher": "[DE] GraphQL.org",
+              "readTime": "[DE] 15 min"
+            },
+            "s1": {
+              "title": "[DE] Migrating to gRPC",
+              "category": "[DE] Architecture",
+              "estimatedTime": "[DE] 10 hours",
+              "scenarioDescription": "[DE] Migrate a high-traffic REST service to gRPC to reduce CPU overhead and latency.",
+              "problemAnalysis": "[DE] JSON parsing is consuming 40% of service CPU.",
+              "layer1": "[DE] Envoy Sidecar",
+              "layer2": "[DE] gRPC Server",
+              "tool1Justification": "[DE] Protobuf for binary serialization efficiency.",
+              "tradeOff1": "[DE] Binary vs Human-readable data.",
+              "nfr1": "[DE] Efficiency: 50% CPU reduction.",
+              "kpi1": "[DE] P99 latency < 5ms",
+              "keyInsights": "[DE] Contracts prevent breaking changes in polyglot systems.",
+              "summary": "[DE] Protobuf is significantly faster than JSON parsing.",
+              "author": "[DE] Mike K.",
+              "role": "[DE] Backend Dev",
+              "level": "[DE] Advanced",
+              "badge": "[DE] Top Solution"
+            },
+            "pg1": {
+              "title": "[DE] REST vs GraphQL",
+              "description": "[DE] Comparison of query results."
+            },
+            "git": {
+              "commitMessage": "[DE] feat: Add GraphQL schema",
+              "f1": {
+                "code": "[DE] type User { id: ID! name: String! }"
+              }
+            },
+            "community": {
+              "aiSummary": "[DE] gRPC for internal, REST/GraphQL for external.",
+              "s1": {
+                "summary": "[DE] gRPC reduced our inter-service latency drastically.",
+                "author": "[DE] Mike K.",
+                "role": "[DE] Backend Dev",
+                "level": "[DE] Advanced",
+                "badge": "[DE] Top Solution"
+              }
+            }
+          }
+        }
+      },
+      "hceDevops101": {
+        "title": "[DE] HCE DevOps 101: Linux, Docker & CI/CD Foundations",
+        "description": "[DE] Master the tools that power modern product teams: Linux fundamentals, Docker containerization, and automated CI/CD pipelines from scratch.",
+        "targetAudience": "[DE] Junior developers, fresh graduates, and anyone looking to break into DevOps & cloud engineering.",
+        "outcomes": {
+          "o1": "[DE] Administer Linux servers confidently",
+          "o2": "[DE] Build and secure Docker containers",
+          "o3": "[DE] Automate testing and deployments with GitHub Actions",
+          "o4": "[DE] Write Python/Bash scripts to automate ops tasks",
+          "o5": "[DE] Understand and use Git branching strategies for teams"
+        },
+        "m1": {
+          "title": "[DE] Linux Fundamentals & Shell Mastery",
+          "description": "[DE] Navigate, control, and automate Linux systems from the terminal.",
+          "outcomes": {
+            "o1": "[DE] Master file system navigation and permissions",
+            "o2": "[DE] Write reusable Bash scripts",
+            "o3": "[DE] Manage processes, users and system services"
+          }
+        },
+        "m2": {
+          "title": "[DE] Networking, SSH & Security Basics",
+          "description": "[DE] Secure your infrastructure by mastering SSH, firewall rules, and network diagnostics.",
+          "outcomes": {
+            "o1": "[DE] Set up secure SSH key-based authentication",
+            "o2": "[DE] Configure firewall rules with UFW/iptables",
+            "o3": "[DE] Diagnose network issues with standard CLI tools"
+          }
+        },
+        "m3": {
+          "title": "[DE] Docker & Container Architecture",
+          "description": "[DE] Package applications into reproducible, secure containers ready for any environment.",
+          "outcomes": {
+            "o1": "[DE] Write optimized multi-stage Dockerfiles",
+            "o2": "[DE] Orchestrate multi-service apps with Docker Compose",
+            "o3": "[DE] Understand container networking and volumes"
+          }
+        },
+        "m4": {
+          "title": "[DE] Python & Bash Scripting for Automation",
+          "description": "[DE] Automate repetitive operations, system checks, and data processing tasks.",
+          "outcomes": {
+            "o1": "[DE] Write Python scripts to automate DevOps tasks",
+            "o2": "[DE] Build parameterized Bash automation scripts",
+            "o3": "[DE] Schedule and monitor automated jobs with cron"
+          }
+        },
+        "m5": {
+          "title": "[DE] Git Branching Strategies & CI/CD Pipelines",
+          "description": "[DE] Implement professional Git workflows and automate your entire build-test-deploy cycle.",
+          "outcomes": {
+            "o1": "[DE] Implement Git Flow and trunk-based development",
+            "o2": "[DE] Build CI/CD pipelines that auto-test and deploy",
+            "o3": "[DE] Integrate security scanning into pipelines"
+          }
+        },
+        "t1": {
+          "title": "[DE] Linux File System, Permissions & Process Management",
+          "what": "[DE] The Linux filesystem hierarchy and its permission model (owner/group/others, read/write/execute).",
+          "why": "[DE] Every cloud server runs Linux. Without this knowledge, you cannot secure, debug, or operate any production system.",
+          "when": "[DE] Whenever you provision a server, deploy to cloud VMs, or debug production incidents.",
+          "how": "[DE] Using chmod, chown, ps, kill, and systemctl commands to control the system.",
+          "ecosystem": "[DE] Ubuntu, Debian, CentOS, AWS EC2, Google Compute Engine, systemd.",
+          "realWorld": "[DE] Netflix engineers use Linux process management to ensure their Java processes never exceed memory thresholds on EC2 instances.",
+          "useCases": {
+            "uc1": "[DE] Server hardening and access control",
+            "uc2": "[DE] Running background services with systemd",
+            "uc3": "[DE] Diagnosing CPU/memory bottlenecks in production"
+          },
+          "advantages": {
+            "ad1": "[DE] Universal: 90%+ of cloud infrastructure runs Linux",
+            "ad2": "[DE] Granular permission model prevents security breaches",
+            "ad3": "[DE] Process management enables zero-downtime deployments"
+          },
+          "disadvantages": {
+            "da1": "[DE] Steep initial learning curve for GUI-trained developers",
+            "da2": "[DE] Misconfigured permissions can lock out entire teams"
+          },
+          "interviewTip": "[DE] Be able to explain chmod 600, 755, and 777 and the security implications of each.",
+          "resumeBullet": "[DE] Hardened Linux servers using principle of least privilege, eliminating unauthorized access incidents.",
+          "videos": {
+            "v1": {
+              "title": "[DE] Linux for Hackers (and Developers)",
+              "author": "[DE] NetworkChuck",
+              "views": "[DE] 4.2M views",
+              "duration": "[DE] 18 min"
+            },
+            "v2": {
+              "title": "[DE] Linux Permissions Explained",
+              "author": "[DE] Fireship",
+              "views": "[DE] 1.1M views",
+              "duration": "[DE] 8 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "[DE] Introduction to Linux (LFS101)",
+              "instructor": "[DE] Linux Foundation",
+              "enrolled": "[DE] 600K+",
+              "duration": "[DE] 40 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "[DE] Linux File System & Permissions Deep Dive",
+              "publisher": "[DE] FreeBSD Handbook",
+              "readTime": "[DE] 20 min"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "[DE] Securing a Rogue Process on a Production API Server",
+              "description": "[DE] An unknown process is consuming 100% CPU on your production server. Identify it, kill it, and prevent it from restarting.",
+              "analysis": "[DE] Without process management skills, a single misbehaving process can bring down an entire service for all users.",
+              "tools": {
+                "j1": "[DE] chown/usermod to isolate the process user, and systemctl to remove its autostart entry."
+              },
+              "tradeOffs": {
+                "t1": "[DE] Killing immediately vs. capturing logs for post-mortem analysis."
+              },
+              "nfr": {
+                "n1": "[DE] Recovery Time Objective (RTO) < 2 minutes."
+              },
+              "kpis": {
+                "k1": "[DE] CPU usage returns to < 10% within 120 seconds."
+              },
+              "insights": "[DE] Always run services under dedicated, least-privilege system users, never as root."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "[DE] Linux File Permissions Workshop",
+              "description": "[DE] Practice chmod symbolic and octal modes to set precise access controls on sensitive files."
+            }
+          },
+          "git": {
+            "commit": "[DE] security: Isolate API service under dedicated non-root user",
+            "f1": {
+              "content": "[DE] #!/bin/bash\nuseradd -r -s /bin/false apiuser\nchown -R apiuser:apiuser /var/app\nchmod 750 /var/app"
+            },
+            "snippetCode": "[DE] #!/bin/bash\n# Harden: run as non-root\nuseradd -r apiuser\nchown -R apiuser /var/app"
+          },
+          "community": {
+            "summary": "[DE] The #1 security advice from senior engineers: never run anything as root in production. Always use dedicated service accounts with minimal permissions."
+          }
+        },
+        "t3": {
+          "title": "[DE] Docker: Containerizing Applications with Multi-Stage Builds",
+          "what": "[DE] Docker packages your application and all its dependencies into a portable, isolated unit called a container.",
+          "why": "[DE] Eliminates 'it works on my machine' forever. Containers are identical across dev, staging, and production environments.",
+          "when": "[DE] For every application you deploy to the cloud or share across a team.",
+          "how": "[DE] Writing Dockerfiles, building images, and running containers with docker run and docker compose.",
+          "ecosystem": "[DE] Docker Hub, GitHub Container Registry, AWS ECR, Google Artifact Registry, BuildKit.",
+          "realWorld": "[DE] Airbnb containerized 1,000+ microservices with Docker to achieve consistent deployments across data centers worldwide.",
+          "useCases": {
+            "uc1": "[DE] Packaging Node.js/Python/Go apps for cloud deployment",
+            "uc2": "[DE] Running local development environments identically across teams",
+            "uc3": "[DE] Creating minimal, secure production images with multi-stage builds"
+          },
+          "advantages": {
+            "ad1": "[DE] Environment parity eliminates deployment surprises",
+            "ad2": "[DE] Multi-stage builds slash image size by 80%+",
+            "ad3": "[DE] Instant container spin-up vs. minutes for VMs"
+          },
+          "disadvantages": {
+            "da1": "[DE] Container security requires expertise (secret management, image scanning)",
+            "da2": "[DE] Not ideal for stateful applications without proper persistent volume management"
+          },
+          "interviewTip": "[DE] Explain the difference between COPY and ADD in a Dockerfile, and why multi-stage builds reduce attack surface.",
+          "resumeBullet": "[DE] Reduced production Docker image sizes by 75% using multi-stage builds, cutting deployment times by 40%.",
+          "videos": {
+            "v1": {
+              "title": "[DE] Docker Tutorial for Beginners",
+              "author": "[DE] TechWorld with Nana",
+              "views": "[DE] 9.1M views",
+              "duration": "[DE] 1 hr 47 min"
+            },
+            "v2": {
+              "title": "[DE] Multi-Stage Docker Builds",
+              "author": "[DE] Fireship",
+              "views": "[DE] 710K views",
+              "duration": "[DE] 7 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "[DE] Docker Mastery: with Kubernetes & Swarm",
+              "instructor": "[DE] Bret Fisher",
+              "enrolled": "[DE] 200K+",
+              "duration": "[DE] 19 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "[DE] 10 Docker Image Security Best Practices",
+              "publisher": "[DE] Snyk",
+              "readTime": "[DE] 14 min"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "[DE] Shrink a 2GB Production Docker Image to Under 200MB",
+              "description": "[DE] Your team's Docker image takes 8 minutes to push/pull during deployments, slowing down releases.",
+              "analysis": "[DE] Large images contain build tools, dev dependencies, and source maps — none of which should exist in production.",
+              "layers": {
+                "l1": "[DE] Build Stage (Node/npm/compiler)",
+                "l2": "[DE] Runtime Stage (Alpine + dist only)",
+                "l3": "[DE] Final Image Push to Registry"
+              },
+              "tools": {
+                "j1": "[DE] BuildKit's cache mounts and multi-stage COPY allow surgical control over what ends up in the production layer."
+              },
+              "tradeOffs": {
+                "t1": "[DE] Build complexity increases slightly, but deployment speed and security improve drastically."
+              },
+              "nfr": {
+                "n1": "[DE] Image size < 200MB. Pull time < 45 seconds on standard network."
+              },
+              "kpis": {
+                "k1": "[DE] Deployment pipeline duration reduced from 12 to 4 minutes."
+              },
+              "insights": "[DE] Use .dockerignore aggressively. Your node_modules, .git folder, and tests should NEVER be in a production image."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "[DE] Multi-Stage Dockerfile Builder",
+              "description": "[DE] Write a two-stage Dockerfile that compiles a Node.js app and copies only the artifact to an Alpine runtime image."
+            }
+          },
+          "git": {
+            "commit": "[DE] perf: Implement multi-stage Docker build, reducing image from 2.1GB to 185MB",
+            "f1": {
+              "content": "[DE] FROM node:20-alpine AS build\nWORKDIR /app\nCOPY package.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build\n\nFROM node:20-alpine\nCOPY --from=build /app/dist ./dist\nCMD [\"node\", \"dist/index.js\"]"
+            },
+            "snippetCode": "[DE] # Only the final stage ends up in the production image\nFROM node:20-alpine AS build\nRUN npm run build\n\nFROM node:20-alpine AS runner\nCOPY --from=build /app/dist ./dist"
+          },
+          "community": {
+            "summary": "[DE] Senior engineers consistently emphasize: build for production, not development. Multi-stage builds and .dockerignore files are non-negotiable in any professional CI/CD pipeline."
+          }
+        },
+        "t5": {
+          "title": "[DE] Git Branching Strategies & GitHub Actions CI/CD",
+          "what": "[DE] Structured Git workflows (Git Flow, Trunk-Based) and automated pipelines that test, build, and deploy code on every push.",
+          "why": "[DE] Manual deployments cause 80% of outages. CI/CD eliminates human error and ensures only tested code reaches production.",
+          "when": "[DE] Immediately on any team project with more than one developer or any project with a staging/production environment.",
+          "how": "[DE] Using Git branches for feature isolation and YAML-based GitHub Actions workflows to automate the entire software lifecycle.",
+          "ecosystem": "[DE] GitHub Actions, GitLab CI, Jenkins, CircleCI, ArgoCD, SonarQube.",
+          "realWorld": "[DE] Amazon deploys to production an average of every 11.6 seconds. This is only possible with fully automated CI/CD pipelines.",
+          "useCases": {
+            "uc1": "[DE] Automatically running tests on every pull request",
+            "uc2": "[DE] Deploying to staging on merge to main, production on tag",
+            "uc3": "[DE] Scanning for secrets and vulnerabilities before code ships"
+          },
+          "advantages": {
+            "ad1": "[DE] Automated testing catches regressions before production",
+            "ad2": "[DE] Consistent, repeatable deployments across all environments",
+            "ad3": "[DE] Audit trail of every deployment with rollback capability"
+          },
+          "disadvantages": {
+            "da1": "[DE] Initial pipeline setup requires significant time investment",
+            "da2": "[DE] Complex pipelines become fragile if not properly maintained"
+          },
+          "interviewTip": "[DE] Be able to explain the difference between continuous delivery (human approval gate) and continuous deployment (fully automated).",
+          "resumeBullet": "[DE] Designed and implemented a GitHub Actions CI/CD pipeline reducing release cycle from weekly to multiple times per day.",
+          "videos": {
+            "v1": {
+              "title": "[DE] GitHub Actions Tutorial",
+              "author": "[DE] TechWorld with Nana",
+              "views": "[DE] 3.7M views",
+              "duration": "[DE] 32 min"
+            },
+            "v2": {
+              "title": "[DE] CI/CD Explained in 100 Seconds",
+              "author": "[DE] Fireship",
+              "views": "[DE] 1.8M views",
+              "duration": "[DE] 2 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "[DE] GitHub Actions: Automate Your Workflow",
+              "instructor": "[DE] GitHub Skills",
+              "enrolled": "[DE] 500K+",
+              "duration": "[DE] 6 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "[DE] Continuous Delivery & DevOps: Google's Blueprint",
+              "publisher": "[DE] Google Cloud",
+              "readTime": "[DE] 15 min"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "[DE] A Secret Credential Was Committed to the Public GitHub Repo",
+              "description": "[DE] A developer accidentally committed an AWS API key to a public repository. It has been live for 3 hours and costs are spiking.",
+              "analysis": "[DE] Once a secret is committed to Git history, it persists even after deletion from HEAD. The attacker already likely scraped it.",
+              "layers": {
+                "l1": "[DE] Git History Sanitization (BFG/git-filter-repo)",
+                "l2": "[DE] Secret Rotation (AWS IAM Key Revocation)",
+                "l3": "[DE] Prevention (Pre-commit hooks, TruffleHog CI scan)"
+              },
+              "tools": {
+                "j1": "[DE] TruffleHog scans Git history for high-entropy strings to detect secrets committed at any point in history."
+              },
+              "tradeOffs": {
+                "t1": "[DE] Rewriting Git history (force push) is disruptive to team but mandatory after a credential leak."
+              },
+              "nfr": {
+                "n1": "[DE] MTTR (Mean Time to Remediation) < 15 minutes for leaked credential."
+              },
+              "kpis": {
+                "k1": "[DE] Zero recurrence of secret leaks after implementing pre-commit hooks."
+              },
+              "insights": "[DE] Secrets should NEVER live in code. Use a secret manager (AWS Secrets Manager, HashiCorp Vault) from day one."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "[DE] Build Your First CI Pipeline",
+              "description": "[DE] Write a GitHub Actions workflow that installs dependencies, runs tests, and reports results on every push to main."
+            }
+          },
+          "git": {
+            "commit": "[DE] ci: Add GitHub Actions pipeline with test, build, and security scan stages",
+            "f1": {
+              "content": "[DE] name: CI\non:\n  push:\n    branches: [main]\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: npm install && npm test"
+            },
+            "snippetCode": "[DE] # Full CI/CD Pipeline\nname: CI\non: [push]\njobs:\n  pipeline:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: npm install\n      - run: npm test\n      - run: npm run build"
+          },
+          "community": {
+            "summary": "[DE] The single highest-ROI engineering investment for most teams is building a reliable CI pipeline. It is universally considered non-negotiable for professional software development."
+          }
+        },
+        "capstone": {
+          "title": "[DE] Operation: Production-Ready Cloud App",
+          "description": "[DE] Deploy a full-stack application to a cloud VM using Docker, secure it with HTTPS, and automate its deployment via GitHub Actions.",
+          "skills": {
+            "s1": "[DE] Linux Server Administration",
+            "s2": "[DE] Docker & Docker Compose",
+            "s3": "[DE] GitHub Actions CI/CD",
+            "s4": "[DE] Nginx Reverse Proxy",
+            "s5": "[DE] SSL/TLS Certificate Management"
+          },
+          "steps": {
+            "p1": {
+              "title": "[DE] Provision & Harden a Cloud VM",
+              "description": "[DE] Create an Ubuntu server on AWS/GCP, configure SSH keys, set up a non-root user, and configure UFW firewall rules."
+            },
+            "p2": {
+              "title": "[DE] Containerize the Application",
+              "description": "[DE] Write a multi-stage Dockerfile and docker-compose.yml for the web app and its database."
+            },
+            "p3": {
+              "title": "[DE] Configure Nginx & SSL",
+              "description": "[DE] Set up Nginx as a reverse proxy and obtain a free Let's Encrypt SSL certificate."
+            },
+            "p4": {
+              "title": "[DE] Build the CI/CD Pipeline",
+              "description": "[DE] Create a GitHub Actions workflow that automatically builds, tests, and SSHs into the server to deploy the new container on every push to main."
+            }
+          }
+        }
+      },
+      "hceDevops201": {
+        "title": "[DE] HCE DevOps 201: Kubernetes, Terraform & SRE Mastery",
+        "description": "[DE] Operate planet-scale infrastructure. Master Terraform IaC, Kubernetes orchestration, Prometheus/Grafana observability, and Site Reliability Engineering principles.",
+        "targetAudience": "[DE] Mid-to-senior DevOps engineers, SREs, and platform engineers with solid Docker and CI/CD experience.",
+        "outcomes": {
+          "o1": "[DE] Provision multi-region cloud infrastructure with Terraform",
+          "o2": "[DE] Deploy and operate production-grade Kubernetes clusters",
+          "o3": "[DE] Build world-class observability stacks with Prometheus & Grafana",
+          "o4": "[DE] Define and enforce SLOs/SLIs/Error Budgets as an SRE",
+          "o5": "[DE] Implement GitOps workflows with ArgoCD"
+        },
+        "m1": {
+          "title": "[DE] Terraform & Infrastructure as Code",
+          "description": "[DE] Declare, version-control, and automate the provisioning of entire cloud environments.",
+          "outcomes": {
+            "o1": "[DE] Write production-grade Terraform modules",
+            "o2": "[DE] Manage remote state safely with S3/GCS backends",
+            "o3": "[DE] Handle infrastructure drift and state conflicts"
+          }
+        },
+        "m2": {
+          "title": "[DE] Kubernetes: Pods, Deployments & Advanced Scheduling",
+          "description": "[DE] Deploy, autoscale, and operate containerized applications on enterprise Kubernetes clusters.",
+          "outcomes": {
+            "o1": "[DE] Deploy with zero-downtime rolling updates",
+            "o2": "[DE] Configure HPA and VPA for intelligent autoscaling",
+            "o3": "[DE] Manage cluster resources with namespaces and quotas"
+          }
+        },
+        "m3": {
+          "title": "[DE] SRE: Observability, SLOs & Incident Management",
+          "description": "[DE] Build the monitoring, alerting, and incident management systems that ensure reliability.",
+          "outcomes": {
+            "o1": "[DE] Instrument applications with Prometheus metrics",
+            "o2": "[DE] Define actionable SLIs, SLOs, and Error Budgets",
+            "o3": "[DE] Build multi-stage incident response runbooks"
+          }
+        },
+        "m4": {
+          "title": "[DE] GitOps & ArgoCD",
+          "description": "[DE] Make your Git repository the single source of truth for all cluster state.",
+          "outcomes": {
+            "o1": "[DE] Deploy applications declaratively with ArgoCD",
+            "o2": "[DE] Implement automated drift detection and reconciliation",
+            "o3": "[DE] Build blue-green and canary deployments with Argo Rollouts"
+          }
+        },
+        "m5": {
+          "title": "[DE] Security, Secrets & Zero-Trust Networking",
+          "description": "[DE] Harden your Kubernetes cluster with RBAC, network policies, and enterprise secret management.",
+          "outcomes": {
+            "o1": "[DE] Implement Kubernetes RBAC and Pod Security Standards",
+            "o2": "[DE] Manage secrets with HashiCorp Vault and External Secrets Operator",
+            "o3": "[DE] Enforce zero-trust networking with Calico network policies"
+          }
+        },
+        "t1": {
+          "title": "[DE] Terraform: Infrastructure as Code from Zero to Production",
+          "what": "[DE] Terraform allows you to define cloud infrastructure (VMs, databases, networks) in declarative code that can be versioned, reviewed, and automated.",
+          "why": "[DE] Manual cloud console clicks are not reproducible, auditable, or teamwork-friendly. IaC is the standard in every mature engineering organization.",
+          "when": "[DE] Any time you provision cloud resources — from a single EC2 instance to a multi-region, multi-cloud architecture.",
+          "how": "[DE] Writing .tf files with providers, resources, and outputs. Running terraform plan, apply, and destroy to manage the lifecycle.",
+          "ecosystem": "[DE] Terraform, Terragrunt, Pulumi, AWS CDK, OpenTofu, Atlantis, Spacelift.",
+          "realWorld": "[DE] Stripe manages tens of thousands of cloud resources across multiple providers with Terraform, ensuring every change is peer-reviewed before applying.",
+          "useCases": {
+            "uc1": "[DE] Spinning up identical staging and production environments",
+            "uc2": "[DE] Automating disaster recovery infrastructure provisioning",
+            "uc3": "[DE] Managing multi-region deployments consistently"
+          },
+          "advantages": {
+            "ad1": "[DE] Full infrastructure reproducibility eliminates environment drift",
+            "ad2": "[DE] Peer-reviewed infrastructure changes via pull requests",
+            "ad3": "[DE] One command to destroy and rebuild entire environments"
+          },
+          "disadvantages": {
+            "da1": "[DE] State file management is complex at scale and requires locking",
+            "da2": "[DE] Steep learning curve for teams unfamiliar with declarative paradigms"
+          },
+          "interviewTip": "[DE] Explain the difference between terraform plan and apply, and why remote state with locking is mandatory in team environments.",
+          "resumeBullet": "[DE] Migrated 200+ manual cloud resources to Terraform IaC, reducing provisioning time from 3 days to 15 minutes.",
+          "videos": {
+            "v1": {
+              "title": "[DE] Terraform Course for Beginners",
+              "author": "[DE] freeCodeCamp",
+              "views": "[DE] 2.8M views",
+              "duration": "[DE] 2 hr 45 min"
+            },
+            "v2": {
+              "title": "[DE] Terraform in 100 Seconds",
+              "author": "[DE] Fireship",
+              "views": "[DE] 900K views",
+              "duration": "[DE] 2 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "[DE] Terraform: Getting Started",
+              "instructor": "[DE] Pluralsight",
+              "enrolled": "[DE] 150K+",
+              "duration": "[DE] 9 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "[DE] A Comprehensive Guide to Terraform",
+              "publisher": "[DE] Gruntwork",
+              "readTime": "[DE] 25 min"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "[DE] Recovering from a Terraform State Corruption After a Team Conflict",
+              "description": "[DE] Two engineers applied changes simultaneously without state locking, causing conflicting state entries and failed applies.",
+              "analysis": "[DE] Without remote state locking (e.g., DynamoDB for S3 backends), race conditions corrupt the state file, making Terraform unusable until manually resolved.",
+              "tools": {
+                "j1": "[DE] terraform import allows re-importing manually created resources back into state, while terraform state rm removes orphaned references."
+              },
+              "tradeOffs": {
+                "t1": "[DE] Manual state surgery is risky and requires team coordination. Investing 30 mins in proper remote state setup saves hours of future incidents."
+              },
+              "nfr": {
+                "n1": "[DE] State backend must have 100% consistency guarantees (strong read-after-write, atomic locks)."
+              },
+              "kpis": {
+                "k1": "[DE] Zero state corruption incidents after enabling DynamoDB locking."
+              },
+              "insights": "[DE] Remote state with locking is non-negotiable on any team. Use S3 + DynamoDB (AWS) or GCS (GCP) from day one, not later."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "[DE] Provision Your First Cloud Resource with Terraform",
+              "description": "[DE] Write a Terraform config to provision an EC2 instance and an S3 bucket, then output the public IP."
+            }
+          },
+          "git": {
+            "commit": "[DE] infra: Add Terraform module for production VPC and EC2 autoscaling group",
+            "f1": {
+              "content": "[DE] terraform {\n  backend \"s3\" {\n    bucket         = \"my-terraform-state\"\n    key            = \"prod/terraform.tfstate\"\n    region         = \"us-east-1\"\n    dynamodb_table = \"terraform-locks\"\n  }\n}"
+            },
+            "snippetCode": "[DE] # Always use remote state in team environments\nterraform {\n  backend \"s3\" {\n    bucket         = \"my-tfstate\"\n    dynamodb_table = \"tf-locks\"\n  }\n}"
+          },
+          "community": {
+            "summary": "[DE] The Terraform community is united on one principle: never use local state in production. Remote backends with locking prevent data loss and team conflicts universally."
+          }
+        },
+        "t2": {
+          "title": "[DE] Kubernetes: Deployments, Services & Horizontal Pod Autoscaling",
+          "what": "[DE] Kubernetes (K8s) is the industry-standard container orchestration platform for deploying, scaling, and managing containerized applications.",
+          "why": "[DE] Without orchestration, you manually manage server capacity, deployments, and failures. Kubernetes automates all of this at scale.",
+          "when": "[DE] When your application needs high availability, autoscaling, or multi-service deployment on more than one server.",
+          "how": "[DE] Declaring Kubernetes manifests (Deployments, Services, ConfigMaps, HPAs) in YAML and applying them with kubectl.",
+          "ecosystem": "[DE] kubectl, Helm, Kustomize, ArgoCD, GKE, EKS, AKS, k3s.",
+          "realWorld": "[DE] Google runs billions of containers per week internally on Borg (Kubernetes' predecessor). Every major tech company now runs Kubernetes in production.",
+          "useCases": {
+            "uc1": "[DE] Auto-scaling to handle traffic spikes during product launches",
+            "uc2": "[DE] Rolling zero-downtime deployments for microservices",
+            "uc3": "[DE] Resource management ensuring no single pod starves others"
+          },
+          "advantages": {
+            "ad1": "[DE] Self-healing: automatically restarts failed containers",
+            "ad2": "[DE] Declarative: desired state is always enforced",
+            "ad3": "[DE] Rich ecosystem of CNCF tools integrates natively"
+          },
+          "disadvantages": {
+            "da1": "[DE] Significant operational complexity — not appropriate for simple apps",
+            "da2": "[DE] Networking model is complex and requires deep understanding to debug"
+          },
+          "interviewTip": "[DE] Explain the difference between a Pod and a Deployment, and what HPA (Horizontal Pod Autoscaler) monitors to scale.",
+          "resumeBullet": "[DE] Deployed and operated production Kubernetes workloads serving 50K+ concurrent users with 99.95% uptime.",
+          "videos": {
+            "v1": {
+              "title": "[DE] Kubernetes Tutorial for Beginners",
+              "author": "[DE] TechWorld with Nana",
+              "views": "[DE] 11M views",
+              "duration": "[DE] 3 hr 18 min"
+            },
+            "v2": {
+              "title": "[DE] Kubernetes Explained in 6 Minutes",
+              "author": "[DE] Fireship",
+              "views": "[DE] 2.4M views",
+              "duration": "[DE] 6 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "[DE] Certified Kubernetes Administrator (CKA) Prep",
+              "instructor": "[DE] Linux Foundation",
+              "enrolled": "[DE] 200K+",
+              "duration": "[DE] 35 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "[DE] Kubernetes Objects: The Definitive Guide",
+              "publisher": "[DE] Kubernetes.io",
+              "readTime": "[DE] 30 min"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "[DE] Diagnosing an OOMKilled Pod Crash Loop in Production",
+              "description": "[DE] A critical payments microservice is stuck in a CrashLoopBackOff. kubectl describe shows OOMKilled reason.",
+              "analysis": "[DE] The container's memory limit in its Kubernetes resource spec is too low for peak-traffic request volumes, causing the OOM killer to terminate it.",
+              "tools": {
+                "j1": "[DE] Resource Quotas and LimitRanges establish memory floors and ceilings. VPA (Vertical Pod Autoscaler) can then recommend optimal resource values based on actual usage."
+              },
+              "tradeOffs": {
+                "t1": "[DE] Setting limits too high wastes cluster resources. Too low causes OOMKills. Always profile production workloads to find the correct range."
+              },
+              "nfr": {
+                "n1": "[DE] P99 latency < 200ms. Zero OOMKill events under normal load."
+              },
+              "kpis": {
+                "k1": "[DE] Pod restarts per hour = 0 after tuning resource limits."
+              },
+              "insights": "[DE] Always set both requests AND limits. Requests guarantee scheduling, limits prevent noisy neighbor problems."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "[DE] Deploy a 3-Replica App & Autoscale It",
+              "description": "[DE] Write a Deployment and HPA manifest, then simulate CPU load to watch Kubernetes scale your pods automatically."
+            }
+          },
+          "git": {
+            "commit": "[DE] feat: Add HPA for payments service with CPU and memory scale targets",
+            "f1": {
+              "content": "[DE] apiVersion: autoscaling/v2\nkind: HorizontalPodAutoscaler\nmetadata:\n  name: payments-hpa\nspec:\n  scaleTargetRef:\n    apiVersion: apps/v1\n    kind: Deployment\n    name: payments\n  minReplicas: 2\n  maxReplicas: 20\n  metrics:\n  - type: Resource\n    resource:\n      name: cpu\n      target:\n        type: Utilization\n        averageUtilization: 70"
+            },
+            "snippetCode": "[DE] # HPA: Scale when CPU exceeds 70%\nscaleTargetRef:\n  name: payments\nminReplicas: 2\nmaxReplicas: 20\nmetrics:\n- type: Resource\n  resource:\n    name: cpu\n    target:\n      averageUtilization: 70"
+          },
+          "community": {
+            "summary": "[DE] Senior SREs emphasize: start with sane resource limits and let VPA guide you to production-accurate values. Most Kubernetes incidents are caused by misconfigured resource limits, not application bugs."
+          }
+        },
+        "t3": {
+          "title": "[DE] SRE: SLIs, SLOs, Error Budgets & Prometheus Alerting",
+          "what": "[DE] Site Reliability Engineering (SRE) is the practice of applying software engineering rigor to operations — measuring, automating, and improving reliability systematically.",
+          "why": "[DE] Without SLOs and error budgets, reliability is a feeling, not a number. SRE turns reliability into a measurable, actionable product requirement.",
+          "when": "[DE] In any service that has a user-facing API or user experience that must meet defined availability guarantees.",
+          "how": "[DE] Defining SLIs (metrics), SLOs (targets), and Error Budgets (tolerance), then alerting on burn rate with Prometheus and Grafana.",
+          "ecosystem": "[DE] Prometheus, Grafana, OpenTelemetry, PagerDuty, Alertmanager, Google SRE Book.",
+          "realWorld": "[DE] Google's SRE teams use Error Budgets to balance reliability vs. feature velocity. If the error budget is exhausted, no new features ship until reliability is restored.",
+          "useCases": {
+            "uc1": "[DE] Setting formal uptime SLAs for enterprise customers",
+            "uc2": "[DE] Building automated burn-rate alerts before SLO breach",
+            "uc3": "[DE] Using error budgets to make data-driven release decisions"
+          },
+          "advantages": {
+            "ad1": "[DE] Transforms reliability from intuition to measurable engineering",
+            "ad2": "[DE] Error budgets create objective, team-wide reliability contracts",
+            "ad3": "[DE] Burn-rate alerting catches problems before customers notice"
+          },
+          "disadvantages": {
+            "da1": "[DE] Requires buy-in from product, engineering, and leadership",
+            "da2": "[DE] Complex PromQL queries and alerting rules require expertise to tune correctly"
+          },
+          "interviewTip": "[DE] Be able to calculate an error budget: if SLO is 99.9%, the error budget for 30 days is 0.1% of 43,200 minutes = 43.2 minutes of allowed downtime.",
+          "resumeBullet": "[DE] Implemented SLI/SLO framework and Prometheus burn-rate alerting, reducing MTTD (Mean Time to Detect) from 30 min to 90 seconds.",
+          "videos": {
+            "v1": {
+              "title": "[DE] Site Reliability Engineering Explained",
+              "author": "[DE] Google Cloud",
+              "views": "[DE] 720K views",
+              "duration": "[DE] 12 min"
+            },
+            "v2": {
+              "title": "[DE] Prometheus for Beginners",
+              "author": "[DE] TechWorld with Nana",
+              "views": "[DE] 1.4M views",
+              "duration": "[DE] 27 min"
+            }
+          },
+          "moocs": {
+            "m1": {
+              "title": "[DE] Site Reliability Engineering: Measuring and Managing Reliability",
+              "instructor": "[DE] Google / Coursera",
+              "enrolled": "[DE] 120K+",
+              "duration": "[DE] 18 hours"
+            }
+          },
+          "blogs": {
+            "b1": {
+              "title": "[DE] Google SRE Book (Free Online)",
+              "publisher": "[DE] Google",
+              "readTime": "[DE] Book"
+            }
+          },
+          "scenarios": {
+            "s1": {
+              "title": "[DE] Your SLO Is Breaching — Diagnose the Error Budget Burn",
+              "description": "[DE] Grafana alerts show the 30-day error budget for the checkout API will be exhausted in 4 hours at the current burn rate, but no obvious errors appear in logs.",
+              "analysis": "[DE] High burn rate can indicate latency degradation (slow responses that still return 200 OK) rather than outright errors — a silent failure mode that standard error-rate alerts miss.",
+              "tools": {
+                "j1": "[DE] Prometheus multi-window, multi-burn-rate alerting as defined in the Google SRE Workbook catches both short-term spikes and slow, sustained degradation."
+              },
+              "tradeOffs": {
+                "t1": "[DE] Tight SLOs (99.99%) leave almost no room for releases. Loose SLOs (99%) are too permissive. Choose based on customer contracts and incident impact."
+              },
+              "nfr": {
+                "n1": "[DE] P99 latency < 500ms. Error rate < 0.1% of all requests over 30 days."
+              },
+              "kpis": {
+                "k1": "[DE] MTTD < 2 minutes. Error budget consumption < 50% per month."
+              },
+              "insights": "[DE] Alerting on error rate alone is insufficient. Always alert on error budget BURN RATE using both short (1h) and long (6h) windows simultaneously."
+            }
+          },
+          "playgrounds": {
+            "p1": {
+              "title": "[DE] Write PromQL SLO Queries",
+              "description": "[DE] Use PromQL to calculate the ratio of good requests to total requests and express it as a 28-day rolling SLO percentage."
+            }
+          },
+          "git": {
+            "commit": "[DE] sre: Add multi-window burn-rate alerting rules for checkout SLO",
+            "f1": {
+              "content": "[DE] groups:\n- name: slo.rules\n  rules:\n  - alert: CheckoutHighBurnRate\n    expr: |\n      (\n        sum(rate(http_requests_total{job=\"checkout\",code!~\"5..\"}[5m]))\n        /\n        sum(rate(http_requests_total{job=\"checkout\"}[5m]))\n      ) < 0.999\n    for: 2m\n    labels:\n      severity: page"
+            },
+            "snippetCode": "[DE] # Alert when error rate exceeds SLO threshold\nexpr: |\n  sum(rate(http_requests_total{code!~\"5..\"}[5m]))\n  / sum(rate(http_requests_total[5m])) < 0.999"
+          },
+          "community": {
+            "summary": "[DE] The SRE community agrees: the most valuable insight from Google's SRE book is the Error Budget concept. It creates a shared language between product (who wants features) and ops (who wants reliability). Both sides win when the budget is managed well."
+          }
+        },
+        "capstone": {
+          "title": "[DE] Operation: Planet-Scale Platform",
+          "description": "[DE] Provision a production-grade, multi-environment Kubernetes platform on a major cloud provider using Terraform, deploy a microservice with ArgoCD, and build a full observability stack.",
+          "skills": {
+            "s1": "[DE] Terraform Modules & Remote State",
+            "s2": "[DE] Kubernetes Workloads & Networking",
+            "s3": "[DE] Helm Chart Authoring",
+            "s4": "[DE] Prometheus/Grafana Observability",
+            "s5": "[DE] ArgoCD GitOps"
+          },
+          "steps": {
+            "p1": {
+              "title": "[DE] Provision the Kubernetes Cluster with Terraform",
+              "description": "[DE] Write Terraform modules to create a GKE/EKS cluster with separate node pools for system and application workloads."
+            },
+            "p2": {
+              "title": "[DE] Deploy the Application with ArgoCD",
+              "description": "[DE] Connect ArgoCD to a Git repository and configure automated sync to deploy the microservice Helm chart on every commit."
+            },
+            "p3": {
+              "title": "[DE] Build the Observability Stack",
+              "description": "[DE] Deploy Prometheus and Grafana using the kube-prometheus-stack Helm chart and create custom dashboards for your service's SLIs."
+            },
+            "p4": {
+              "title": "[DE] Define and Alert on SLOs",
+              "description": "[DE] Write Prometheus alerting rules based on multi-window burn rate to page on-call when the error budget is being consumed too fast."
+            }
+          }
+        }
+      },
+      "explore": {
+        "title": "[DE] Explore",
+        "heading": "[DE] Explore your career path",
+        "subheading": "[DE] Browse by category, role, program or course — your journey, your way.",
+        "recommended": "[DE] Recommended",
+        "byCategory": "[DE] By Category",
+        "byRole": "[DE] By Role",
+        "allPrograms": "[DE] All Programs",
+        "allCourses": "[DE] All Courses",
+        "searchPlaceholder": "[DE] Search roles, programs or courses...",
+        "roles": "[DE] Roles",
+        "programs": "[DE] Programs",
+        "courses": "[DE] Courses",
+        "program": "[DE] Program",
+        "backToCategories": "[DE] Back to Categories",
+        "personalizedFor": "[DE] Personalized for",
+        "basedOnProfile": "[DE] Based on your skill level, goals and preferences.",
+        "recommendedRoles": "[DE] Recommended Job Roles",
+        "recommendedPrograms": "[DE] Recommended Programs",
+        "highDemand": "[DE] High Demand",
+        "mediumDemand": "[DE] Medium Demand",
+        "lowDemand": "[DE] Low Demand",
+        "beginner": "[DE] Beginner",
+        "intermediate": "[DE] Intermediate",
+        "advanced": "[DE] Advanced",
+        "programObjective": "[DE] Program Objective",
+        "skillsGained": "[DE] Skills You'll Gain",
+        "prerequisites": "[DE] Prerequisites",
+        "coursesIncluded": "[DE] Courses Included",
+        "enrollInProgram": "[DE] Enroll in Full Program",
+        "orEnrollIndividual": "[DE] Or enroll in individual courses above",
+        "requiredSkills": "[DE] Required Skills",
+        "careerRoadmap": "[DE] Career Roadmap",
+        "startCareerPath": "[DE] Start This Career Path"
+      }
+    }
+  }
+}

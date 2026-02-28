@@ -1,30 +1,30 @@
 export interface Module {
   id: string;
-  title: string;
+  titleKey: string;
   topics: Topic[];
 }
 
 export interface Topic {
   id: string;
-  title: string;
-  what: string;
-  why: string;
-  when: string;
-  how: string;
-  ecosystem: string;
-  realWorld: string;
-  useCases: string[];
-  advantages: string[];
-  disadvantages: string[];
-  interviewTip: string;
-  resumeBullet: string;
+  titleKey: string;
+  whatKey: string;
+  whyKey: string;
+  whenKey: string;
+  howKey: string;
+  ecosystemKey: string;
+  realWorldKey: string;
+  useCasesKeys: string[];
+  advantagesKeys: string[];
+  disadvantagesKeys: string[];
+  interviewTipKey: string;
+  resumeBulletKey: string;
   codeSnippet?: { language: string; code: string; output: string };
-  scenario?: { title: string; context: string; constraints: string[]; deliverable: string };
+  scenario?: { titleKey: string; contextKey: string; constraintsKeys: string[]; deliverableKey: string };
 }
 
 export interface VideoResource {
   id: string;
-  title: string;
+  titleKey: string;
   channel: string;
   duration: string;
   views: string;
@@ -35,32 +35,32 @@ export interface VideoResource {
 
 export interface BlogResource {
   id: string;
-  title: string;
+  titleKey: string;
   source: string;
-  readTime: string;
+  readTimeKey: string;
   url: string;
-  tag: string;
+  tagKey: string;
 }
 
 export interface MOOCResource {
   id: string;
-  title: string;
+  titleKey: string;
   platform: string;
   instructor: string;
   rating: number;
   enrolled: string;
-  duration: string;
+  durationKey: string;
 }
 
 export interface ScenarioProblem {
   id: string;
-  title: string;
+  titleKey: string;
   difficulty: "Easy" | "Medium" | "Hard" | "Expert";
-  domain: string;
-  context: string;
-  constraints: string[];
-  deliverable: string;
-  estimatedTime: string;
+  domainKey: string;
+  contextKey: string;
+  constraintsKeys: string[];
+  deliverableKey: string;
+  estimatedTimeKey: string;
 }
 
 export interface CommunityUser {
@@ -75,11 +75,11 @@ export interface CommunitySolution {
   id: string;
   userId: string;
   scenarioId: string;
-  summary: string;
+  summaryKey: string;
   upvotes: number;
   comments: number;
   isTopSolution: boolean;
-  createdAt: string;
+  createdAtKey: string;
 }
 
 // Mock community users
@@ -94,98 +94,84 @@ export const communityUsers: CommunityUser[] = [
 ];
 
 export const communitySolutions: CommunitySolution[] = [
-  { id: "cs1", userId: "u4", scenarioId: "sp1", summary: "Implemented horizontal scaling with Redis session store and JWT rotation. Used connection pooling with PgBouncer for database optimization.", upvotes: 142, comments: 23, isTopSolution: true, createdAt: "2 days ago" },
-  { id: "cs2", userId: "u1", scenarioId: "sp1", summary: "Built microservice architecture with gRPC inter-service communication. Added circuit breaker pattern for resilience.", upvotes: 89, comments: 15, isTopSolution: false, createdAt: "3 days ago" },
-  { id: "cs3", userId: "u3", scenarioId: "sp1", summary: "Deployed on Kubernetes with HPA. Used Istio service mesh for traffic management and mTLS.", upvotes: 76, comments: 11, isTopSolution: false, createdAt: "5 days ago" },
-  { id: "cs4", userId: "u2", scenarioId: "sp1", summary: "Monolith-first approach with clean module boundaries. Added event sourcing for audit trail.", upvotes: 54, comments: 8, isTopSolution: false, createdAt: "1 week ago" },
-  { id: "cs5", userId: "u6", scenarioId: "sp1", summary: "Event-driven architecture using Kafka. Implemented CQRS for read/write separation.", upvotes: 41, comments: 6, isTopSolution: false, createdAt: "1 week ago" },
+  { id: "cs1", userId: "u4", scenarioId: "sp1", summaryKey: "solutions.cs1.summary", upvotes: 142, comments: 23, isTopSolution: true, createdAtKey: "common.time.2daysAgo" },
+  { id: "cs2", userId: "u1", scenarioId: "sp1", summaryKey: "solutions.cs2.summary", upvotes: 89, comments: 15, isTopSolution: false, createdAtKey: "common.time.3daysAgo" },
+  { id: "cs3", userId: "u3", scenarioId: "sp1", summaryKey: "solutions.cs3.summary", upvotes: 76, comments: 11, isTopSolution: false, createdAtKey: "common.time.5daysAgo" },
+  { id: "cs4", userId: "u2", scenarioId: "sp1", summaryKey: "solutions.cs4.summary", upvotes: 54, comments: 8, isTopSolution: false, createdAtKey: "common.time.1weekAgo" },
+  { id: "cs5", userId: "u6", scenarioId: "sp1", summaryKey: "solutions.cs5.summary", upvotes: 41, comments: 6, isTopSolution: false, createdAtKey: "common.time.1weekAgo" },
 ];
 
-// Topic resources
 export const topicVideos: Record<string, VideoResource[]> = {
   t1: [
-    { id: "v1", title: "Backend Engineering Explained — Complete Roadmap 2024", channel: "Fireship", duration: "12:34", views: "2.1M", thumbnail: "", type: "public" },
-    { id: "v2", title: "How Backend Systems Actually Work", channel: "ByteByteGo", duration: "18:22", views: "890K", thumbnail: "", type: "public" },
-    { id: "v3", title: "Production Backend Architecture Deep Dive", channel: "TGL Academy", duration: "45:10", views: "12K", thumbnail: "", type: "premium" },
-    { id: "v4", title: "Building Your First Backend — Hands-on Workshop", channel: "TGL Academy", duration: "1:22:00", views: "8.4K", thumbnail: "", type: "premium" },
+    { id: "v1", titleKey: "trackContent.t1.videos.v1.title", channel: "Fireship", duration: "12:34", views: "2.1M", thumbnail: "", type: "public" },
+    { id: "v2", titleKey: "trackContent.t1.videos.v2.title", channel: "ByteByteGo", duration: "18:22", views: "890K", thumbnail: "", type: "public" },
+    { id: "v3", titleKey: "trackContent.t1.videos.v3.title", channel: "TGL Academy", duration: "45:10", views: "12K", thumbnail: "", type: "premium" },
+    { id: "v4", titleKey: "trackContent.t1.videos.v4.title", channel: "TGL Academy", duration: "1:22:00", views: "8.4K", thumbnail: "", type: "premium" },
   ],
   t2: [
-    { id: "v5", title: "RESTful API Design — Best Practices", channel: "Traversy Media", duration: "32:15", views: "1.5M", thumbnail: "", type: "public" },
-    { id: "v6", title: "API Design is Hard — Here's Why", channel: "ThePrimeagen", duration: "14:08", views: "620K", thumbnail: "", type: "public" },
-    { id: "v7", title: "Enterprise API Architecture Masterclass", channel: "TGL Academy", duration: "58:30", views: "15K", thumbnail: "", type: "premium" },
-    { id: "v8", title: "Idempotent APIs & Error Handling Patterns", channel: "TGL Academy", duration: "42:00", views: "9.2K", thumbnail: "", type: "premium" },
+    { id: "v5", titleKey: "trackContent.t2.videos.v5.title", channel: "Traversy Media", duration: "32:15", views: "1.5M", thumbnail: "", type: "public" },
+    { id: "v6", titleKey: "trackContent.t2.videos.v6.title", channel: "ThePrimeagen", duration: "14:08", views: "620K", thumbnail: "", type: "public" },
+    { id: "v7", titleKey: "trackContent.t2.videos.v7.title", channel: "TGL Academy", duration: "58:30", views: "15K", thumbnail: "", type: "premium" },
+    { id: "v8", titleKey: "trackContent.t2.videos.v8.title", channel: "TGL Academy", duration: "42:00", views: "9.2K", thumbnail: "", type: "premium" },
   ],
   t3: [
-    { id: "v9", title: "SQL Tutorial — Full Course for Beginners", channel: "freeCodeCamp", duration: "4:20:00", views: "18M", thumbnail: "", type: "public" },
-    { id: "v10", title: "PostgreSQL Performance Tuning", channel: "Hussein Nasser", duration: "28:45", views: "340K", thumbnail: "", type: "public" },
-    { id: "v11", title: "Advanced SQL Query Optimization", channel: "TGL Academy", duration: "1:05:00", views: "11K", thumbnail: "", type: "premium" },
-    { id: "v12", title: "Database Indexing Strategies Workshop", channel: "TGL Academy", duration: "52:00", views: "7.8K", thumbnail: "", type: "premium" },
+    { id: "v9", titleKey: "trackContent.t3.videos.v9.title", channel: "freeCodeCamp", duration: "4:20:00", views: "18M", thumbnail: "", type: "public" },
+    { id: "v10", titleKey: "trackContent.t3.videos.v10.title", channel: "Hussein Nasser", duration: "28:45", views: "340K", thumbnail: "", type: "public" },
+    { id: "v11", titleKey: "trackContent.t3.videos.v11.title", channel: "TGL Academy", duration: "1:05:00", views: "11K", thumbnail: "", type: "premium" },
+    { id: "v12", titleKey: "trackContent.t3.videos.v12.title", channel: "TGL Academy", duration: "52:00", views: "7.8K", thumbnail: "", type: "premium" },
   ],
 };
 
 export const topicBlogs: Record<string, BlogResource[]> = {
   t1: [
-    { id: "b1", title: "The Complete Guide to Backend Development in 2024", source: "roadmap.sh", readTime: "15 min", url: "#", tag: "Guide" },
-    { id: "b2", title: "Backend Architecture at Scale — Lessons from Netflix", source: "Netflix Tech Blog", readTime: "12 min", url: "#", tag: "Case Study" },
-    { id: "b3", title: "Choosing the Right Backend Language", source: "Dev.to", readTime: "8 min", url: "#", tag: "Opinion" },
+    { id: "b1", titleKey: "trackContent.t1.blogs.b1.title", source: "roadmap.sh", readTimeKey: "common.readTime.15min", url: "#", tagKey: "common.tags.guide" },
+    { id: "b2", titleKey: "trackContent.t1.blogs.b2.title", source: "Netflix Tech Blog", readTimeKey: "common.readTime.12min", url: "#", tagKey: "common.tags.caseStudy" },
+    { id: "b3", titleKey: "trackContent.t1.blogs.b3.title", source: "Dev.to", readTimeKey: "common.readTime.8min", url: "#", tagKey: "common.tags.opinion" },
   ],
   t2: [
-    { id: "b4", title: "Best Practices for Designing a Pragmatic RESTful API", source: "Vinay Sahni", readTime: "20 min", url: "#", tag: "Guide" },
-    { id: "b5", title: "How Stripe Builds Beautiful APIs", source: "Stripe Engineering", readTime: "10 min", url: "#", tag: "Case Study" },
-    { id: "b6", title: "API Versioning — The Complete Guide", source: "Postman Blog", readTime: "7 min", url: "#", tag: "Tutorial" },
+    { id: "b4", titleKey: "trackContent.t2.blogs.b4.title", source: "Vinay Sahni", readTimeKey: "common.readTime.20min", url: "#", tagKey: "common.tags.guide" },
+    { id: "b5", titleKey: "trackContent.t2.blogs.b5.title", source: "Stripe Engineering", readTimeKey: "common.readTime.10min", url: "#", tagKey: "common.tags.caseStudy" },
+    { id: "b6", titleKey: "trackContent.t2.blogs.b6.title", source: "Postman Blog", readTimeKey: "common.readTime.7min", url: "#", tagKey: "common.tags.tutorial" },
   ],
   t3: [
-    { id: "b7", title: "Use the Index, Luke — A Guide to Database Performance", source: "use-the-index-luke.com", readTime: "25 min", url: "#", tag: "Deep Dive" },
-    { id: "b8", title: "How Instagram Scaled PostgreSQL to 1B+ Users", source: "Instagram Engineering", readTime: "14 min", url: "#", tag: "Case Study" },
-    { id: "b9", title: "SQL vs NoSQL — The Complete Comparison", source: "MongoDB Blog", readTime: "9 min", url: "#", tag: "Comparison" },
+    { id: "b7", titleKey: "trackContent.t3.blogs.b7.title", source: "use-the-index-luke.com", readTimeKey: "common.readTime.25min", url: "#", tagKey: "common.tags.deepDive" },
+    { id: "b8", titleKey: "trackContent.t3.blogs.b8.title", source: "Instagram Engineering", readTimeKey: "common.readTime.14min", url: "#", tagKey: "common.tags.caseStudy" },
+    { id: "b9", titleKey: "trackContent.t3.blogs.b9.title", source: "MongoDB Blog", readTimeKey: "common.readTime.9min", url: "#", tagKey: "common.tags.comparison" },
   ],
 };
 
 export const topicMOOCs: Record<string, MOOCResource[]> = {
   t1: [
-    { id: "mc1", title: "Server-side Development with NodeJS, Express and MongoDB", platform: "Coursera", instructor: "Jogesh Muppala", rating: 4.7, enrolled: "120K+", duration: "52 hours" },
-    { id: "mc2", title: "The Complete Backend Bootcamp", platform: "Udemy", instructor: "Dr. Angela Yu", rating: 4.8, enrolled: "350K+", duration: "65 hours" },
+    { id: "mc1", titleKey: "trackContent.t1.moocs.mc1.title", platform: "Coursera", instructor: "Jogesh Muppala", rating: 4.7, enrolled: "120K+", durationKey: "common.duration.52hours" },
+    { id: "mc2", titleKey: "trackContent.t1.moocs.mc2.title", platform: "Udemy", instructor: "Dr. Angela Yu", rating: 4.8, enrolled: "350K+", durationKey: "common.duration.65hours" },
   ],
   t2: [
-    { id: "mc3", title: "Designing RESTful APIs", platform: "Udacity", instructor: "Google Engineers", rating: 4.5, enrolled: "85K+", duration: "8 hours" },
-    { id: "mc4", title: "API Design & Fundamentals of Google Cloud Apigee", platform: "Coursera", instructor: "Google Cloud", rating: 4.6, enrolled: "45K+", duration: "24 hours" },
+    { id: "mc3", titleKey: "trackContent.t2.moocs.mc3.title", platform: "Udacity", instructor: "Google Engineers", rating: 4.5, enrolled: "85K+", durationKey: "common.duration.8hours" },
+    { id: "mc4", titleKey: "trackContent.t2.moocs.mc4.title", platform: "Coursera", instructor: "Google Cloud", rating: 4.6, enrolled: "45K+", durationKey: "common.duration.24hours" },
   ],
   t3: [
-    { id: "mc5", title: "Databases and SQL for Data Science", platform: "Coursera", instructor: "IBM", rating: 4.6, enrolled: "280K+", duration: "20 hours" },
-    { id: "mc6", title: "The Complete SQL Bootcamp", platform: "Udemy", instructor: "Jose Portilla", rating: 4.7, enrolled: "680K+", duration: "9 hours" },
+    { id: "mc5", titleKey: "trackContent.t3.moocs.mc5.title", platform: "Coursera", instructor: "IBM", rating: 4.6, enrolled: "280K+", durationKey: "common.duration.20hours" },
+    { id: "mc6", titleKey: "trackContent.t3.moocs.mc6.title", platform: "Udemy", instructor: "Jose Portilla", rating: 4.7, enrolled: "680K+", durationKey: "common.duration.9hours" },
   ],
 };
 
 export const topicScenarios: Record<string, ScenarioProblem[]> = {
   t1: [
-    { id: "sp1", title: "Design a User Service for a Fintech Startup", difficulty: "Medium", domain: "Fintech", context: "A fintech startup needs a user management service handling registration, auth, profile updates, and account deactivation. Expected: 5K DAU → 100K in 12 months.", constraints: ["Data privacy compliance", "Social OAuth + email/password", "Concurrent profile update safety", "Horizontally scalable"], deliverable: "Working user service with REST API, JWT auth, rate limiting, and DB migrations.", estimatedTime: "4-6 hours" },
-    { id: "sp2", title: "Build a Notification Engine", difficulty: "Hard", domain: "SaaS", context: "Multi-channel notification system supporting email, SMS, push, and in-app notifications with user preferences and rate limiting.", constraints: ["Sub-second delivery for critical alerts", "User preference management", "Template engine with i18n", "Deduplication logic"], deliverable: "Notification service with priority queuing and delivery tracking.", estimatedTime: "6-8 hours" },
-    { id: "sp3", title: "Rate Limiter Service", difficulty: "Medium", domain: "Infrastructure", context: "Build a distributed rate limiter that protects APIs from abuse while allowing legitimate burst traffic.", constraints: ["Support sliding window algorithm", "Redis-backed for distributed use", "Configurable per-endpoint rules", "Must handle 50K req/sec"], deliverable: "Rate limiter middleware with dashboard for rule management.", estimatedTime: "3-4 hours" },
-    { id: "sp4", title: "Health Check & Monitoring System", difficulty: "Easy", domain: "DevOps", context: "Implement comprehensive health checks for a microservices backend with dependency monitoring.", constraints: ["Check DB, cache, queue connections", "Expose /health and /ready endpoints", "Aggregate service health", "Alert on degradation"], deliverable: "Health check service with status dashboard.", estimatedTime: "2-3 hours" },
-    { id: "sp5", title: "Multi-Tenant Configuration Service", difficulty: "Expert", domain: "Enterprise", context: "Build a configuration management service supporting multi-tenancy with feature flags, A/B testing, and gradual rollouts.", constraints: ["Real-time config propagation", "Audit trail for all changes", "Rollback capability", "SDK for 3 languages"], deliverable: "Config service with admin UI and client SDKs.", estimatedTime: "8-12 hours" },
-    { id: "sp6", title: "API Gateway Implementation", difficulty: "Hard", domain: "Platform", context: "Design and implement an API gateway that handles routing, auth, rate limiting, and request transformation.", constraints: ["Plugin architecture", "Circuit breaker pattern", "Request/response transformation", "Analytics collection"], deliverable: "API gateway with plugin system and admin console.", estimatedTime: "6-10 hours" },
-    { id: "sp7", title: "Background Job Processing System", difficulty: "Medium", domain: "Infrastructure", context: "Build a reliable background job processing system with retry logic, dead letter queues, and job prioritization.", constraints: ["At-least-once delivery", "Configurable retry strategies", "Job dependency chains", "Monitoring dashboard"], deliverable: "Job processor with web UI for monitoring.", estimatedTime: "4-6 hours" },
+    { id: "sp1", titleKey: "trackContent.t1.scenarios.sp1.title", difficulty: "Medium", domainKey: "common.domains.fintech", contextKey: "trackContent.t1.scenarios.sp1.context", constraintsKeys: ["trackContent.t1.scenarios.sp1.constraints.c1", "trackContent.t1.scenarios.sp1.constraints.c2", "trackContent.t1.scenarios.sp1.constraints.c3", "trackContent.t1.scenarios.sp1.constraints.c4"], deliverableKey: "trackContent.t1.scenarios.sp1.deliverable", estimatedTimeKey: "common.duration.4-6hours" },
+    { id: "sp2", titleKey: "trackContent.t1.scenarios.sp2.title", difficulty: "Hard", domainKey: "common.domains.saas", contextKey: "trackContent.t1.scenarios.sp2.context", constraintsKeys: ["trackContent.t1.scenarios.sp2.constraints.c1", "trackContent.t1.scenarios.sp2.constraints.c2", "trackContent.t1.scenarios.sp2.constraints.c3", "trackContent.t1.scenarios.sp2.constraints.c4"], deliverableKey: "trackContent.t1.scenarios.sp2.deliverable", estimatedTimeKey: "common.duration.6-8hours" },
   ],
   t2: [
-    { id: "sp8", title: "Design an E-Commerce API", difficulty: "Hard", domain: "E-Commerce", context: "Design the API for a marketplace with sellers listing products and buyers placing orders.", constraints: ["Pagination and filtering", "Concurrent inventory updates", "API versioning", "Rate limiting per API key"], deliverable: "OpenAPI spec + implementation of 5 core endpoints.", estimatedTime: "5-7 hours" },
-    { id: "sp9", title: "Build a Webhook System", difficulty: "Medium", domain: "Platform", context: "Design a webhook delivery system with retry logic, signature verification, and delivery tracking.", constraints: ["Exponential backoff", "HMAC signature verification", "Delivery logs with replay", "Concurrent delivery"], deliverable: "Webhook service with management API.", estimatedTime: "4-5 hours" },
-    { id: "sp10", title: "GraphQL API for Social Platform", difficulty: "Hard", domain: "Social", context: "Build a GraphQL API for a social platform supporting feeds, connections, and real-time updates.", constraints: ["N+1 query prevention", "Cursor-based pagination", "Subscriptions for real-time", "Query complexity limiting"], deliverable: "GraphQL server with schema, resolvers, and subscriptions.", estimatedTime: "6-8 hours" },
-    { id: "sp11", title: "API Documentation Generator", difficulty: "Easy", domain: "Developer Tools", context: "Build an automated API documentation system from code annotations.", constraints: ["Support OpenAPI 3.0", "Interactive try-it-out", "Auto-generate examples", "Version comparison"], deliverable: "Doc generator with hosted output.", estimatedTime: "3-4 hours" },
-    { id: "sp12", title: "REST API Testing Framework", difficulty: "Medium", domain: "Testing", context: "Build a framework for automated API contract testing.", constraints: ["Schema validation", "Snapshot testing", "CI/CD integration", "Report generation"], deliverable: "Testing framework with CLI and CI integration.", estimatedTime: "4-6 hours" },
+    { id: "sp8", titleKey: "trackContent.t2.scenarios.sp8.title", difficulty: "Hard", domainKey: "common.domains.ecommerce", contextKey: "trackContent.t2.scenarios.sp8.context", constraintsKeys: ["trackContent.t2.scenarios.sp8.constraints.c1", "trackContent.t2.scenarios.sp8.constraints.c2", "trackContent.t2.scenarios.sp8.constraints.c3", "trackContent.t2.scenarios.sp8.constraints.c4"], deliverableKey: "trackContent.t2.scenarios.sp8.deliverable", estimatedTimeKey: "common.duration.5-7hours" },
   ],
   t3: [
-    { id: "sp13", title: "Database Migration System", difficulty: "Medium", domain: "Infrastructure", context: "Build a database migration tool supporting forward/backward migrations with safety checks.", constraints: ["Zero-downtime migrations", "Rollback support", "Migration dependency graph", "Dry-run mode"], deliverable: "Migration tool with CLI and safety checks.", estimatedTime: "4-5 hours" },
-    { id: "sp14", title: "Query Performance Analyzer", difficulty: "Hard", domain: "DBA", context: "Build a tool that analyzes slow queries, suggests indexes, and visualizes execution plans.", constraints: ["Parse EXPLAIN output", "Suggest optimal indexes", "Track query patterns over time", "Alert on regressions"], deliverable: "Query analyzer with recommendation engine.", estimatedTime: "6-8 hours" },
-    { id: "sp15", title: "Data Access Layer Generator", difficulty: "Medium", domain: "Developer Tools", context: "Build a type-safe data access layer generator from database schemas.", constraints: ["Support PostgreSQL", "Generate TypeScript types", "Include query builder", "Handle relations"], deliverable: "Code generator with CLI.", estimatedTime: "5-6 hours" },
-    { id: "sp16", title: "Connection Pool Manager", difficulty: "Hard", domain: "Infrastructure", context: "Build a smart connection pool manager with health checks and auto-scaling.", constraints: ["Dynamic pool sizing", "Connection health monitoring", "Read/write splitting", "Metrics export"], deliverable: "Connection pool library with monitoring.", estimatedTime: "5-7 hours" },
-    { id: "sp17", title: "Database Backup & Recovery System", difficulty: "Expert", domain: "Operations", context: "Build automated backup system with point-in-time recovery.", constraints: ["Incremental backups", "Cross-region replication", "Encryption at rest", "Recovery testing"], deliverable: "Backup service with recovery procedures.", estimatedTime: "8-10 hours" },
+    { id: "sp13", titleKey: "trackContent.t3.scenarios.sp13.title", difficulty: "Medium", domainKey: "common.domains.infrastructure", contextKey: "trackContent.t3.scenarios.sp13.context", constraintsKeys: ["trackContent.t3.scenarios.sp13.constraints.c1", "trackContent.t3.scenarios.sp13.constraints.c2", "trackContent.t3.scenarios.sp13.constraints.c3", "trackContent.t3.scenarios.sp13.constraints.c4"], deliverableKey: "trackContent.t3.scenarios.sp13.deliverable", estimatedTimeKey: "common.duration.4-5hours" },
   ],
 };
 
-export const topicCodeExamples: Record<string, { title: string; language: string; code: string; output: string }[]> = {
+export const topicCodeExamples: Record<string, { titleKey: string; language: string; code: string; output: string }[]> = {
   t1: [
     {
-      title: "Express Server with Middleware",
+      titleKey: "trackContent.t1.codeExamples.ex1.title",
       language: "typescript",
       code: `import express from 'express';
 import cors from 'cors';
@@ -218,7 +204,7 @@ app.listen(3000, () => console.log('Server on :3000'));`,
 → { "status": "ok", "uptime": 42.5 }`
     },
     {
-      title: "Error Handling Pattern",
+      titleKey: "trackContent.t1.codeExamples.ex2.title",
       language: "typescript",
       code: `class AppError extends Error {
   constructor(
@@ -246,7 +232,7 @@ throw new AppError(404, 'User not found');
 → { "error": { "message": "User not found", "code": "UNKNOWN" } }`
     },
     {
-      title: "Environment Configuration",
+      titleKey: "trackContent.t1.codeExamples.ex3.title",
       language: "typescript",
       code: `import { z } from 'zod';
 
@@ -268,7 +254,7 @@ export const env = envSchema.parse(process.env);`,
   ],
   t2: [
     {
-      title: "Idempotent POST Endpoint",
+      titleKey: "trackContent.t2.codeExamples.ex1.title",
       language: "typescript",
       code: `app.post('/api/v1/orders', validateBody(OrderSchema), async (req, res) => {
   const idempotencyKey = req.headers['idempotency-key'];
@@ -298,7 +284,7 @@ export const env = envSchema.parse(process.env);`,
 }`
     },
     {
-      title: "Pagination Middleware",
+      titleKey: "trackContent.t2.codeExamples.ex2.title",
       language: "typescript",
       code: `function paginate(defaultLimit = 20, maxLimit = 100) {
   return (req, res, next) => {
@@ -330,7 +316,7 @@ app.get('/api/products', paginate(), async (req, res) => {
 }`
     },
     {
-      title: "Rate Limiter Middleware",
+      titleKey: "trackContent.t2.codeExamples.ex3.title",
       language: "typescript",
       code: `import rateLimit from 'express-rate-limit';
 
@@ -354,7 +340,7 @@ GET /api/data → 429 Too Many Requests
   ],
   t3: [
     {
-      title: "Complex JOIN Query",
+      titleKey: "trackContent.t3.codeExamples.ex1.title",
       language: "sql",
       code: `-- Find top 10 customers by order value with their last order date
 SELECT 
@@ -379,7 +365,7 @@ LIMIT 10;`,
  ...`
     },
     {
-      title: "Index Strategy Analysis",
+      titleKey: "trackContent.t3.codeExamples.ex2.title",
       language: "sql",
       code: `-- Before: Sequential scan (800ms)
 EXPLAIN ANALYZE
@@ -451,24 +437,24 @@ export const knowledgeGraphEdges: GraphEdge[] = [
 
 // Capstone project data
 export interface CapstonePhase {
-  module: string;
-  title: string;
-  description: string;
-  components: string[];
+  moduleKey: string;
+  titleKey: string;
+  descriptionKey: string;
+  componentsKeys: string[];
   completed: boolean;
 }
 
 export const backendCapstone = {
-  title: "Build a Scalable Telemetry System",
-  description: "A production-grade telemetry ingestion and analytics platform that processes millions of events per second.",
+  titleKey: "capstone.backend.title",
+  descriptionKey: "capstone.backend.description",
   phases: [
-    { module: "Foundations", title: "Core API Server", description: "Set up Express server with health checks, error handling, and structured logging.", components: ["Express Server", "Health Endpoint", "Error Handler", "Logger"], completed: true },
-    { module: "HTTP & REST", title: "Telemetry Ingestion API", description: "Build RESTful endpoints for event ingestion with validation, batching, and idempotency.", components: ["POST /events", "Batch Endpoint", "Idempotency Keys", "Rate Limiter"], completed: true },
-    { module: "Database", title: "Event Storage Layer", description: "Design schema for time-series event data with proper indexing and partitioning.", components: ["PostgreSQL Schema", "TimescaleDB Extension", "Partitioned Tables", "Query Layer"], completed: false },
-    { module: "Caching", title: "Redis Caching Layer", description: "Add Redis for session caching, rate limiting counters, and hot query results.", components: ["Redis Client", "Cache Middleware", "Rate Limit Store", "Query Cache"], completed: false },
-    { module: "Message Queues", title: "Event Processing Pipeline", description: "Implement Kafka for async event processing with consumer groups.", components: ["Kafka Producer", "Consumer Group", "Dead Letter Queue", "Retry Logic"], completed: false },
-    { module: "Scaling", title: "Horizontal Scaling", description: "Add load balancing, connection pooling, and auto-scaling configuration.", components: ["Nginx Config", "PgBouncer", "K8s HPA", "Health Probes"], completed: false },
-    { module: "System Design", title: "Full Architecture", description: "Complete the system with monitoring, alerting, and disaster recovery.", components: ["Prometheus Metrics", "Grafana Dashboards", "PagerDuty Alerts", "DR Runbook"], completed: false },
+    { moduleKey: "capstone.backend.p1.module", titleKey: "capstone.backend.p1.title", descriptionKey: "capstone.backend.p1.desc", componentsKeys: ["capstone.backend.p1.c1", "capstone.backend.p1.c2", "capstone.backend.p1.c3", "capstone.backend.p1.c4"], completed: true },
+    { moduleKey: "capstone.backend.p2.module", titleKey: "capstone.backend.p2.title", descriptionKey: "capstone.backend.p2.desc", componentsKeys: ["capstone.backend.p2.c1", "capstone.backend.p2.c2", "capstone.backend.p2.c3", "capstone.backend.p2.c4"], completed: true },
+    { moduleKey: "capstone.backend.p3.module", titleKey: "capstone.backend.p3.title", descriptionKey: "capstone.backend.p3.desc", componentsKeys: ["capstone.backend.p3.c1", "capstone.backend.p3.c2", "capstone.backend.p3.c3", "capstone.backend.p3.c4"], completed: false },
+    { moduleKey: "capstone.backend.p4.module", titleKey: "capstone.backend.p4.title", descriptionKey: "capstone.backend.p4.desc", componentsKeys: ["capstone.backend.p4.c1", "capstone.backend.p4.c2", "capstone.backend.p4.c3", "capstone.backend.p4.c4"], completed: false },
+    { moduleKey: "capstone.backend.p5.module", titleKey: "capstone.backend.p5.title", descriptionKey: "capstone.backend.p5.desc", componentsKeys: ["capstone.backend.p5.c1", "capstone.backend.p5.c2", "capstone.backend.p5.c3", "capstone.backend.p5.c4"], completed: false },
+    { moduleKey: "capstone.backend.p6.module", titleKey: "capstone.backend.p6.title", descriptionKey: "capstone.backend.p6.desc", componentsKeys: ["capstone.backend.p6.c1", "capstone.backend.p6.c2", "capstone.backend.p6.c3", "capstone.backend.p6.c4"], completed: false },
+    { moduleKey: "capstone.backend.p7.module", titleKey: "capstone.backend.p7.title", descriptionKey: "capstone.backend.p7.desc", componentsKeys: ["capstone.backend.p7.c1", "capstone.backend.p7.c2", "capstone.backend.p7.c3", "capstone.backend.p7.c4"], completed: false },
   ] as CapstonePhase[],
 };
 
@@ -492,22 +478,22 @@ export const gitFiles: Record<string, { name: string; content: string }[]> = {
 export const backendModules: Module[] = [
   {
     id: "m1",
-    title: "Foundations of Backend Engineering",
+    titleKey: "trackContent.m1.title",
     topics: [
       {
         id: "t1",
-        title: "What is Backend Engineering?",
-        what: "Backend engineering is the discipline of building server-side systems that power applications — APIs, databases, authentication, business logic, and infrastructure.",
-        why: "Every product needs a reliable, scalable backend. Frontend is the face; backend is the brain and backbone. Without it, no data persists, no logic executes, no system scales.",
-        when: "Whenever you build anything beyond a static page: user accounts, data storage, real-time features, payments, AI integrations, or multi-service architectures.",
-        how: "A client sends an HTTP request → the server routes it → middleware processes auth/validation → a handler executes business logic → the database is queried → a response is returned. This cycle repeats millions of times per second at scale.",
-        ecosystem: "Node.js, Python (Django/Flask/FastAPI), Go, Java (Spring Boot), Rust, PostgreSQL, Redis, RabbitMQ, Kafka, Docker, Kubernetes, AWS/GCP/Azure.",
-        realWorld: "Netflix processes 2+ billion API requests daily. Stripe's backend handles idempotent payment processing across 46 countries. Uber's backend orchestrates 25M+ rides daily across microservices.",
-        useCases: ["REST/GraphQL APIs", "Authentication & authorization", "Background job processing", "Real-time event streaming", "Data pipeline orchestration"],
-        advantages: ["Full control over data and business logic", "Language-agnostic — choose the best tool", "Scales independently from frontend", "Security boundaries at the server level"],
-        disadvantages: ["Complexity grows with scale", "Debugging distributed systems is hard", "Infrastructure costs at scale", "Requires deep understanding of networking"],
-        interviewTip: "When asked 'What does a backend engineer do?', go beyond 'write APIs.' Talk about system reliability, data integrity, scalability patterns, and operational excellence.",
-        resumeBullet: "Designed and implemented RESTful backend services handling 10K+ requests/sec with <50ms p99 latency using Node.js and PostgreSQL.",
+        titleKey: "trackContent.t1.title",
+        whatKey: "trackContent.t1.what",
+        whyKey: "trackContent.t1.why",
+        whenKey: "trackContent.t1.when",
+        howKey: "trackContent.t1.how",
+        ecosystemKey: "trackContent.t1.ecosystem",
+        realWorldKey: "trackContent.t1.realWorld",
+        useCasesKeys: ["trackContent.t1.useCases.uc1", "trackContent.t1.useCases.uc2", "trackContent.t1.useCases.uc3", "trackContent.t1.useCases.uc4", "trackContent.t1.useCases.uc5"],
+        advantagesKeys: ["trackContent.t1.advantages.ad1", "trackContent.t1.advantages.ad2", "trackContent.t1.advantages.ad3", "trackContent.t1.advantages.ad4"],
+        disadvantagesKeys: ["trackContent.t1.disadvantages.da1", "trackContent.t1.disadvantages.da2", "trackContent.t1.disadvantages.da3", "trackContent.t1.disadvantages.da4"],
+        interviewTipKey: "trackContent.t1.interviewTip",
+        resumeBulletKey: "trackContent.t1.resumeBullet",
         codeSnippet: {
           language: "typescript",
           code: `import express from 'express';
@@ -531,26 +517,26 @@ GET /health → { "status": "ok", "uptime": 42.5 }
 GET /api/users/1 → { "id": 1, "name": "Ada Lovelace", "role": "engineer" }`,
         },
         scenario: {
-          title: "Design a User Service for a Startup",
-          context: "A fintech startup needs a user management service that handles registration, authentication, profile updates, and account deactivation. Expected load: 5,000 DAU growing to 100,000 in 12 months.",
-          constraints: ["Must comply with data privacy regulations", "Must support social OAuth + email/password", "Must handle concurrent profile updates safely", "Must be horizontally scalable"],
-          deliverable: "A working user service with REST API, JWT auth, rate limiting, and database migrations.",
+          titleKey: "trackContent.t1.scenario.title",
+          contextKey: "trackContent.t1.scenario.context",
+          constraintsKeys: ["trackContent.t1.scenario.constraints.c1", "trackContent.t1.scenario.constraints.c2", "trackContent.t1.scenario.constraints.c3", "trackContent.t1.scenario.constraints.c4"],
+          deliverableKey: "trackContent.t1.scenario.deliverable",
         },
       },
       {
         id: "t2",
-        title: "HTTP, REST & API Design",
-        what: "REST (Representational State Transfer) is an architectural style for designing networked applications using HTTP methods to perform CRUD operations on resources.",
-        why: "REST is the lingua franca of web APIs. Understanding it deeply separates junior developers from engineers who can design systems that last.",
-        when: "Whenever you need machine-to-machine or client-server communication. REST is ideal for stateless, cacheable, resource-oriented interactions.",
-        how: "Resources are identified by URIs. HTTP methods (GET, POST, PUT, PATCH, DELETE) map to operations. Status codes communicate outcomes. Headers carry metadata.",
-        ecosystem: "OpenAPI/Swagger, Postman, cURL, Express.js, FastAPI, Spring Boot, API Gateway (AWS/GCP), rate limiters, API versioning strategies.",
-        realWorld: "GitHub's REST API serves millions of developers daily. Stripe's API is considered the gold standard — consistent naming, idempotent operations, pagination, versioning.",
-        useCases: ["Public/partner APIs", "Mobile app backends", "Microservice communication", "CRUD applications", "Webhook integrations"],
-        advantages: ["Simple and well-understood", "Stateless — easy to scale", "Cacheable with HTTP semantics", "Tooling ecosystem is massive"],
-        disadvantages: ["Over-fetching and under-fetching", "No real-time push (need polling/WebSocket)", "Can become chatty for complex operations", "Versioning can be painful"],
-        interviewTip: "Know the difference between PUT and PATCH. Understand idempotency. Be able to design a clean API for any domain in under 5 minutes.",
-        resumeBullet: "Architected RESTful API layer with OpenAPI spec, versioning strategy, and rate limiting, reducing integration time for partner teams by 60%.",
+        titleKey: "trackContent.t2.title",
+        whatKey: "trackContent.t2.what",
+        whyKey: "trackContent.t2.why",
+        whenKey: "trackContent.t2.when",
+        howKey: "trackContent.t2.how",
+        ecosystemKey: "trackContent.t2.ecosystem",
+        realWorldKey: "trackContent.t2.realWorld",
+        useCasesKeys: ["trackContent.t2.useCases.uc1", "trackContent.t2.useCases.uc2", "trackContent.t2.useCases.uc3", "trackContent.t2.useCases.uc4", "trackContent.t2.useCases.uc5"],
+        advantagesKeys: ["trackContent.t2.advantages.ad1", "trackContent.t2.advantages.ad2", "trackContent.t2.advantages.ad3", "trackContent.t2.advantages.ad4"],
+        disadvantagesKeys: ["trackContent.t2.disadvantages.da1", "trackContent.t2.disadvantages.da2", "trackContent.t2.disadvantages.da3", "trackContent.t2.disadvantages.da4"],
+        interviewTipKey: "trackContent.t2.interviewTip",
+        resumeBulletKey: "trackContent.t2.resumeBullet",
         codeSnippet: {
           language: "typescript",
           code: `app.post('/api/v1/orders', validateBody(OrderSchema), async (req, res) => {
@@ -569,32 +555,32 @@ GET /api/users/1 → { "id": 1, "name": "Ada Lovelace", "role": "engineer" }`,
 { "data": { "id": "ord_abc123", "status": "pending", "total": 99.99 } }`,
         },
         scenario: {
-          title: "Design an API for an E-Commerce Platform",
-          context: "You're designing the API for a marketplace where sellers list products and buyers place orders.",
-          constraints: ["Must support pagination and filtering", "Must handle concurrent inventory updates", "Must version the API for backward compatibility", "Must include rate limiting per API key"],
-          deliverable: "OpenAPI spec + implementation of 5 core endpoints (products CRUD + order creation).",
+          titleKey: "trackContent.t2.scenario.title",
+          contextKey: "trackContent.t2.scenario.context",
+          constraintsKeys: ["trackContent.t2.scenario.constraints.c1", "trackContent.t2.scenario.constraints.c2", "trackContent.t2.scenario.constraints.c3", "trackContent.t2.scenario.constraints.c4"],
+          deliverableKey: "trackContent.t2.scenario.deliverable",
         },
       },
     ],
   },
   {
     id: "m2",
-    title: "Database Engineering",
+    titleKey: "trackContent.m2.title",
     topics: [
       {
         id: "t3",
-        title: "SQL & Relational Databases",
-        what: "Relational databases organize data into tables with defined schemas, relationships (via foreign keys), and use SQL for querying. They guarantee ACID properties.",
-        why: "Most business data is inherently relational. Understanding SQL deeply is non-negotiable for any backend engineer.",
-        when: "When you need strong consistency, complex queries with joins, transactions, or well-structured data with clear relationships.",
-        how: "Data is stored in rows within tables. Indexes speed up reads. Query planners optimize execution. Transactions ensure atomicity. Constraints enforce integrity.",
-        ecosystem: "PostgreSQL, MySQL, SQLite, SQL Server. ORMs: Prisma, TypeORM, Sequelize, SQLAlchemy, Hibernate.",
-        realWorld: "Instagram runs on PostgreSQL and handles billions of rows. Banks rely on ACID-compliant relational databases for every transaction.",
-        useCases: ["User data storage", "Financial transactions", "Inventory management", "Content management", "Analytics and reporting"],
-        advantages: ["ACID guarantees", "Mature tooling and community", "Complex queries with JOINs", "Schema enforcement"],
-        disadvantages: ["Vertical scaling limits", "Schema migrations can be painful", "Not ideal for unstructured data", "Can be slower for simple key-value lookups"],
-        interviewTip: "Be ready to write complex SQL queries on the spot. Know the difference between INNER JOIN, LEFT JOIN, and CROSS JOIN. Understand indexing trade-offs.",
-        resumeBullet: "Optimized PostgreSQL queries reducing p95 latency from 800ms to 45ms through strategic indexing and query plan analysis.",
+        titleKey: "trackContent.t3.title",
+        whatKey: "trackContent.t3.what",
+        whyKey: "trackContent.t3.why",
+        whenKey: "trackContent.t3.when",
+        howKey: "trackContent.t3.how",
+        ecosystemKey: "trackContent.t3.ecosystem",
+        realWorldKey: "trackContent.t3.realWorld",
+        useCasesKeys: ["trackContent.t3.useCases.uc1", "trackContent.t3.useCases.uc2", "trackContent.t3.useCases.uc3", "trackContent.t3.useCases.uc4", "trackContent.t3.useCases.uc5"],
+        advantagesKeys: ["trackContent.t3.advantages.ad1", "trackContent.t3.advantages.ad2", "trackContent.t3.advantages.ad3", "trackContent.t3.advantages.ad4"],
+        disadvantagesKeys: ["trackContent.t3.disadvantages.da1", "trackContent.t3.disadvantages.da2", "trackContent.t3.disadvantages.da3", "trackContent.t3.disadvantages.da4"],
+        interviewTipKey: "trackContent.t3.interviewTip",
+        resumeBulletKey: "trackContent.t3.resumeBullet",
       },
     ],
   },
@@ -604,22 +590,22 @@ GET /api/users/1 → { "id": 1, "name": "Ada Lovelace", "role": "engineer" }`,
 export const lceModules: Module[] = [
   {
     id: "lcem1",
-    title: "Foundations of Low-Code Engineering",
+    titleKey: "trackContent.lcem1.title",
     topics: [
       {
         id: "lcet1",
-        title: "What is Low-Code Engineering?",
-        what: "Building applications using visual models and pre-built components on platforms like OutSystems, Mendix, and PowerApps.",
-        why: "Speeds development, empowers non-developers, and is ideal for internal tools and prototypes.",
-        when: "Whenever rapid application delivery is required or when citizen development is encouraged.",
-        how: "Use drag-drop interfaces, configure data models, and connect logic with visual workflows; custom code is added sparingly.",
-        ecosystem: "Low-code platforms, connectors, cloud hosting, citizen developer communities.",
-        realWorld: "A bank deployed a loan processing app in 3 weeks using PowerApps, replacing months of custom development.",
-        useCases: ["Internal dashboards","Process automation","Client portals"],
-        advantages: ["Fast iteration","Lower cost","Accessible to non-programmers"],
-        disadvantages: ["Vendor lock-in","Limited control","May not scale for complex systems"],
-        interviewTip: "Emphasize understanding of when low-code is appropriate versus custom code.",
-        resumeBullet: "Delivered internal HR tracker 8x faster using Mendix low-code platform.",
+        titleKey: "trackContent.lcet1.title",
+        whatKey: "trackContent.lcet1.what",
+        whyKey: "trackContent.lcet1.why",
+        whenKey: "trackContent.lcet1.when",
+        howKey: "trackContent.lcet1.how",
+        ecosystemKey: "trackContent.lcet1.ecosystem",
+        realWorldKey: "trackContent.lcet1.realWorld",
+        useCasesKeys: ["trackContent.lcet1.useCases.uc1", "trackContent.lcet1.useCases.uc2", "trackContent.lcet1.useCases.uc3"],
+        advantagesKeys: ["trackContent.lcet1.advantages.ad1", "trackContent.lcet1.advantages.ad2", "trackContent.lcet1.advantages.ad3"],
+        disadvantagesKeys: ["trackContent.lcet1.disadvantages.da1", "trackContent.lcet1.disadvantages.da2", "trackContent.lcet1.disadvantages.da3"],
+        interviewTipKey: "trackContent.lcet1.interviewTip",
+        resumeBulletKey: "trackContent.lcet1.resumeBullet",
       },
     ],
   },

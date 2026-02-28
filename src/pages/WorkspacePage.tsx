@@ -14,6 +14,7 @@ import { backendModules, lceModules, topicVideos, topicBlogs, topicMOOCs, topicS
 import LanguageSelector from "@/components/LanguageSelector";
 import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
 import { courses as hierarchyCourses, programs } from "@/data/hierarchy";
+import { allHceCourses } from "@/data/courses";
 
 import VideoResources from "@/components/workspace/VideoResources";
 import BlogResources from "@/components/workspace/BlogResources";
@@ -63,22 +64,51 @@ export default function WorkspacePage() {
     return false;
   }, [user?.id, trackId]);
 
-  const modulesMap: Record<string, any[]> = {
-    backend: backendModules,
-    hce: backendModules,
-    lce: lceModules,
-    nce: lceModules, // Placeholder for NCE
-  };
-  const modules = modulesMap[trackId || "backend"] || backendModules;
-  const initialTopicId = modules[0]?.topics[0]?.id || "t1";
+  const trackCourses = useMemo(() => {
+    return allHceCourses.filter(c => c.trackId === trackId);
+  }, [trackId]);
+
+  const modules = useMemo(() => {
+    if (trackCourses.length > 0) {
+      return trackCourses.flatMap(c => c.modules);
+    }
+    const modulesMap: Record<string, any[]> = {
+      backend: backendModules,
+      hce: backendModules,
+      lce: lceModules,
+      nce: lceModules,
+    };
+    return modulesMap[trackId || "backend"] || backendModules;
+  }, [trackId, trackCourses]);
+
+  const topics = useMemo(() => {
+    if (trackCourses.length > 0) {
+      return trackCourses.flatMap(c => c.topics);
+    }
+    return modules.flatMap(m => m.topics);
+  }, [modules, trackCourses]);
+
+  const initialTopicId = topics[0]?.id || "t1";
 
   const [activeMode, setActiveMode] = useState<string>("learn");
   const [activeTopic, setActiveTopic] = useState<string>(initialTopicId);
   const [expandedModules, setExpandedModules] = useState<string[]>([modules[0]?.id || "m1"]);
 
   useEffect(() => {
-    const newModules = modulesMap[trackId || "backend"] || backendModules;
-    const firstTopicId = newModules[0]?.topics[0]?.id || "t1";
+    let newModules = modules;
+    let newTopics = topics;
+
+    // Fallback if trackCourses is empty inside useEffect
+    if (allHceCourses.filter(c => c.trackId === trackId).length === 0) {
+      const modulesMap: Record<string, any[]> = { backend: backendModules, hce: backendModules, lce: lceModules, nce: lceModules };
+      newModules = modulesMap[trackId || "backend"] || backendModules;
+      newTopics = newModules.flatMap(m => m.topics);
+    } else {
+      const tc = allHceCourses.filter(c => c.trackId === trackId);
+      newModules = tc.flatMap(c => c.modules);
+      newTopics = tc.flatMap(c => c.topics);
+    }
+    const firstTopicId = newTopics[0]?.id || "t1";
     setActiveTopic(firstTopicId);
     setExpandedModules([newModules[0]?.id || "m1"]);
   }, [trackId]);
@@ -96,7 +126,7 @@ export default function WorkspacePage() {
     { id: "explore", label: t("workspace.explore"), icon: Compass },
   ] as const;
 
-  const currentTopic = modules.flatMap(m => m.topics).find(t => t.id === activeTopic);
+  const currentTopic = topics.find(t => t.id === activeTopic);
 
   const toggleModule = (id: string) => {
     setExpandedModules(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -148,11 +178,12 @@ export default function WorkspacePage() {
 
   if (!currentTopic) return null;
 
-  const videos = topicVideos[activeTopic] || [];
-  const blogs = topicBlogs[activeTopic] || [];
-  const moocs = topicMOOCs[activeTopic] || [];
-  const scenarios = topicScenarios[activeTopic] || [];
-  const codeExamples = topicCodeExamples[activeTopic] || [];
+  const videos = currentTopic.videos || topicVideos[activeTopic] || [];
+  const blogs = currentTopic.blogs || topicBlogs[activeTopic] || [];
+  const moocs = currentTopic.moocs || topicMOOCs[activeTopic] || [];
+  const scenarios = currentTopic.scenarios || topicScenarios[activeTopic] || [];
+  const playgrounds = currentTopic.playgrounds || [];
+  const codeExamples = playgrounds.length > 0 ? playgrounds : (topicCodeExamples[activeTopic] || []);
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
@@ -189,19 +220,19 @@ export default function WorkspacePage() {
                       className="w-full flex items-center gap-2 px-2 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-sidebar-accent transition-colors"
                     >
                       {expandedModules.includes(mod.id) ? <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />}
-                      <span className="truncate">{t(`trackContent.${mod.id}.title`, mod.title)}</span>
+                      <span className="truncate">{t(mod.titleKey, mod.title)}</span>
                     </button>
                     <AnimatePresence>
                       {expandedModules.includes(mod.id) && (
                         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                          {mod.topics.map(topic => (
+                          {topics.filter((topic: any) => topic.moduleId === mod.id || mod.topics?.some((mt: any) => mt.id === topic.id)).map((topic: any) => (
                             <button
                               key={topic.id}
                               onClick={() => selectTopic(topic.id)}
                               className={`w-full text-left px-3 pl-8 py-2 text-sm rounded-lg transition-colors ${activeTopic === topic.id ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
                                 }`}
                             >
-                              {t(`trackContent.${topic.id}.title`, topic.title)}
+                              {t(topic.titleKey, topic.title)}
                             </button>
                           ))}
                         </motion.div>
