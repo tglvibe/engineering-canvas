@@ -13,7 +13,7 @@ import {
   getRolesForCategory, getProgramsForRole, getCoursesForProgram,
   type CategoryId
 } from "@/data/hierarchy";
-import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
+import { useActiveEnrollments } from "@/hooks/useDatabase";
 
 type BrowseMode = "category" | "role" | "program" | "course" | "recommended";
 
@@ -32,15 +32,11 @@ export default function ExplorePage() {
   const [categoryFilter, setCategoryFilter] = useState<CategoryId | "all">("all");
 
   // Enrollment awareness
-  const activeEnrollments = useMemo(() => {
-    if (!user?.id) return [];
-    refreshEnrollmentStatuses();
-    return getActiveEnrollments(user.id);
-  }, [user?.id]);
+  const { data: activeEnrollmentData = [] } = useActiveEnrollments();
 
-  const enrolledProgramIds = useMemo(() => new Set(activeEnrollments.filter(e => e.type === "program").map(e => e.targetId)), [activeEnrollments]);
-  const enrolledCourseIds = useMemo(() => new Set(activeEnrollments.filter(e => e.type === "course").map(e => e.targetId)), [activeEnrollments]);
-  const hasAnyEnrollment = activeEnrollments.length > 0;
+  const enrolledProgramIds = useMemo(() => new Set(activeEnrollmentData.filter(e => e.type === "program").map(e => e.target_id)), [activeEnrollmentData]);
+  const enrolledCourseIds = useMemo(() => new Set(activeEnrollmentData.filter(e => e.type === "course").map(e => e.target_id)), [activeEnrollmentData]);
+  const hasAnyEnrollment = activeEnrollmentData.length > 0;
 
   const isEnrolledInCourse = (courseId: string) => {
     if (enrolledCourseIds.has(courseId)) return true;

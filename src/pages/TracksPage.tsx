@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
 import AppHeader from "@/components/AppHeader";
-import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
+import { useActiveEnrollments } from "@/hooks/useDatabase";
 import { courses as hierarchyCourses, programs } from "@/data/hierarchy";
 
 type Category = "all" | "high-code" | "low-code" | "no-code";
@@ -50,25 +50,19 @@ export default function TracksPage() {
   const [search, setSearch] = useState("");
 
   // Enrollment gating
-  const activeEnrollments = useMemo(() => {
-    if (!user?.id) return [];
-    refreshEnrollmentStatuses();
-    return getActiveEnrollments(user.id);
-  }, [user?.id]);
+  const { data: activeEnrollmentData = [] } = useActiveEnrollments();
 
   // Compute which track IDs are enrolled
   const enrolledTrackIds = useMemo(() => {
     const ids = new Set<string>();
-    activeEnrollments.forEach(e => {
+    activeEnrollmentData.forEach(e => {
       if (e.type === "track") {
-        ids.add(e.targetId);
+        ids.add(e.target_id);
       } else if (e.type === "course") {
-        // Find the track for this course
-        const course = hierarchyCourses.find(c => c.id === e.targetId);
+        const course = hierarchyCourses.find(c => c.id === e.target_id);
         if (course) ids.add(course.trackId);
       } else if (e.type === "program") {
-        // Find all courses in this program, then their tracks
-        const prog = programs.find(p => p.id === e.targetId);
+        const prog = programs.find(p => p.id === e.target_id);
         prog?.courseIds.forEach(cid => {
           const course = hierarchyCourses.find(c => c.id === cid);
           if (course) ids.add(course.trackId);
@@ -76,9 +70,9 @@ export default function TracksPage() {
       }
     });
     return ids;
-  }, [activeEnrollments]);
+  }, [activeEnrollmentData]);
 
-  const hasAnyEnrollment = activeEnrollments.length > 0;
+  const hasAnyEnrollment = activeEnrollmentData.length > 0;
 
   const categories = [
     { id: "all" as Category, label: t("tracks.allTracks"), icon: Layers },

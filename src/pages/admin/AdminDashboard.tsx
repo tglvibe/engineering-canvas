@@ -1,26 +1,32 @@
-import { useMemo } from "react";
 import { Users, BookOpen, Clock, GraduationCap } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import { getAnalytics, getStudents, getAllEnrollments, getAllProgress } from "@/data/store";
+import { useAdminAnalytics, useAllStudents } from "@/hooks/useDatabase";
 
 const COLORS = ["hsl(28,100%,50%)", "hsl(36,100%,50%)", "hsl(200,80%,50%)", "hsl(150,60%,45%)", "hsl(280,60%,55%)", "hsl(0,70%,55%)"];
 
 export default function AdminDashboard() {
-  const analytics = useMemo(() => getAnalytics(), []);
-  const students = useMemo(() => getStudents(), []);
-  const enrollments = useMemo(() => getAllEnrollments(), []);
+  const { data: analytics, isLoading: analyticsLoading } = useAdminAnalytics();
+  const { data: students = [], isLoading: studentsLoading } = useAllStudents();
 
-  const yearData = Object.entries(analytics.yearDistribution).map(([name, value]) => ({ name, value }));
-  const deptData = Object.entries(analytics.departmentDistribution).map(([name, value]) => ({ name, value }));
+  if (analyticsLoading || studentsLoading) {
+    return (
+      <div className="p-6 max-w-7xl mx-auto flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
+      </div>
+    );
+  }
+
+  const yearData = Object.entries(analytics?.yearDistribution || {}).map(([name, value]) => ({ name, value }));
+  const deptData = Object.entries(analytics?.departmentDistribution || {}).map(([name, value]) => ({ name, value }));
 
   const stats = [
-    { label: "Total Students", value: analytics.totalStudents, icon: Users, color: "text-primary" },
-    { label: "Active Enrollments", value: analytics.activeEnrollments, icon: BookOpen, color: "text-emerald-500" },
-    { label: "Expired Enrollments", value: analytics.expiredEnrollments, icon: Clock, color: "text-destructive" },
-    { label: "Topics Completed", value: analytics.totalProgress, icon: GraduationCap, color: "text-accent" },
+    { label: "Total Students", value: analytics?.totalStudents || 0, icon: Users, color: "text-primary" },
+    { label: "Active Enrollments", value: analytics?.activeEnrollments || 0, icon: BookOpen, color: "text-emerald-500" },
+    { label: "Expired Enrollments", value: analytics?.expiredEnrollments || 0, icon: Clock, color: "text-destructive" },
+    { label: "Topics Completed", value: analytics?.totalProgress || 0, icon: GraduationCap, color: "text-accent" },
   ];
 
-  const recentStudents = [...students].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 5);
+  const recentStudents = [...students].sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()).slice(0, 5);
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -44,7 +50,6 @@ export default function AdminDashboard() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Year Distribution */}
         <div className="bg-card border border-border rounded-2xl p-5">
           <h3 className="text-sm font-semibold text-foreground mb-4">Students by Year</h3>
           {yearData.length > 0 ? (
@@ -61,7 +66,6 @@ export default function AdminDashboard() {
           )}
         </div>
 
-        {/* Department Distribution */}
         <div className="bg-card border border-border rounded-2xl p-5">
           <h3 className="text-sm font-semibold text-foreground mb-4">Students by Department</h3>
           {deptData.length > 0 ? (
@@ -86,11 +90,11 @@ export default function AdminDashboard() {
         <h3 className="text-sm font-semibold text-foreground mb-4">Recently Added Students</h3>
         {recentStudents.length > 0 ? (
           <div className="space-y-2">
-            {recentStudents.map(s => (
+            {recentStudents.map((s: any) => (
               <div key={s.id} className="flex items-center justify-between py-2 px-3 rounded-xl hover:bg-secondary/50 transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">
-                    {s.avatar}
+                    {s.avatar || "??"}
                   </div>
                   <div>
                     <p className="text-sm font-medium text-foreground">{s.name}</p>

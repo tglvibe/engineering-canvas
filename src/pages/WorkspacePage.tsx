@@ -13,7 +13,7 @@ import logo from "@/assets/tgl-logo.png";
 import { topicVideos, topicBlogs, topicMOOCs, topicScenarios, topicCodeExamples } from "@/data/tracks";
 import { getModulesForTrack } from "@/data/trackModuleResolver";
 import LanguageSelector from "@/components/LanguageSelector";
-import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
+import { useActiveEnrollments } from "@/hooks/useDatabase";
 import { courses as hierarchyCourses, programs } from "@/data/hierarchy";
 
 import VideoResources from "@/components/workspace/VideoResources";
@@ -41,28 +41,27 @@ export default function WorkspacePage() {
   };
 
   // Enrollment gating
+  const { data: activeEnrollmentData = [] } = useActiveEnrollments();
   const isEnrolled = useMemo(() => {
     if (!user?.id || !trackId) return false;
-    refreshEnrollmentStatuses();
-    const enrollments = getActiveEnrollments(user.id);
-    if (enrollments.some((e: any) => e.type === "track" && e.targetId === trackId)) return true;
-    for (const e of enrollments) {
+    if (activeEnrollmentData.some(e => e.type === "track" && e.target_id === trackId)) return true;
+    for (const e of activeEnrollmentData) {
       if (e.type === "course") {
-        const course = hierarchyCourses.find((c: any) => c.id === e.targetId);
+        const course = hierarchyCourses.find(c => c.id === e.target_id);
         if (course?.trackId === trackId) return true;
       }
       if (e.type === "program") {
-        const prog = programs.find((p: any) => p.id === e.targetId);
+        const prog = programs.find(p => p.id === e.target_id);
         if (prog) {
           for (const cid of prog.courseIds) {
-            const course = hierarchyCourses.find((c: any) => c.id === cid);
+            const course = hierarchyCourses.find(c => c.id === cid);
             if (course?.trackId === trackId) return true;
           }
         }
       }
     }
     return false;
-  }, [user?.id, trackId]);
+  }, [user?.id, trackId, activeEnrollmentData]);
 
   const modules = useMemo(() => getModulesForTrack(trackId || "backend"), [trackId]);
   const initialTopicId = modules[0]?.topics[0]?.id || "t1";
