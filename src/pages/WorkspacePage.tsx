@@ -1,17 +1,19 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ChevronLeft, ChevronDown, ChevronRight, BookOpen, Code2, Compass,
   MessageSquare, Lightbulb, Target, Briefcase, FileText, Zap, ThumbsUp, ThumbsDown,
   AlertTriangle, Maximize2, Minimize2, Network, StickyNote, Brain, Rocket,
-  Users, Award, Globe, Menu, X, LogOut, User
+  Users, Award, Globe, Menu, X, LogOut, User, Lock
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/tgl-logo.png";
 import { backendModules, lceModules, topicVideos, topicBlogs, topicMOOCs, topicScenarios, topicCodeExamples } from "@/data/tracks";
 import LanguageSelector from "@/components/LanguageSelector";
+import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
+import { courses as hierarchyCourses, programs } from "@/data/hierarchy";
 
 import VideoResources from "@/components/workspace/VideoResources";
 import BlogResources from "@/components/workspace/BlogResources";
@@ -36,6 +38,31 @@ export default function WorkspacePage() {
     }
     return String(rawT(key, optionsOrDefault ?? key));
   };
+
+  // Enrollment gating
+  const isEnrolled = useMemo(() => {
+    if (!user?.id || !trackId) return false;
+    refreshEnrollmentStatuses();
+    const enrollments = getActiveEnrollments(user.id);
+    if (enrollments.some((e: any) => e.type === "track" && e.targetId === trackId)) return true;
+    for (const e of enrollments) {
+      if (e.type === "course") {
+        const course = hierarchyCourses.find((c: any) => c.id === e.targetId);
+        if (course?.trackId === trackId) return true;
+      }
+      if (e.type === "program") {
+        const prog = programs.find((p: any) => p.id === e.targetId);
+        if (prog) {
+          for (const cid of prog.courseIds) {
+            const course = hierarchyCourses.find((c: any) => c.id === cid);
+            if (course?.trackId === trackId) return true;
+          }
+        }
+      }
+    }
+    return false;
+  }, [user?.id, trackId]);
+
   const modulesMap: Record<string, any[]> = {
     backend: backendModules,
     hce: backendModules,
@@ -97,6 +124,27 @@ export default function WorkspacePage() {
       <div className="flex-1 h-px bg-border" />
     </div>
   );
+
+  // Enrollment gate - block access if not enrolled
+  if (!isEnrolled) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-4">
+        <div className="text-center max-w-md">
+          <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center mx-auto mb-4">
+            <Lock className="w-8 h-8 text-destructive" />
+          </div>
+          <h1 className="text-xl font-bold text-foreground mb-2">Access Restricted</h1>
+          <p className="text-sm text-muted-foreground mb-6">
+            You are not enrolled in this track. Contact your administrator to get access.
+          </p>
+          <button onClick={() => navigate("/explore")}
+            className="px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-medium text-sm hover:opacity-90 transition-all">
+            Back to Explore
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (!currentTopic) return null;
 
