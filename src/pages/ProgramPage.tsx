@@ -4,19 +4,38 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Clock, Target, ArrowRight, BookOpen, CheckCircle, GraduationCap,
-  Briefcase, ChevronRight, Award, Layers
+  Briefcase, ChevronRight, Award, Layers, Lock
 } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
 import { getProgramById, getCoursesForProgram, getRoleById, getCategoryForRole, programs } from "@/data/hierarchy";
+import { useAuth } from "@/contexts/AuthContext";
+import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
 
 export default function ProgramPage() {
   const { programId } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { user } = useAuth();
 
   const program = useMemo(() => getProgramById(programId || ""), [programId]);
   const programCourses = useMemo(() => program ? getCoursesForProgram(program.id) : [], [program]);
   const targetRole = useMemo(() => program ? getRoleById(program.targetRoleKey.replace("roles.", "").replace(/([A-Z])/g, "-$1").toLowerCase().replace(/^-/, "")) : null, [program]);
+
+  // Check enrollment
+  const isEnrolled = useMemo(() => {
+    if (!user?.id || !programId) return false;
+    refreshEnrollmentStatuses();
+    const enrollments = getActiveEnrollments(user.id);
+    // Direct program enrollment
+    if (enrollments.some(e => e.type === "program" && e.targetId === programId)) return true;
+    // Check if enrolled in any course within this program
+    if (program) {
+      for (const cid of program.courseIds) {
+        if (enrollments.some(e => e.type === "course" && e.targetId === cid)) return true;
+      }
+    }
+    return false;
+  }, [user?.id, programId, program]);
 
   if (!program) {
     return (
@@ -106,8 +125,11 @@ export default function ProgramPage() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                onClick={() => navigate(`/workspace/${course.trackId}`)}
-                className="w-full text-left p-4 sm:p-5 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all group"
+                onClick={() => isEnrolled && navigate(`/workspace/${course.trackId}`)}
+                disabled={!isEnrolled}
+                className={`w-full text-left p-4 sm:p-5 rounded-xl border transition-all group ${
+                  isEnrolled ? "border-border bg-card hover:border-primary/30 hover:shadow-md" : "border-border bg-card/50 opacity-60 cursor-not-allowed"
+                }`}
               >
                 <div className="flex items-start gap-3 sm:gap-4">
                   <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/[0.06] flex items-center justify-center text-lg sm:text-xl shrink-0">{course.icon}</div>
@@ -132,13 +154,23 @@ export default function ProgramPage() {
             ))}
           </div>
 
-          {/* Enroll CTA */}
+          {/* CTA */}
           <div className="mt-8 text-center">
-            <button onClick={() => navigate(`/workspace/${programCourses[0]?.trackId || "backend"}`)}
-              className="inline-flex items-center gap-2.5 bg-gradient-brand text-primary-foreground font-bold px-8 py-3.5 rounded-2xl shadow-brand hover:opacity-90 transition-all">
-              {t("explore.enrollInProgram")} <ArrowRight className="w-4 h-4" />
-            </button>
-            <p className="text-xs text-muted-foreground mt-2">{t("explore.orEnrollIndividual")}</p>
+            {isEnrolled ? (
+              <>
+                <button onClick={() => navigate(`/workspace/${programCourses[0]?.trackId || "backend"}`)}
+                  className="inline-flex items-center gap-2.5 bg-gradient-brand text-primary-foreground font-bold px-8 py-3.5 rounded-2xl shadow-brand hover:opacity-90 transition-all">
+                  {t("explore.enrollInProgram")} <ArrowRight className="w-4 h-4" />
+                </button>
+                <p className="text-xs text-muted-foreground mt-2">{t("explore.orEnrollIndividual")}</p>
+              </>
+            ) : (
+              <div className="p-4 rounded-2xl border border-border bg-secondary/30">
+                <Lock className="w-6 h-6 text-muted-foreground mx-auto mb-2" />
+                <p className="text-sm font-semibold text-foreground">Not Enrolled</p>
+                <p className="text-xs text-muted-foreground mt-1">Contact your administrator to get enrolled in this program.</p>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

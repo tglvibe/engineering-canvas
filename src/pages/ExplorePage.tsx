@@ -326,28 +326,32 @@ export default function ExplorePage() {
             {browseMode === "program" && (
               <motion.div key="program" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {filteredPrograms.map(prog => (
-                    <button key={prog.id} onClick={() => navigate(`/program/${prog.id}`)}
-                      className="text-left p-4 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all group">
-                      <div className="flex items-start gap-3">
-                        <span className="text-2xl">{prog.icon}</span>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{t(prog.titleKey)}</h4>
-                          <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(prog.descKey)}</p>
-                          <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground flex-wrap">
-                            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {prog.duration}</span>
-                            <span>{prog.courseIds.length} {t("explore.courses")}</span>
-                            <DifficultyBadge level={prog.difficulty} />
-                          </div>
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {prog.skillsGained.slice(0, 3).map(s => (
-                              <span key={s} className="px-1.5 py-0.5 rounded-md bg-primary/5 text-[10px] font-medium text-primary">{s}</span>
-                            ))}
+                  {filteredPrograms.map(prog => {
+                    const enrolled = enrolledProgramIds.has(prog.id);
+                    return (
+                      <button key={prog.id} onClick={() => navigate(`/program/${prog.id}`)}
+                        className={`text-left p-4 rounded-xl border transition-all group ${
+                          enrolled ? "border-border bg-card hover:border-primary/30 hover:shadow-md" : "border-border bg-card/50 opacity-60"
+                        }`}>
+                        <div className="flex items-start gap-3">
+                          <span className="text-2xl">{prog.icon}</span>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between">
+                              <h4 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{t(prog.titleKey)}</h4>
+                              {!enrolled && <Lock className="w-3.5 h-3.5 text-muted-foreground shrink-0" />}
+                              {enrolled && <span className="px-1.5 py-0.5 rounded-full bg-primary/10 text-[9px] font-bold text-primary">ENROLLED</span>}
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(prog.descKey)}</p>
+                            <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground flex-wrap">
+                              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {prog.duration}</span>
+                              <span>{prog.courseIds.length} {t("explore.courses")}</span>
+                              <DifficultyBadge level={prog.difficulty} />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </button>
-                  ))}
+                      </button>
+                    );
+                  })}
                   {filteredPrograms.length === 0 && (
                     <div className="col-span-full text-center py-12 text-sm text-muted-foreground">{t("tracks.noResults")}</div>
                   )}
@@ -359,23 +363,29 @@ export default function ExplorePage() {
             {browseMode === "course" && (
               <motion.div key="course" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {filteredCourses.map(course => (
-                    <button key={course.id} onClick={() => navigate(`/workspace/${course.trackId}`)}
-                      className="text-left p-4 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all group">
-                      <span className="text-2xl">{course.icon}</span>
-                      <h4 className="mt-2 font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{t(course.titleKey)}</h4>
-                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(course.descKey)}</p>
-                      <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {course.duration}</span>
-                        <span>{course.moduleCount} {t("tracks.modules")}</span>
-                      </div>
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {course.languages.slice(0, 3).map(l => (
-                          <span key={l} className="px-1.5 py-0.5 rounded-md bg-secondary text-[10px] font-medium text-secondary-foreground">{l}</span>
-                        ))}
-                      </div>
-                    </button>
-                  ))}
+                  {filteredCourses.map(course => {
+                    const enrolled = isEnrolledInCourse(course.id);
+                    return (
+                      <button key={course.id}
+                        onClick={() => enrolled && navigate(`/workspace/${course.trackId}`)}
+                        disabled={!enrolled}
+                        className={`text-left p-4 rounded-xl border transition-all group ${
+                          enrolled ? "border-border bg-card hover:border-primary/30 hover:shadow-md" : "border-border bg-card/50 opacity-60 cursor-not-allowed"
+                        }`}>
+                        <div className="flex items-center justify-between">
+                          <span className="text-2xl">{course.icon}</span>
+                          {!enrolled && <Lock className="w-3.5 h-3.5 text-muted-foreground" />}
+                          {enrolled && <span className="px-1.5 py-0.5 rounded-full bg-primary/10 text-[9px] font-bold text-primary">ENROLLED</span>}
+                        </div>
+                        <h4 className="mt-2 font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{t(course.titleKey)}</h4>
+                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(course.descKey)}</p>
+                        <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {course.duration}</span>
+                          <span>{course.moduleCount} {t("tracks.modules")}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
                   {filteredCourses.length === 0 && (
                     <div className="col-span-full text-center py-12 text-sm text-muted-foreground">{t("tracks.noResults")}</div>
                   )}

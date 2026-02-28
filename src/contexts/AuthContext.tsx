@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { initializeStore, authenticateUser, StoredUser, UserRole } from "@/data/store";
+import { initializeStore, authenticateUser, createStudent, StoredUser, UserRole } from "@/data/store";
 
 export interface SkillRating {
   name: string;
@@ -161,14 +161,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signup = (profile: Partial<UserProfile>) => {
-    const newProfile: UserProfile = {
-      ...defaultProfile,
-      ...profile,
-      id: `student-${Date.now()}`,
-      role: "student",
-      avatar: (profile.name || "U").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2),
-    };
-    setUser(newProfile);
+    // Also persist the new student in the store
+    try {
+      const storedUser = createStudent({
+        name: profile.name || "Student",
+        email: profile.email || "",
+        password: "password123", // default password for self-signup
+        phone: profile.phone || "",
+        city: profile.city || "",
+        state: profile.state || "",
+        country: profile.country || "",
+      });
+      const newProfile: UserProfile = {
+        ...defaultProfile,
+        ...profile,
+        id: storedUser.id,
+        role: "student",
+        avatar: storedUser.avatar,
+      };
+      setUser(newProfile);
+    } catch (e) {
+      // Fallback if store creation fails (e.g., duplicate email)
+      const newProfile: UserProfile = {
+        ...defaultProfile,
+        ...profile,
+        id: `student-${Date.now()}`,
+        role: "student",
+        avatar: (profile.name || "U").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2),
+      };
+      setUser(newProfile);
+    }
   };
 
   const updateProfile = (updates: Partial<UserProfile>) => {

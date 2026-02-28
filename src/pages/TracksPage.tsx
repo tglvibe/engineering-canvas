@@ -1,10 +1,12 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Clock, Rocket, Sparkles, Code2, Layers, Wand2, Search } from "lucide-react";
+import { ArrowRight, Clock, Rocket, Sparkles, Code2, Layers, Wand2, Search, Lock, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
 import AppHeader from "@/components/AppHeader";
+import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
+import { courses as hierarchyCourses, programs } from "@/data/hierarchy";
 
 type Category = "all" | "high-code" | "low-code" | "no-code";
 
@@ -20,69 +22,12 @@ interface Track {
   specialization: string;
   languages: string[];
   recommended?: boolean;
+  enrolled?: boolean;
 }
 
 const tracks: Track[] = [
-  // High-Code Engineering umbrella track representing strategic HCE programs and durable roles
-  {
-    id: "hce",
-    title: "High‑Code Engineering (HCE)",
-    icon: "💻",
-    duration: "Varies",
-    modules: 0,
-    roles: [
-      "AI Systems Engineer",
-      "Machine Learning Engineer",
-      "Generative AI Engineer",
-      "AI Infrastructure Engineer",
-      "Backend Systems Engineer",
-      "Distributed Systems Engineer",
-      "Full Stack Systems Engineer",
-      "Cloud & Platform Engineer",
-      "DevOps & SRE Engineer",
-      "Cybersecurity Engineer",
-      "Blockchain Protocol Engineer",
-      "Data Engineer",
-      "Embedded Systems Engineer",
-      "Edge AI Engineer",
-      "Robotics Software Engineer",
-      "AR/VR Systems Engineer",
-      "High Performance Computing Engineer",
-    ],
-    project: "Strategic high‑code programs",
-    category: "high-code",
-    specialization: "High‑Code Engineering",
-    languages: ["Multiple"],
-  },
-  // Low-Code Engineering umbrella track representing strategic LCE programs and durable roles
-  {
-    id: "lce",
-    title: "Low‑Code Engineering (LCE)",
-    icon: "🧩",
-    duration: "Varies",
-    modules: 0,
-    roles: [
-      "Citizen Developer",
-      "Low-Code Architect",
-      "Automation Specialist",
-      "Integration Engineer",
-      "Workflow Designer",
-      "Internal Tools Developer",
-      "Application Builder",
-      "Platform Engineer",
-      "Process Analyst",
-      "Business Automation Engineer",
-      "Digital Operations Engineer",
-      "Rapid Prototyping Engineer",
-      "Low-Code Security Specialist",
-      "Productivity Engineer",
-      "No-Code Coordinator",
-    ],
-    project: "Strategic low‑code programs",
-    category: "low-code",
-    specialization: "Low‑Code Engineering",
-    languages: ["Visual / Declarative"],
-  },
+  { id: "hce", title: "High‑Code Engineering (HCE)", icon: "💻", duration: "Varies", modules: 0, roles: ["AI Systems Engineer", "Machine Learning Engineer", "Backend Systems Engineer", "Full Stack Systems Engineer", "DevOps & SRE Engineer"], project: "Strategic high‑code programs", category: "high-code", specialization: "High‑Code Engineering", languages: ["Multiple"] },
+  { id: "lce", title: "Low‑Code Engineering (LCE)", icon: "🧩", duration: "Varies", modules: 0, roles: ["Citizen Developer", "Low-Code Architect", "Automation Specialist"], project: "Strategic low‑code programs", category: "low-code", specialization: "Low‑Code Engineering", languages: ["Visual / Declarative"] },
   { id: "backend", title: "Backend Engineering", icon: "⚙️", duration: "16 weeks", modules: 24, roles: ["Backend Dev", "API Engineer", "Platform Engineer"], project: "Production-grade REST + GraphQL API", category: "high-code", specialization: "Backend Development", languages: ["TypeScript", "Python", "Go", "Java"] },
   { id: "frontend", title: "Frontend Engineering", icon: "🎨", duration: "14 weeks", modules: 20, roles: ["Frontend Dev", "UI Engineer"], project: "Component Library + SPA", category: "high-code", specialization: "Frontend Development", languages: ["TypeScript", "JavaScript"] },
   { id: "fullstack", title: "Full Stack Engineering", icon: "🔗", duration: "20 weeks", modules: 30, roles: ["Full Stack Dev", "Product Engineer"], project: "End-to-end SaaS App", category: "high-code", specialization: "Full Stack Development", languages: ["TypeScript", "Python"] },
@@ -104,6 +49,37 @@ export default function TracksPage() {
   const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [search, setSearch] = useState("");
 
+  // Enrollment gating
+  const activeEnrollments = useMemo(() => {
+    if (!user?.id) return [];
+    refreshEnrollmentStatuses();
+    return getActiveEnrollments(user.id);
+  }, [user?.id]);
+
+  // Compute which track IDs are enrolled
+  const enrolledTrackIds = useMemo(() => {
+    const ids = new Set<string>();
+    activeEnrollments.forEach(e => {
+      if (e.type === "track") {
+        ids.add(e.targetId);
+      } else if (e.type === "course") {
+        // Find the track for this course
+        const course = hierarchyCourses.find(c => c.id === e.targetId);
+        if (course) ids.add(course.trackId);
+      } else if (e.type === "program") {
+        // Find all courses in this program, then their tracks
+        const prog = programs.find(p => p.id === e.targetId);
+        prog?.courseIds.forEach(cid => {
+          const course = hierarchyCourses.find(c => c.id === cid);
+          if (course) ids.add(course.trackId);
+        });
+      }
+    });
+    return ids;
+  }, [activeEnrollments]);
+
+  const hasAnyEnrollment = activeEnrollments.length > 0;
+
   const categories = [
     { id: "all" as Category, label: t("tracks.allTracks"), icon: Layers },
     { id: "high-code" as Category, label: t("landing.highCode"), icon: Code2 },
@@ -111,25 +87,21 @@ export default function TracksPage() {
     { id: "no-code" as Category, label: t("landing.noCode"), icon: Sparkles },
   ];
 
-  const tracksWithRecommendations = useMemo(() => {
+  const tracksWithEnrollment = useMemo(() => {
     return tracks.map(t => ({
       ...t,
-      recommended: user ? (
-        t.languages.some(l => l === user.preferredLanguage) ||
-        (user.goal === "Get a Job" && t.roles.some(r => r.includes("Engineer"))) ||
-        (user.goal === "Upskill" && t.category === "high-code") ||
-        (user.level === "Beginner" && (t.category === "no-code" || t.category === "low-code"))
-      ) : false,
+      enrolled: enrolledTrackIds.has(t.id),
     }));
-  }, [user]);
+  }, [enrolledTrackIds]);
 
-  const filtered = tracksWithRecommendations.filter(t => {
+  const filtered = tracksWithEnrollment.filter(t => {
     if (activeCategory !== "all" && t.category !== activeCategory) return false;
     if (search && !t.title.toLowerCase().includes(search.toLowerCase()) && !t.specialization.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
 
-  const recommended = tracksWithRecommendations.filter(t => t.recommended).slice(0, 3);
+  // Sort enrolled first
+  const sorted = [...filtered].sort((a, b) => (b.enrolled ? 1 : 0) - (a.enrolled ? 1 : 0));
 
   return (
     <div className="min-h-screen bg-background">
@@ -141,23 +113,13 @@ export default function TracksPage() {
           <p className="text-muted-foreground mt-1.5 text-sm sm:text-base">{t("tracks.trackDesc")}</p>
         </motion.div>
 
-        {recommended.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mt-6 mb-6">
-            <div className="flex items-center gap-2 mb-3">
-              <Sparkles className="w-4 h-4 text-primary" />
-              <h2 className="text-sm font-semibold text-foreground">{t("tracks.recommended")}</h2>
-            </div>
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
-              {recommended.map(t => (
-                <button key={t.id} onClick={() => navigate(`/workspace/${t.id}`)}
-                  className="shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl border border-primary/20 bg-primary/[0.03] hover:border-primary/40 transition-all">
-                  <span className="text-lg">{t.icon}</span>
-                  <div className="text-left">
-                    <p className="text-xs font-medium text-foreground">{t.title}</p>
-                    <p className="text-[10px] text-muted-foreground">{t.duration}</p>
-                  </div>
-                </button>
-              ))}
+        {!hasAnyEnrollment && (
+          <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }}
+            className="mt-6 p-4 rounded-2xl border border-border bg-secondary/30 flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">No tracks assigned</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Contact your administrator to get enrolled in tracks and programs.</p>
             </div>
           </motion.div>
         )}
@@ -181,46 +143,62 @@ export default function TracksPage() {
         </div>
 
         <div className="grid gap-3">
-          {filtered.map((track, i) => (
-            <motion.button
-              key={track.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.03 }}
-              onClick={() => navigate(`/workspace/${track.id}`)}
-              className="w-full text-left group p-4 sm:p-5 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all"
-            >
-              <div className="flex items-start gap-3 sm:gap-4">
-                <span className="text-2xl sm:text-3xl">{track.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <h2 className="text-sm sm:text-base font-semibold text-foreground group-hover:text-primary transition-colors truncate">{track.title}</h2>
-                      {track.recommended && (
-                        <span className="shrink-0 px-1.5 py-0.5 rounded-full bg-primary/10 text-[9px] font-bold text-primary">{t("tracks.forYou")}</span>
+          {sorted.map((track, i) => {
+            const isLocked = !track.enrolled;
+            return (
+              <motion.button
+                key={track.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.03 }}
+                onClick={() => {
+                  if (!isLocked) navigate(`/workspace/${track.id}`);
+                }}
+                disabled={isLocked}
+                className={`w-full text-left group p-4 sm:p-5 rounded-xl border transition-all ${
+                  isLocked
+                    ? "border-border bg-card/50 opacity-60 cursor-not-allowed"
+                    : "border-border bg-card hover:border-primary/30 hover:shadow-md"
+                }`}
+              >
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <span className="text-2xl sm:text-3xl">{track.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <h2 className="text-sm sm:text-base font-semibold text-foreground group-hover:text-primary transition-colors truncate">{track.title}</h2>
+                        {track.enrolled && (
+                          <span className="shrink-0 px-1.5 py-0.5 rounded-full bg-primary/10 text-[9px] font-bold text-primary">ENROLLED</span>
+                        )}
+                      </div>
+                      {isLocked ? (
+                        <Lock className="w-4 h-4 text-muted-foreground shrink-0" />
+                      ) : (
+                        <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
                       )}
                     </div>
-                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
-                  </div>
-                  <div className="flex items-center gap-3 mt-1.5 text-xs text-muted-foreground flex-wrap">
-                    <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {track.duration}</span>
-                    <span>{track.modules} {t("tracks.modules")}</span>
-                    <span className="px-1.5 py-0.5 rounded bg-secondary text-[10px] font-medium">{track.category.replace("-", " ").toUpperCase()}</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1 mt-2">
-                    {track.roles.map(r => (
-                      <span key={r} className="px-1.5 py-0.5 rounded-md bg-secondary text-[10px] font-medium text-secondary-foreground">{r}</span>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-1.5 mt-2 text-xs">
-                    <Rocket className="w-3 h-3 text-primary" />
-                    <span className="text-primary font-medium">{track.project}</span>
+                    <div className="flex items-center gap-3 mt-1.5 text-xs text-muted-foreground flex-wrap">
+                      <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {track.duration}</span>
+                      {track.modules > 0 && <span>{track.modules} {t("tracks.modules")}</span>}
+                      <span className="px-1.5 py-0.5 rounded bg-secondary text-[10px] font-medium">{track.category.replace("-", " ").toUpperCase()}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {track.roles.slice(0, 3).map(r => (
+                        <span key={r} className="px-1.5 py-0.5 rounded-md bg-secondary text-[10px] font-medium text-secondary-foreground">{r}</span>
+                      ))}
+                    </div>
+                    {!isLocked && (
+                      <div className="flex items-center gap-1.5 mt-2 text-xs">
+                        <Rocket className="w-3 h-3 text-primary" />
+                        <span className="text-primary font-medium">{track.project}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            </motion.button>
-          ))}
-          {filtered.length === 0 && (
+              </motion.button>
+            );
+          })}
+          {sorted.length === 0 && (
             <div className="text-center py-12 text-sm text-muted-foreground">{t("tracks.noResults")}</div>
           )}
         </div>
