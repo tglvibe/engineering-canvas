@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Eye, EyeOff, AlertCircle, Info, Upload, Check, Star } from "lucide-react";
+import { ArrowRight, ArrowLeft, Eye, EyeOff, AlertCircle, Info, Upload, Check, Star, Shield } from "lucide-react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth, SkillRating, Certification, Internship, Project } from "@/contexts/AuthContext";
@@ -27,7 +27,7 @@ const STEPS: Step[] = ["auth", "basic", "academic", "skills", "experience", "pre
 export default function LoginPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { login, signup, isAuthenticated } = useAuth();
+  const { login, signup, isAuthenticated, isAdmin } = useAuth();
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [step, setStep] = useState<Step>("auth");
@@ -85,7 +85,7 @@ export default function LoginPage() {
   });
 
   if (shouldRedirect || isAuthenticated) {
-    return <Navigate to="/explore" replace />;
+    return <Navigate to={isAdmin ? "/admin" : "/explore"} replace />;
   }
 
   const handleAuth = (e: React.FormEvent) => {
@@ -98,7 +98,10 @@ export default function LoginPage() {
     } else {
       const success = login(email, password);
       if (!success) { setError(t("auth.invalidCredentials")); return; }
-      navigate("/explore");
+      // Check if admin after login — need to read from localStorage since state hasn't updated yet
+      const currentUser = localStorage.getItem("tgl_current_user");
+      const parsed = currentUser ? JSON.parse(currentUser) : null;
+      navigate(parsed?.role === "admin" ? "/admin" : "/explore");
     }
   };
 
@@ -226,6 +229,17 @@ export default function LoginPage() {
                       <p className="text-xs font-semibold text-foreground">{t("auth.demoCredentials")} <span className="text-primary">{t("auth.tapToFill")}</span></p>
                       <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">{DEMO_EMAIL}</p>
                       <p className="text-[11px] text-muted-foreground font-mono">{DEMO_PASSWORD}</p>
+                    </div>
+                  </motion.button>
+                )}
+                {!isSignup && (
+                  <motion.button type="button" onClick={() => { setEmail("admin@talenciaglobal.com"); setPassword("admin1234"); setError(""); }}
+                    initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+                    className="w-full flex items-start gap-2.5 p-3 rounded-xl border border-border bg-secondary/30 text-left hover:border-primary/30 transition-all">
+                    <Shield className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-xs font-semibold text-foreground">Admin Console <span className="text-muted-foreground font-normal">— Tap to fill</span></p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">admin@talenciaglobal.com</p>
                     </div>
                   </motion.button>
                 )}

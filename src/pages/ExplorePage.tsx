@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Search, Layers, Code2, Wand2, Sparkles, Briefcase, BookOpen, GraduationCap,
-  ArrowRight, Clock, Users, ChevronRight, Target, TrendingUp, Filter, LayoutGrid
+  ArrowRight, Clock, Users, ChevronRight, Target, TrendingUp, Filter, LayoutGrid, Lock, AlertCircle
 } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
 import { useAuth } from "@/contexts/AuthContext";
@@ -13,6 +13,7 @@ import {
   getRolesForCategory, getProgramsForRole, getCoursesForProgram,
   type CategoryId
 } from "@/data/hierarchy";
+import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
 
 type BrowseMode = "category" | "role" | "program" | "course" | "recommended";
 
@@ -29,6 +30,26 @@ export default function ExplorePage() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryId | null>(null);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<CategoryId | "all">("all");
+
+  // Enrollment awareness
+  const activeEnrollments = useMemo(() => {
+    if (!user?.id) return [];
+    refreshEnrollmentStatuses();
+    return getActiveEnrollments(user.id);
+  }, [user?.id]);
+
+  const enrolledProgramIds = useMemo(() => new Set(activeEnrollments.filter(e => e.type === "program").map(e => e.targetId)), [activeEnrollments]);
+  const enrolledCourseIds = useMemo(() => new Set(activeEnrollments.filter(e => e.type === "course").map(e => e.targetId)), [activeEnrollments]);
+  const hasAnyEnrollment = activeEnrollments.length > 0;
+
+  const isEnrolledInCourse = (courseId: string) => {
+    if (enrolledCourseIds.has(courseId)) return true;
+    // Check if enrolled in a program that contains this course
+    for (const prog of programs) {
+      if (enrolledProgramIds.has(prog.id) && prog.courseIds.includes(courseId)) return true;
+    }
+    return false;
+  };
 
   const browseModes = [
     ...(user ? [{ id: "recommended" as BrowseMode, labelKey: "explore.recommended", icon: Sparkles }] : []),
@@ -86,6 +107,18 @@ export default function ExplorePage() {
       <AppHeader title={t("explore.title")} showBack={false} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        {/* No enrollment banner */}
+        {!hasAnyEnrollment && (
+          <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }}
+            className="mb-6 p-4 rounded-2xl border border-border bg-secondary/30 flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">No programs assigned yet</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Contact your administrator to get enrolled in programs and courses. You can browse the catalog below.</p>
+            </div>
+          </motion.div>
+        )}
+
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">{t("explore.heading")}</h1>

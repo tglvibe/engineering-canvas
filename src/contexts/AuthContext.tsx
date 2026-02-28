@@ -1,9 +1,10 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { initializeStore, authenticateUser, StoredUser, UserRole } from "@/data/store";
 
 export interface SkillRating {
   name: string;
-  conceptual: number; // 1-10
-  handson: number; // 1-10
+  conceptual: number;
+  handson: number;
 }
 
 export interface Certification {
@@ -29,7 +30,9 @@ export interface Project {
 }
 
 export interface UserProfile {
-  // Basic
+  // Core identity from store
+  id: string;
+  role: UserRole;
   name: string;
   email: string;
   phone: string;
@@ -58,14 +61,8 @@ export interface UserProfile {
 
   // Skills & ratings
   skills: SkillRating[];
-
-  // Certifications
   certifications: Certification[];
-
-  // Internships
   internships: Internship[];
-
-  // Projects
   projects: Project[];
 
   // Professional
@@ -83,11 +80,21 @@ export interface UserProfile {
   completedCourses: string[];
   completedTopics: string[];
   notes: string[];
+
+  // University (for students)
+  university?: {
+    year: string;
+    programType: string;
+    department: string;
+    specialization: string;
+    studentId: string;
+  };
 }
 
 interface AuthContextType {
   user: UserProfile | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   login: (email: string, password: string) => boolean;
   signup: (profile: Partial<UserProfile>) => void;
   updateProfile: (updates: Partial<UserProfile>) => void;
@@ -96,10 +103,8 @@ interface AuthContextType {
   unlockVideo: (id: string) => void;
 }
 
-const DEMO_EMAIL = "demo@talenciaglobal.com";
-const DEMO_PASSWORD = "demo1234";
-
 const defaultProfile: UserProfile = {
+  id: "", role: "student",
   name: "", email: "", phone: "", dateOfBirth: "", gender: "", city: "", state: "", country: "", nativeLanguage: "", knownLanguages: [], avatar: "",
   linkedin: "", github: "", portfolio: "",
   college: "", degree: "", branch: "", cgpa: "", graduationYear: "", tenthPercent: "", twelfthPercent: "",
@@ -109,65 +114,14 @@ const defaultProfile: UserProfile = {
   completedCourses: [], completedTopics: [], notes: [],
 };
 
-const DEMO_PROFILE: UserProfile = {
-  ...defaultProfile,
-  name: "Demo User",
-  email: DEMO_EMAIL,
-  phone: "+91 98765 43210",
-  dateOfBirth: "1999-06-15",
-  gender: "Male",
-  city: "New Delhi",
-  state: "Delhi",
-  country: "India",
-  nativeLanguage: "Hindi",
-  knownLanguages: ["Hindi", "English", "Tamil"],
-  level: "Intermediate",
-  goal: "Get a Job",
-  linkedin: "linkedin.com/in/demo-user",
-  github: "github.com/demo-user",
-  portfolio: "demouser.dev",
-  college: "IIT Delhi",
-  degree: "B.Tech",
-  branch: "Computer Science",
-  cgpa: "8.5",
-  graduationYear: "2024",
-  tenthPercent: "95",
-  twelfthPercent: "92",
-  skills: [
-    { name: "JavaScript", conceptual: 8, handson: 7 },
-    { name: "TypeScript", conceptual: 7, handson: 6 },
-    { name: "Node.js", conceptual: 7, handson: 8 },
-    { name: "React", conceptual: 8, handson: 7 },
-    { name: "PostgreSQL", conceptual: 6, handson: 5 },
-    { name: "Docker", conceptual: 5, handson: 4 },
-  ],
-  certifications: [
-    { name: "AWS Cloud Practitioner", issuer: "Amazon", year: "2023", techStack: "AWS" },
-    { name: "Meta Backend Developer", issuer: "Meta", year: "2023", techStack: "Python, Django" },
-  ],
-  internships: [
-    { company: "Google", role: "SDE Intern", duration: "May 2023 - Jul 2023", techStack: "Go, gRPC, Kubernetes", description: "Built microservices for internal tooling" },
-    { company: "Razorpay", role: "Backend Intern", duration: "Dec 2022 - Feb 2023", techStack: "Node.js, PostgreSQL, Redis", description: "Payment reconciliation service" },
-  ],
-  projects: [
-    { title: "E-Commerce API", description: "REST API with auth, payments, inventory", techStack: "Node.js, Express, PostgreSQL", url: "github.com/demo/ecommerce-api" },
-  ],
-  currentRole: "Student",
-  yearsOfExperience: "0",
-  company: "",
-  preferredLanguage: "TypeScript",
-  preferredStack: "Node.js + PostgreSQL",
-  avatar: "DU",
-  completedCourses: [],
-  completedTopics: [],
-  notes: [],
-};
-
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+  // Initialize store on first load
+  useEffect(() => { initializeStore(); }, []);
+
   const [user, setUser] = useState<UserProfile | null>(() => {
-    const stored = localStorage.getItem("tgl_user");
+    const stored = localStorage.getItem("tgl_current_user");
     return stored ? JSON.parse(stored) : null;
   });
   const [unlockedVideos, setUnlockedVideos] = useState<string[]>(() => {
@@ -176,8 +130,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    if (user) localStorage.setItem("tgl_user", JSON.stringify(user));
-    else localStorage.removeItem("tgl_user");
+    if (user) localStorage.setItem("tgl_current_user", JSON.stringify(user));
+    else localStorage.removeItem("tgl_current_user");
   }, [user]);
 
   useEffect(() => {
@@ -185,19 +139,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [unlockedVideos]);
 
   const login = (email: string, password: string): boolean => {
-    if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
-      setUser(DEMO_PROFILE);
-      return true;
-    }
-    return false;
+    const storedUser = authenticateUser(email, password);
+    if (!storedUser) return false;
+
+    // Build UserProfile from StoredUser
+    const profile: UserProfile = {
+      ...defaultProfile,
+      id: storedUser.id,
+      role: storedUser.role,
+      name: storedUser.name,
+      email: storedUser.email,
+      avatar: storedUser.avatar,
+      university: storedUser.university,
+      phone: storedUser.phone || "",
+      city: storedUser.city || "",
+      state: storedUser.state || "",
+      country: storedUser.country || "",
+    };
+    setUser(profile);
+    return true;
   };
 
   const signup = (profile: Partial<UserProfile>) => {
-    setUser({
+    const newProfile: UserProfile = {
       ...defaultProfile,
       ...profile,
+      id: `student-${Date.now()}`,
+      role: "student",
       avatar: (profile.name || "U").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2),
-    });
+    };
+    setUser(newProfile);
   };
 
   const updateProfile = (updates: Partial<UserProfile>) => {
@@ -206,6 +177,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem("tgl_current_user");
+    // Also clean old key
     localStorage.removeItem("tgl_user");
   };
 
@@ -213,8 +186,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUnlockedVideos(prev => prev.includes(id) ? prev : [...prev, id]);
   };
 
+  const isAdmin = user?.role === "admin";
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, signup, updateProfile, logout, unlockedVideos, unlockVideo }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isAdmin, login, signup, updateProfile, logout, unlockedVideos, unlockVideo }}>
       {children}
     </AuthContext.Provider>
   );
