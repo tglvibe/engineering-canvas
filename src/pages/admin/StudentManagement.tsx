@@ -1,10 +1,10 @@
 import { useState, useMemo } from "react";
-import { Plus, Search, Pencil, Trash2, X, Filter } from "lucide-react";
+import { Plus, Search, Pencil, Trash2, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAllStudents } from "@/hooks/useDatabase";
+import { supabase } from "@/integrations/supabase/client";
 import {
-  getStudents, createStudent, updateStudent, deleteStudent,
   DEPARTMENTS, SPECIALIZATIONS, YEARS, PROGRAM_TYPES,
-  StoredUser, UniversityProfile,
 } from "@/data/store";
 
 function StudentForm({
@@ -12,37 +12,44 @@ function StudentForm({
   onSave,
   onCancel,
 }: {
-  initial?: StoredUser;
+  initial?: any;
   onSave: (data: any) => void;
   onCancel: () => void;
 }) {
   const [name, setName] = useState(initial?.name || "");
   const [email, setEmail] = useState(initial?.email || "");
-  const [password, setPassword] = useState(initial?.password || "");
+  const [password, setPassword] = useState("");
   const [year, setYear] = useState<string>(initial?.university?.year || "Year 1");
-  const [programType, setProgramType] = useState<string>(initial?.university?.programType || "B.Tech Regular");
+  const [programType, setProgramType] = useState<string>(initial?.university?.program_type || "B.Tech Regular");
   const [department, setDepartment] = useState(initial?.university?.department || DEPARTMENTS[0]);
   const [specialization, setSpecialization] = useState(initial?.university?.specialization || "");
-  const [studentId, setStudentId] = useState(initial?.university?.studentId || "");
+  const [studentId, setStudentId] = useState(initial?.university?.student_id || "");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const specs = SPECIALIZATIONS[department] || [];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!name.trim() || !email.trim() || !password.trim() || !studentId.trim()) {
-      setError("Name, email, password and student ID are required");
+    if (!name.trim() || !email.trim() || !studentId.trim()) {
+      setError("Name, email, and student ID are required");
       return;
     }
+    if (!initial && !password.trim()) {
+      setError("Password is required for new students");
+      return;
+    }
+    setLoading(true);
     try {
-      onSave({
+      await onSave({
         name, email, password,
-        university: { year, programType, department, specialization, studentId } as UniversityProfile,
+        university: { year, program_type: programType, department, specialization, student_id: studentId },
       });
     } catch (err: any) {
       setError(err.message);
     }
+    setLoading(false);
   };
 
   const inputClass = "w-full px-3 py-2 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring/20";
@@ -66,7 +73,7 @@ function StudentForm({
             <input type="email" value={email} onChange={e => setEmail(e.target.value)} className={inputClass} placeholder="student@uni.edu" disabled={!!initial} />
           </div>
           <div>
-            <label className="text-xs font-medium text-muted-foreground mb-1 block">Password *</label>
+            <label className="text-xs font-medium text-muted-foreground mb-1 block">{initial ? "New Password (optional)" : "Password *"}</label>
             <input value={password} onChange={e => setPassword(e.target.value)} className={inputClass} placeholder="••••••••" />
           </div>
           <div>
@@ -101,8 +108,8 @@ function StudentForm({
         </div>
         <div className="flex gap-2 pt-2">
           <button type="button" onClick={onCancel} className="flex-1 py-2.5 rounded-xl border border-border text-sm font-medium hover:bg-secondary transition-colors">Cancel</button>
-          <button type="submit" className="flex-1 bg-primary text-primary-foreground py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition-all">
-            {initial ? "Save Changes" : "Create Student"}
+          <button type="submit" disabled={loading} className="flex-1 bg-primary text-primary-foreground py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition-all disabled:opacity-50">
+            {loading ? "Saving..." : initial ? "Save Changes" : "Create Student"}
           </button>
         </div>
       </motion.form>
@@ -111,47 +118,59 @@ function StudentForm({
 }
 
 export default function StudentManagement() {
-  const [students, setStudents] = useState(getStudents);
+  const { data: students = [], refetch } = useAllStudents();
   const [search, setSearch] = useState("");
   const [filterYear, setFilterYear] = useState("");
   const [filterDept, setFilterDept] = useState("");
   const [filterProg, setFilterProg] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [editStudent, setEditStudent] = useState<StoredUser | null>(null);
+  const [editStudent, setEditStudent] = useState<any | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
-
-  const refresh = () => setStudents(getStudents());
 
   const filtered = useMemo(() => {
     return students.filter(s => {
-      if (search && !s.name.toLowerCase().includes(search.toLowerCase()) && !s.email.toLowerCase().includes(search.toLowerCase()) && !s.university?.studentId?.toLowerCase().includes(search.toLowerCase())) return false;
+      if (search && !s.name.toLowerCase().includes(search.toLowerCase()) && !s.email.toLowerCase().includes(search.toLowerCase()) && !s.university?.student_id?.toLowerCase().includes(search.toLowerCase())) return false;
       if (filterYear && s.university?.year !== filterYear) return false;
       if (filterDept && s.university?.department !== filterDept) return false;
-      if (filterProg && s.university?.programType !== filterProg) return false;
+      if (filterProg && s.university?.program_type !== filterProg) return false;
       return true;
     });
   }, [students, search, filterYear, filterDept, filterProg]);
 
-  const handleCreate = (data: any) => {
-    try {
-      createStudent(data);
-      refresh();
-      setShowForm(false);
-    } catch (err: any) {
-      throw err;
-    }
+  const handleCreate = async (data: any) => {
+    // Create user via edge function
+    const res = await supabase.functions.invoke("create-student", {
+      body: data,
+    });
+    if (res.error) throw new Error(res.error.message);
+    if (res.data?.error) throw new Error(res.data.error);
+    await refetch();
+    setShowForm(false);
   };
 
-  const handleUpdate = (data: any) => {
+  const handleUpdate = async (data: any) => {
     if (!editStudent) return;
-    updateStudent(editStudent.id, data);
-    refresh();
+    // Update profile
+    await supabase.from("profiles").update({
+      name: data.name,
+    }).eq("user_id", editStudent.user_id);
+
+    // Update university
+    await supabase.from("student_university").upsert({
+      user_id: editStudent.user_id,
+      ...data.university,
+    }, { onConflict: "user_id" });
+
+    await refetch();
     setEditStudent(null);
   };
 
-  const handleDelete = (id: string) => {
-    deleteStudent(id);
-    refresh();
+  const handleDelete = async (userId: string) => {
+    // Delete via edge function (needs service role to delete auth user)
+    await supabase.functions.invoke("delete-student", {
+      body: { user_id: userId },
+    });
+    await refetch();
     setDeleteConfirm(null);
   };
 
@@ -170,7 +189,6 @@ export default function StudentManagement() {
         </button>
       </div>
 
-      {/* Filters */}
       <div className="flex flex-wrap items-center gap-2">
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -191,7 +209,6 @@ export default function StudentManagement() {
         </select>
       </div>
 
-      {/* Table */}
       <div className="bg-card border border-border rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -207,7 +224,7 @@ export default function StudentManagement() {
             </thead>
             <tbody>
               {filtered.map(s => (
-                <tr key={s.id} className="border-b border-border last:border-0 hover:bg-secondary/20 transition-colors">
+                <tr key={s.user_id} className="border-b border-border last:border-0 hover:bg-secondary/20 transition-colors">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2.5">
                       <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">{s.avatar}</div>
@@ -217,16 +234,16 @@ export default function StudentManagement() {
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell font-mono text-xs">{s.university?.studentId || "—"}</td>
+                  <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell font-mono text-xs">{s.university?.student_id || "—"}</td>
                   <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{s.university?.year || "—"}</td>
                   <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{s.university?.department || "—"}</td>
-                  <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell text-xs">{s.university?.programType || "—"}</td>
+                  <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell text-xs">{s.university?.program_type || "—"}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-1">
                       <button onClick={() => setEditStudent(s)} className="p-1.5 hover:bg-secondary rounded-lg text-muted-foreground hover:text-foreground transition-colors">
                         <Pencil className="w-3.5 h-3.5" />
                       </button>
-                      <button onClick={() => setDeleteConfirm(s.id)} className="p-1.5 hover:bg-destructive/5 rounded-lg text-muted-foreground hover:text-destructive transition-colors">
+                      <button onClick={() => setDeleteConfirm(s.user_id)} className="p-1.5 hover:bg-destructive/5 rounded-lg text-muted-foreground hover:text-destructive transition-colors">
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -243,7 +260,6 @@ export default function StudentManagement() {
         </div>
       </div>
 
-      {/* Modals */}
       <AnimatePresence>
         {(showForm || editStudent) && (
           <StudentForm
@@ -254,7 +270,6 @@ export default function StudentManagement() {
         )}
       </AnimatePresence>
 
-      {/* Delete confirmation */}
       <AnimatePresence>
         {deleteConfirm && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/20 backdrop-blur-sm p-4">
