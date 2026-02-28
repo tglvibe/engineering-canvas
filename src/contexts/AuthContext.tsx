@@ -171,6 +171,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Set up auth state listener
   useEffect(() => {
+    // Warm up the backend connection on mount
+    fetch(`${import.meta.env.VITE_SUPABASE_URL}/auth/v1/health`, {
+      headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
+    }).catch(() => {});
+
     // Listen for auth changes FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, newSession) => {
@@ -212,24 +217,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
-    try {
-      const { data, error } = await Promise.race([
-        supabase.auth.signInWithPassword({ email, password }),
-        new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error("TIMEOUT")), 15000)
-        ),
-      ]);
-      if (error) return { success: false, error: error.message };
-      if (data.user) {
-        await fetchUserData(data.user.id, data.user.email || "");
+    const maxRetries = 3;
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const { data, error } = await Promise.race([
+          supabase.auth.signInWithPassword({ email, password }),
+          new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error("TIMEOUT")), 20000)
+          ),
+        ]);
+        if (error) return { success: false, error: error.message };
+        if (data.user) {
+          await fetchUserData(data.user.id, data.user.email || "");
+        }
+        return { success: true };
+      } catch (err: any) {
+        const isNetworkError = err?.message === "TIMEOUT" || err?.message?.includes("Failed to fetch");
+        if (isNetworkError && attempt < maxRetries) {
+          // Wait before retrying (exponential backoff)
+          await new Promise(r => setTimeout(r, attempt * 2000));
+          continue;
+        }
+        if (isNetworkError) {
+          return { success: false, error: "Server is waking up. Please try again in a few seconds." };
+        }
+        return { success: false, error: err?.message || "An unexpected error occurred." };
       }
-      return { success: true };
-    } catch (err: any) {
-      if (err?.message === "TIMEOUT" || err?.message?.includes("Failed to fetch")) {
-        return { success: false, error: "Unable to reach the server. Please check your internet connection and try again." };
-      }
-      return { success: false, error: err?.message || "An unexpected error occurred." };
     }
+    return { success: false, error: "Unable to connect. Please try again." };
   };
 
   const logout = async () => {
