@@ -7,7 +7,17 @@ import { useAuth } from "@/contexts/AuthContext";
 
 export default function VideoResources({ videos }: { videos: VideoResource[] }) {
   const { t } = useTranslation();
-  const { unlockedVideos, unlockVideo } = useAuth();
+  // Video unlock state stored locally (not auth-dependent)
+  const [unlockedVideos, setUnlockedVideos] = useState<string[]>(() => {
+    try { return JSON.parse(localStorage.getItem("tgl_unlocked") || "[]"); } catch { return []; }
+  });
+  const unlockVideo = (id: string) => {
+    setUnlockedVideos(prev => {
+      const next = prev.includes(id) ? prev : [...prev, id];
+      localStorage.setItem("tgl_unlocked", JSON.stringify(next));
+      return next;
+    });
+  };
   const [selectedVideo, setSelectedVideo] = useState<VideoResource | null>(null);
   const [unlockModalVideo, setUnlockModalVideo] = useState<VideoResource | null>(null);
 

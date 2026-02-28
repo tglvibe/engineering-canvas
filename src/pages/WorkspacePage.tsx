@@ -10,9 +10,10 @@ import {
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/tgl-logo.png";
-import { backendModules, lceModules, topicVideos, topicBlogs, topicMOOCs, topicScenarios, topicCodeExamples } from "@/data/tracks";
+import { topicVideos, topicBlogs, topicMOOCs, topicScenarios, topicCodeExamples } from "@/data/tracks";
+import { getModulesForTrack } from "@/data/trackModuleResolver";
 import LanguageSelector from "@/components/LanguageSelector";
-import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
+import { useActiveEnrollments } from "@/hooks/useDatabase";
 import { courses as hierarchyCourses, programs } from "@/data/hierarchy";
 import { allHceCourses } from "@/data/courses";
 
@@ -41,74 +42,44 @@ export default function WorkspacePage() {
   };
 
   // Enrollment gating
+  const { data: activeEnrollmentData = [] } = useActiveEnrollments();
   const isEnrolled = useMemo(() => {
     if (!user?.id || !trackId) return false;
-    refreshEnrollmentStatuses();
-    const enrollments = getActiveEnrollments(user.id);
-    if (enrollments.some((e: any) => e.type === "track" && e.targetId === trackId)) return true;
-    for (const e of enrollments) {
+    if (activeEnrollmentData.some(e => e.type === "track" && e.target_id === trackId)) return true;
+    for (const e of activeEnrollmentData) {
       if (e.type === "course") {
-        const course = hierarchyCourses.find((c: any) => c.id === e.targetId);
+        const course = hierarchyCourses.find(c => c.id === e.target_id);
         if (course?.trackId === trackId) return true;
       }
       if (e.type === "program") {
-        const prog = programs.find((p: any) => p.id === e.targetId);
+        const prog = programs.find(p => p.id === e.target_id);
         if (prog) {
           for (const cid of prog.courseIds) {
-            const course = hierarchyCourses.find((c: any) => c.id === cid);
+            const course = hierarchyCourses.find(c => c.id === cid);
             if (course?.trackId === trackId) return true;
           }
         }
       }
     }
     return false;
-  }, [user?.id, trackId]);
+  }, [user?.id, trackId, activeEnrollmentData]);
 
-  const trackCourses = useMemo(() => {
-    return allHceCourses.filter(c => c.trackId === trackId);
-  }, [trackId]);
-
-  const modules = useMemo(() => {
-    if (trackCourses.length > 0) {
-      return trackCourses.flatMap(c => c.modules);
-    }
-    const modulesMap: Record<string, any[]> = {
-      backend: backendModules,
-      hce: backendModules,
-      lce: lceModules,
-      nce: lceModules,
-    };
-    return modulesMap[trackId || "backend"] || backendModules;
-  }, [trackId, trackCourses]);
-
-  const topics = useMemo(() => {
-    if (trackCourses.length > 0) {
-      return trackCourses.flatMap(c => c.topics);
-    }
-    return modules.flatMap(m => m.topics);
-  }, [modules, trackCourses]);
-
-  const initialTopicId = topics[0]?.id || "t1";
+  const modulesMap: Record<string, any[]> = {
+    backend: backendModules,
+    hce: backendModules,
+    lce: lceModules,
+    nce: lceModules, // Placeholder for NCE
+  };
+  const modules = modulesMap[trackId || "backend"] || backendModules;
+  const initialTopicId = modules[0]?.topics[0]?.id || "t1";
 
   const [activeMode, setActiveMode] = useState<string>("learn");
   const [activeTopic, setActiveTopic] = useState<string>(initialTopicId);
   const [expandedModules, setExpandedModules] = useState<string[]>([modules[0]?.id || "m1"]);
 
   useEffect(() => {
-    let newModules = modules;
-    let newTopics = topics;
-
-    // Fallback if trackCourses is empty inside useEffect
-    if (allHceCourses.filter(c => c.trackId === trackId).length === 0) {
-      const modulesMap: Record<string, any[]> = { backend: backendModules, hce: backendModules, lce: lceModules, nce: lceModules };
-      newModules = modulesMap[trackId || "backend"] || backendModules;
-      newTopics = newModules.flatMap(m => m.topics);
-    } else {
-      const tc = allHceCourses.filter(c => c.trackId === trackId);
-      newModules = tc.flatMap(c => c.modules);
-      newTopics = tc.flatMap(c => c.topics);
-    }
-    const firstTopicId = newTopics[0]?.id || "t1";
+    const newModules = modulesMap[trackId || "backend"] || backendModules;
+    const firstTopicId = newModules[0]?.topics[0]?.id || "t1";
     setActiveTopic(firstTopicId);
     setExpandedModules([newModules[0]?.id || "m1"]);
   }, [trackId]);

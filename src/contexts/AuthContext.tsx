@@ -1,6 +1,51 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { initializeStore, authenticateUser, createStudent, StoredUser, UserRole } from "@/data/store";
+import { supabase } from "@/integrations/supabase/client";
+import type { User, Session } from "@supabase/supabase-js";
 
+export type AppRole = "admin" | "student";
+
+export interface UserProfile {
+  id: string;
+  user_id: string;
+  role: AppRole;
+  name: string;
+  email: string;
+  phone: string;
+  date_of_birth: string;
+  gender: string;
+  city: string;
+  state: string;
+  country: string;
+  native_language: string;
+  known_languages: string[];
+  avatar: string;
+  linkedin: string;
+  github: string;
+  portfolio: string;
+  college: string;
+  degree: string;
+  branch: string;
+  cgpa: string;
+  graduation_year: string;
+  tenth_percent: string;
+  twelfth_percent: string;
+  job_title: string;
+  years_of_experience: string;
+  company: string;
+  level: string;
+  goal: string;
+  preferred_language: string;
+  preferred_stack: string;
+  university?: {
+    year: string;
+    program_type: string;
+    department: string;
+    specialization: string;
+    student_id: string;
+  };
+}
+
+// Re-export these types for backward compatibility
 export interface SkillRating {
   name: string;
   conceptual: number;
@@ -29,189 +74,256 @@ export interface Project {
   url: string;
 }
 
-export interface UserProfile {
-  // Core identity from store
-  id: string;
-  role: UserRole;
-  name: string;
-  email: string;
-  phone: string;
-  dateOfBirth: string;
-  gender: string;
-  city: string;
-  state: string;
-  country: string;
-  nativeLanguage: string;
-  knownLanguages: string[];
-  avatar: string;
-
-  // Social
-  linkedin: string;
-  github: string;
-  portfolio: string;
-
-  // Academic
-  college: string;
-  degree: string;
-  branch: string;
-  cgpa: string;
-  graduationYear: string;
-  tenthPercent: string;
-  twelfthPercent: string;
-
-  // Skills & ratings
-  skills: SkillRating[];
-  certifications: Certification[];
-  internships: Internship[];
-  projects: Project[];
-
-  // Professional
-  currentRole: string;
-  yearsOfExperience: string;
-  company: string;
-
-  // Platform preferences
-  level: string;
-  goal: string;
-  preferredLanguage: string;
-  preferredStack: string;
-
-  // Tracking
-  completedCourses: string[];
-  completedTopics: string[];
-  notes: string[];
-
-  // University (for students)
-  university?: {
-    year: string;
-    programType: string;
-    department: string;
-    specialization: string;
-    studentId: string;
-  };
-}
-
 interface AuthContextType {
   user: UserProfile | null;
+  authUser: User | null;
+  session: Session | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
-  login: (email: string, password: string) => boolean;
-  signup: (profile: Partial<UserProfile>) => void;
-  updateProfile: (updates: Partial<UserProfile>) => void;
-  logout: () => void;
-  unlockedVideos: string[];
-  unlockVideo: (id: string) => void;
+  isLoading: boolean;
+  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  logout: () => Promise<void>;
+  updateProfile: (updates: Partial<UserProfile>) => Promise<void>;
+  refreshProfile: () => Promise<void>;
 }
-
-const defaultProfile: UserProfile = {
-  id: "", role: "student",
-  name: "", email: "", phone: "", dateOfBirth: "", gender: "", city: "", state: "", country: "", nativeLanguage: "", knownLanguages: [], avatar: "",
-  linkedin: "", github: "", portfolio: "",
-  college: "", degree: "", branch: "", cgpa: "", graduationYear: "", tenthPercent: "", twelfthPercent: "",
-  skills: [], certifications: [], internships: [], projects: [],
-  currentRole: "", yearsOfExperience: "", company: "",
-  level: "", goal: "", preferredLanguage: "", preferredStack: "",
-  completedCourses: [], completedTopics: [], notes: [],
-};
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  // Initialize store on first load
-  useEffect(() => { initializeStore(); }, []);
+  const [session, setSession] = useState<Session | null>(null);
+  const [authUser, setAuthUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [user, setUser] = useState<UserProfile | null>(() => {
-    const stored = localStorage.getItem("tgl_current_user");
-    return stored ? JSON.parse(stored) : null;
-  });
-  const [unlockedVideos, setUnlockedVideos] = useState<string[]>(() => {
-    const stored = localStorage.getItem("tgl_unlocked");
-    return stored ? JSON.parse(stored) : [];
-  });
-
-  useEffect(() => {
-    if (user) localStorage.setItem("tgl_current_user", JSON.stringify(user));
-    else localStorage.removeItem("tgl_current_user");
-  }, [user]);
-
-  useEffect(() => {
-    localStorage.setItem("tgl_unlocked", JSON.stringify(unlockedVideos));
-  }, [unlockedVideos]);
-
-  const login = (email: string, password: string): boolean => {
-    const storedUser = authenticateUser(email, password);
-    if (!storedUser) return false;
-
-    // Build UserProfile from StoredUser
-    const profile: UserProfile = {
-      ...defaultProfile,
-      id: storedUser.id,
-      role: storedUser.role,
-      name: storedUser.name,
-      email: storedUser.email,
-      avatar: storedUser.avatar,
-      university: storedUser.university,
-      phone: storedUser.phone || "",
-      city: storedUser.city || "",
-      state: storedUser.state || "",
-      country: storedUser.country || "",
-    };
-    setUser(profile);
-    return true;
-  };
-
-  const signup = (profile: Partial<UserProfile>) => {
-    // Also persist the new student in the store
+  // Fetch profile and role for a given user
+  const fetchUserData = async (authUserId: string, email: string) => {
     try {
-      const storedUser = createStudent({
-        name: profile.name || "Student",
-        email: profile.email || "",
-        password: "password123", // default password for self-signup
-        phone: profile.phone || "",
-        city: profile.city || "",
-        state: profile.state || "",
-        country: profile.country || "",
-      });
-      const newProfile: UserProfile = {
-        ...defaultProfile,
-        ...profile,
-        id: storedUser.id,
-        role: "student",
-        avatar: storedUser.avatar,
+      // Fetch role
+      const { data: roles } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", authUserId);
+      
+      const role: AppRole = roles?.[0]?.role === "admin" ? "admin" : "student";
+      setIsAdmin(role === "admin");
+
+      // Fetch profile
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("user_id", authUserId)
+        .single();
+
+      // Fetch university data
+      const { data: university } = await supabase
+        .from("student_university")
+        .select("*")
+        .eq("user_id", authUserId)
+        .single();
+
+      const userProfile: UserProfile = {
+        id: profile?.id || "",
+        user_id: authUserId,
+        role,
+        name: profile?.name || "",
+        email: profile?.email || email,
+        phone: profile?.phone || "",
+        date_of_birth: profile?.date_of_birth || "",
+        gender: profile?.gender || "",
+        city: profile?.city || "",
+        state: profile?.state || "",
+        country: profile?.country || "",
+        native_language: profile?.native_language || "",
+        known_languages: profile?.known_languages || [],
+        avatar: profile?.avatar || "",
+        linkedin: profile?.linkedin || "",
+        github: profile?.github || "",
+        portfolio: profile?.portfolio || "",
+        college: profile?.college || "",
+        degree: profile?.degree || "",
+        branch: profile?.branch || "",
+        cgpa: profile?.cgpa || "",
+        graduation_year: profile?.graduation_year || "",
+        tenth_percent: profile?.tenth_percent || "",
+        twelfth_percent: profile?.twelfth_percent || "",
+        job_title: profile?.job_title || "",
+        years_of_experience: profile?.years_of_experience || "",
+        company: profile?.company || "",
+        level: profile?.level || "",
+        goal: profile?.goal || "",
+        preferred_language: profile?.preferred_language || "",
+        preferred_stack: profile?.preferred_stack || "",
+        university: university ? {
+          year: university.year || "Year 1",
+          program_type: university.program_type || "B.Tech Regular",
+          department: university.department || "",
+          specialization: university.specialization || "",
+          student_id: university.student_id || "",
+        } : undefined,
       };
-      setUser(newProfile);
-    } catch (e) {
-      // Fallback if store creation fails (e.g., duplicate email)
-      const newProfile: UserProfile = {
-        ...defaultProfile,
-        ...profile,
-        id: `student-${Date.now()}`,
-        role: "student",
-        avatar: (profile.name || "U").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2),
-      };
-      setUser(newProfile);
+
+      setUser(userProfile);
+    } catch (err) {
+      console.error("Error fetching user data:", err);
     }
   };
 
-  const updateProfile = (updates: Partial<UserProfile>) => {
-    setUser(prev => prev ? { ...prev, ...updates } : null);
+  // Set up auth state listener
+  useEffect(() => {
+    // Warm up the backend connection on mount
+    fetch(`${import.meta.env.VITE_SUPABASE_URL}/auth/v1/health`, {
+      headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
+    }).catch(() => {});
+
+    // Listen for auth changes FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, newSession) => {
+        setSession(newSession);
+        setAuthUser(newSession?.user ?? null);
+
+        if (newSession?.user) {
+          // Use setTimeout to avoid deadlock with Supabase client
+          setTimeout(() => {
+            fetchUserData(newSession.user.id, newSession.user.email || "");
+          }, 0);
+        } else {
+          setUser(null);
+          setIsAdmin(false);
+        }
+        setIsLoading(false);
+      }
+    );
+
+    // THEN check existing session with timeout
+    Promise.race([
+      supabase.auth.getSession(),
+      new Promise<{ data: { session: null } }>((resolve) =>
+        setTimeout(() => resolve({ data: { session: null } }), 10000)
+      ),
+    ]).then(({ data: { session: existingSession } }) => {
+      setSession(existingSession);
+      setAuthUser(existingSession?.user ?? null);
+
+      if (existingSession?.user) {
+        fetchUserData(existingSession.user.id, existingSession.user.email || "");
+      }
+      setIsLoading(false);
+    }).catch(() => {
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+    const maxRetries = 3;
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const { data, error } = await Promise.race([
+          supabase.auth.signInWithPassword({ email, password }),
+          new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error("TIMEOUT")), 20000)
+          ),
+        ]);
+        if (error) return { success: false, error: error.message };
+        if (data.user) {
+          await fetchUserData(data.user.id, data.user.email || "");
+        }
+        return { success: true };
+      } catch (err: any) {
+        const isNetworkError = err?.message === "TIMEOUT" || err?.message?.includes("Failed to fetch");
+        if (isNetworkError && attempt < maxRetries) {
+          // Wait before retrying (exponential backoff)
+          await new Promise(r => setTimeout(r, attempt * 2000));
+          continue;
+        }
+        if (isNetworkError) {
+          return { success: false, error: "Server is waking up. Please try again in a few seconds." };
+        }
+        return { success: false, error: err?.message || "An unexpected error occurred." };
+      }
+    }
+    return { success: false, error: "Unable to connect. Please try again." };
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await supabase.auth.signOut();
     setUser(null);
-    localStorage.removeItem("tgl_current_user");
-    // Also clean old key
-    localStorage.removeItem("tgl_user");
+    setAuthUser(null);
+    setSession(null);
+    setIsAdmin(false);
   };
 
-  const unlockVideo = (id: string) => {
-    setUnlockedVideos(prev => prev.includes(id) ? prev : [...prev, id]);
+  const updateProfile = async (updates: Partial<UserProfile>) => {
+    if (!authUser) return;
+
+    // Separate university updates from profile updates
+    const { university, ...profileUpdates } = updates;
+
+    // Map UserProfile fields to DB column names
+    const dbUpdates: Record<string, any> = {};
+    const fieldMap: Record<string, string> = {
+      name: "name", email: "email", phone: "phone",
+      date_of_birth: "date_of_birth", gender: "gender",
+      city: "city", state: "state", country: "country",
+      native_language: "native_language", known_languages: "known_languages",
+      avatar: "avatar", linkedin: "linkedin", github: "github", portfolio: "portfolio",
+      college: "college", degree: "degree", branch: "branch", cgpa: "cgpa",
+      graduation_year: "graduation_year", tenth_percent: "tenth_percent",
+      twelfth_percent: "twelfth_percent", job_title: "job_title",
+      years_of_experience: "years_of_experience", company: "company",
+      level: "level", goal: "goal", preferred_language: "preferred_language",
+      preferred_stack: "preferred_stack",
+    };
+
+    for (const [key, val] of Object.entries(profileUpdates)) {
+      if (key in fieldMap) {
+        dbUpdates[fieldMap[key]] = val;
+      }
+    }
+
+    if (Object.keys(dbUpdates).length > 0) {
+      await supabase.from("profiles").update(dbUpdates).eq("user_id", authUser.id);
+    }
+
+    if (university) {
+      const { data: existing } = await supabase
+        .from("student_university")
+        .select("id")
+        .eq("user_id", authUser.id)
+        .single();
+
+      if (existing) {
+        await supabase.from("student_university").update(university).eq("user_id", authUser.id);
+      } else {
+        await supabase.from("student_university").insert({ ...university, user_id: authUser.id });
+      }
+    }
+
+    // Refresh local state
+    await fetchUserData(authUser.id, authUser.email || "");
   };
 
-  const isAdmin = user?.role === "admin";
+  const refreshProfile = async () => {
+    if (authUser) {
+      await fetchUserData(authUser.id, authUser.email || "");
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isAdmin, login, signup, updateProfile, logout, unlockedVideos, unlockVideo }}>
+    <AuthContext.Provider value={{
+      user,
+      authUser,
+      session,
+      isAuthenticated: !!authUser,
+      isAdmin,
+      isLoading,
+      login,
+      logout,
+      updateProfile,
+      refreshProfile,
+    }}>
       {children}
     </AuthContext.Provider>
   );

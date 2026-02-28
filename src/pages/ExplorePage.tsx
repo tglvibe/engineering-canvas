@@ -13,7 +13,7 @@ import {
   getRolesForCategory, getProgramsForRole, getCoursesForProgram,
   type CategoryId
 } from "@/data/hierarchy";
-import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
+import { useActiveEnrollments } from "@/hooks/useDatabase";
 
 type BrowseMode = "category" | "role" | "program" | "course" | "recommended";
 
@@ -32,15 +32,11 @@ export default function ExplorePage() {
   const [categoryFilter, setCategoryFilter] = useState<CategoryId | "all">("all");
 
   // Enrollment awareness
-  const activeEnrollments = useMemo(() => {
-    if (!user?.id) return [];
-    refreshEnrollmentStatuses();
-    return getActiveEnrollments(user.id);
-  }, [user?.id]);
+  const { data: activeEnrollmentData = [] } = useActiveEnrollments();
 
-  const enrolledProgramIds = useMemo(() => new Set(activeEnrollments.filter(e => e.type === "program").map(e => e.targetId)), [activeEnrollments]);
-  const enrolledCourseIds = useMemo(() => new Set(activeEnrollments.filter(e => e.type === "course").map(e => e.targetId)), [activeEnrollments]);
-  const hasAnyEnrollment = activeEnrollments.length > 0;
+  const enrolledProgramIds = useMemo(() => new Set(activeEnrollmentData.filter(e => e.type === "program").map(e => e.target_id)), [activeEnrollmentData]);
+  const enrolledCourseIds = useMemo(() => new Set(activeEnrollmentData.filter(e => e.type === "course").map(e => e.target_id)), [activeEnrollmentData]);
+  const hasAnyEnrollment = activeEnrollmentData.length > 0;
 
   const isEnrolledInCourse = (courseId: string) => {
     if (enrolledCourseIds.has(courseId)) return true;
@@ -180,7 +176,7 @@ export default function ExplorePage() {
                   <div className="flex flex-wrap gap-2 mt-3">
                     <span className="px-2 py-0.5 rounded-full bg-secondary text-[10px] font-medium text-muted-foreground">{user.level}</span>
                     <span className="px-2 py-0.5 rounded-full bg-secondary text-[10px] font-medium text-muted-foreground">{user.goal}</span>
-                    {user.preferredLanguage && <span className="px-2 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold text-primary">{user.preferredLanguage}</span>}
+                    {user.preferred_language && <span className="px-2 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold text-primary">{user.preferred_language}</span>}
                   </div>
                 </div>
 
