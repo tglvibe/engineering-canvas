@@ -3,16 +3,13 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  BarChart3, Target, Rocket, TrendingUp,
-  Award, Calendar, CheckCircle, AlertTriangle, BookOpen, Clock, Lock
+  BarChart3, Target, TrendingUp,
+  Award, Calendar, CheckCircle, BookOpen, Clock, Lock
 } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
 import { useAuth } from "@/contexts/AuthContext";
-import {
-  getActiveEnrollments, getStudentEnrollments, getStudentProgress,
-  getStudentActivity, refreshEnrollmentStatuses, type Enrollment
-} from "@/data/store";
-import { getProgramById, getCourseById, getCoursesForProgram, courses as allCourses } from "@/data/hierarchy";
+import { useStudentEnrollments, useActiveEnrollments, useStudentProgress, useStudentActivity } from "@/hooks/useDatabase";
+import { getProgramById, getCourseById, courses as allCourses } from "@/data/hierarchy";
 
 const getMasteryColor = (v: number) => {
   if (v >= 80) return "bg-primary";
@@ -25,36 +22,26 @@ const getMasteryColor = (v: number) => {
 export default function DashboardPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user, authUser } = useAuth();
 
-  // Refresh enrollment statuses on load
-  useMemo(() => refreshEnrollmentStatuses(), []);
+  const { data: allEnrollments = [] } = useStudentEnrollments();
+  const { data: activeEnrollments = [] } = useActiveEnrollments();
+  const { data: progressRecords = [] } = useStudentProgress();
+  const { data: activityLogs = [] } = useStudentActivity();
 
-  const studentId = user?.id || "";
-
-  // Get real enrollment data
-  const allEnrollments = useMemo(() => getStudentEnrollments(studentId), [studentId]);
-  const activeEnrollments = useMemo(() => getActiveEnrollments(studentId), [studentId]);
   const expiredEnrollments = useMemo(() => allEnrollments.filter(e => e.status === "expired"), [allEnrollments]);
 
-  // Get real progress data
-  const progressRecords = useMemo(() => getStudentProgress(studentId), [studentId]);
-
-  // Get activity logs
-  const activityLogs = useMemo(() => getStudentActivity(studentId), [studentId]);
-
-  // Compute enrolled courses (from both direct course enrollments and program enrollments)
+  // Compute enrolled courses
   const enrolledCourseIds = useMemo(() => {
     const ids = new Set<string>();
     activeEnrollments.forEach(e => {
       if (e.type === "course") {
-        ids.add(e.targetId);
+        ids.add(e.target_id);
       } else if (e.type === "program") {
-        const prog = getProgramById(e.targetId);
+        const prog = getProgramById(e.target_id);
         prog?.courseIds.forEach(cid => ids.add(cid));
       } else if (e.type === "track") {
-        // Find all courses for this track
-        allCourses.filter(c => c.trackId === e.targetId).forEach(c => ids.add(c.id));
+        allCourses.filter(c => c.trackId === e.target_id).forEach(c => ids.add(c.id));
       }
     });
     return ids;
@@ -66,8 +53,7 @@ export default function DashboardPage() {
     enrolledCourseIds.forEach(cid => {
       const course = getCourseById(cid);
       if (!course) return;
-      const topicsCompleted = progressRecords.filter(p => p.courseId === cid).length;
-      // Estimate total topics from moduleCount (rough: 5 topics per module)
+      const topicsCompleted = progressRecords.filter(p => p.course_id === cid).length;
       const estimatedTotal = (course.moduleCount || 4) * 5;
       result.push({
         courseId: cid,
@@ -80,7 +66,6 @@ export default function DashboardPage() {
     return result;
   }, [enrolledCourseIds, progressRecords]);
 
-  // Overall stats
   const totalTopicsCompleted = progressRecords.length;
   const totalCoursesEnrolled = enrolledCourseIds.size;
   const overallPercent = useMemo(() => {
@@ -90,15 +75,10 @@ export default function DashboardPage() {
     return totalTopics > 0 ? Math.round((totalCompleted / totalTopics) * 100) : 0;
   }, [courseProgress]);
 
-  // Time spent (from activity logs)
-  const totalTimeSpent = useMemo(() => {
-    return activityLogs.reduce((sum, a) => sum + (a.duration || 0), 0);
-  }, [activityLogs]);
-
+  const totalTimeSpent = useMemo(() => activityLogs.reduce((sum, a) => sum + (a.duration || 0), 0), [activityLogs]);
   const totalMinutes = Math.round(totalTimeSpent / 60);
   const totalHours = Math.round(totalMinutes / 60);
 
-  // Weekly activity (last 7 days)
   const weeklyActivity = useMemo(() => {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const now = new Date();
@@ -109,7 +89,7 @@ export default function DashboardPage() {
       const dayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
       const dayEnd = new Date(dayStart.getTime() + 86400000);
       const count = activityLogs.filter(a => {
-        const ts = new Date(a.timestamp);
+        const ts = new Date(a.created_at);
         return ts >= dayStart && ts < dayEnd;
       }).length;
       result.push({ day: days[d.getDay()], count });
@@ -118,7 +98,6 @@ export default function DashboardPage() {
   }, [activityLogs]);
 
   const maxWeekly = Math.max(...weeklyActivity.map(w => w.count), 1);
-
   const hasData = activeEnrollments.length > 0 || progressRecords.length > 0;
 
   const stats = [
@@ -133,11 +112,8 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-background">
       <AppHeader title={t("dashboard.title")} backTo="/explore" />
-
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-
-          {/* Empty state */}
           {!hasData && (
             <div className="rounded-2xl border border-border bg-card p-8 sm:p-12 text-center mb-8">
               <BookOpen className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
@@ -210,16 +186,12 @@ export default function DashboardPage() {
                     <div className="space-y-2 sm:space-y-2.5">
                       {courseProgress.map(item => (
                         <div key={item.courseId} className="flex items-center gap-2 sm:gap-3">
-                          <span className="text-[10px] sm:text-xs text-muted-foreground w-24 sm:w-36 shrink-0 truncate">
-                            {t(item.name)}
-                          </span>
+                          <span className="text-[10px] sm:text-xs text-muted-foreground w-24 sm:w-36 shrink-0 truncate">{t(item.name)}</span>
                           <div className="flex-1 h-4 sm:h-5 bg-secondary rounded-md overflow-hidden">
                             <motion.div initial={{ width: 0 }} animate={{ width: `${item.percent}%` }} transition={{ duration: 0.8 }}
                               className={`h-full rounded-md ${getMasteryColor(item.percent)}`} />
                           </div>
-                          <span className="text-[10px] sm:text-xs font-mono text-muted-foreground w-7 sm:w-8 text-right">
-                            {item.percent}%
-                          </span>
+                          <span className="text-[10px] sm:text-xs font-mono text-muted-foreground w-7 sm:w-8 text-right">{item.percent}%</span>
                         </div>
                       ))}
                     </div>
@@ -251,8 +223,8 @@ export default function DashboardPage() {
                 </h2>
                 <div className="space-y-2">
                   {allEnrollments.map(enr => {
-                    const target = enr.type === "program" ? getProgramById(enr.targetId) : getCourseById(enr.targetId);
-                    const name = target ? t((target as any).titleKey || enr.targetId) : enr.targetId;
+                    const target = enr.type === "program" ? getProgramById(enr.target_id) : getCourseById(enr.target_id);
+                    const name = target ? t((target as any).titleKey || enr.target_id) : enr.target_id;
                     const isExpired = enr.status === "expired";
                     const isActive = enr.status === "active";
                     return (
@@ -262,7 +234,7 @@ export default function DashboardPage() {
                         <div className="min-w-0">
                           <p className="text-xs font-medium text-foreground truncate">{name}</p>
                           <p className="text-[10px] text-muted-foreground">
-                            {enr.type.toUpperCase()} · {new Date(enr.startDate).toLocaleDateString()} → {new Date(enr.expiryDate).toLocaleDateString()}
+                            {enr.type.toUpperCase()} · {new Date(enr.start_date).toLocaleDateString()} → {new Date(enr.expiry_date).toLocaleDateString()}
                           </p>
                         </div>
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${

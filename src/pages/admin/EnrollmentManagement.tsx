@@ -1,13 +1,11 @@
 import { useState, useMemo } from "react";
 import { Plus, X, Clock, CheckCircle, XCircle, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  getStudents, getAllEnrollments, createEnrollment, unenroll, refreshEnrollmentStatuses,
-  StoredUser, Enrollment,
-} from "@/data/store";
+import { useAuth } from "@/contexts/AuthContext";
+import { useAllEnrollments, useAllStudents, useCreateEnrollment, useUnenroll } from "@/hooks/useDatabase";
 import { programs, courses } from "@/data/hierarchy";
 
-function EnrollForm({ students, onSave, onCancel }: { students: StoredUser[]; onSave: (data: any) => void; onCancel: () => void }) {
+function EnrollForm({ students, onSave, onCancel }: { students: any[]; onSave: (data: any) => void; onCancel: () => void }) {
   const [studentId, setStudentId] = useState("");
   const [type, setType] = useState<"program" | "course">("program");
   const [targetId, setTargetId] = useState("");
@@ -28,12 +26,11 @@ function EnrollForm({ students, onSave, onCancel }: { students: StoredUser[]; on
       return;
     }
     onSave({
-      studentId,
+      student_id: studentId,
       type,
-      targetId,
-      startDate: new Date(startDate).toISOString(),
-      expiryDate: new Date(expiryDate).toISOString(),
-      enrolledBy: "admin-001",
+      target_id: targetId,
+      start_date: new Date(startDate).toISOString(),
+      expiry_date: new Date(expiryDate).toISOString(),
     });
   };
 
@@ -53,7 +50,7 @@ function EnrollForm({ students, onSave, onCancel }: { students: StoredUser[]; on
           <label className="text-xs font-medium text-muted-foreground mb-1 block">Student</label>
           <select value={studentId} onChange={e => setStudentId(e.target.value)} className={inputClass}>
             <option value="">Select student</option>
-            {students.map(s => <option key={s.id} value={s.id}>{s.name} ({s.university?.studentId || s.email})</option>)}
+            {students.map(s => <option key={s.user_id} value={s.user_id}>{s.name} ({s.university?.student_id || s.email})</option>)}
           </select>
         </div>
 
@@ -97,24 +94,24 @@ function EnrollForm({ students, onSave, onCancel }: { students: StoredUser[]; on
   );
 }
 
-const statusConfig = {
+const statusConfig: Record<string, { icon: any; color: string; bg: string; label: string }> = {
   active: { icon: CheckCircle, color: "text-emerald-500", bg: "bg-emerald-500/10", label: "Active" },
   expired: { icon: Clock, color: "text-amber-500", bg: "bg-amber-500/10", label: "Expired" },
   unenrolled: { icon: XCircle, color: "text-destructive", bg: "bg-destructive/10", label: "Unenrolled" },
 };
 
 export default function EnrollmentManagement() {
-  const [enrollments, setEnrollments] = useState(() => { refreshEnrollmentStatuses(); return getAllEnrollments(); });
-  const students = useMemo(() => getStudents(), []);
+  const { data: enrollments = [], refetch } = useAllEnrollments();
+  const { data: students = [] } = useAllStudents();
+  const createEnrollment = useCreateEnrollment();
+  const unenrollMutation = useUnenroll();
   const [showForm, setShowForm] = useState(false);
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
 
-  const refresh = () => { refreshEnrollmentStatuses(); setEnrollments(getAllEnrollments()); };
-
   const studentMap = useMemo(() => {
-    const map: Record<string, StoredUser> = {};
-    students.forEach(s => { map[s.id] = s; });
+    const map: Record<string, any> = {};
+    students.forEach(s => { map[s.user_id] = s; });
     return map;
   }, [students]);
 
@@ -122,23 +119,21 @@ export default function EnrollmentManagement() {
     return enrollments.filter(e => {
       if (filterStatus && e.status !== filterStatus) return false;
       if (search) {
-        const student = studentMap[e.studentId];
+        const student = studentMap[e.student_id];
         const term = search.toLowerCase();
-        if (!student?.name.toLowerCase().includes(term) && !e.targetId.toLowerCase().includes(term)) return false;
+        if (!student?.name.toLowerCase().includes(term) && !e.target_id.toLowerCase().includes(term)) return false;
       }
       return true;
     });
   }, [enrollments, search, filterStatus, studentMap]);
 
-  const handleCreate = (data: any) => {
-    createEnrollment(data);
-    refresh();
+  const handleCreate = async (data: any) => {
+    await createEnrollment.mutateAsync(data);
     setShowForm(false);
   };
 
-  const handleUnenroll = (id: string) => {
-    unenroll(id);
-    refresh();
+  const handleUnenroll = async (id: string) => {
+    await unenrollMutation.mutateAsync(id);
   };
 
   return (
@@ -185,21 +180,21 @@ export default function EnrollmentManagement() {
             </thead>
             <tbody>
               {filtered.map(e => {
-                const student = studentMap[e.studentId];
-                const cfg = statusConfig[e.status];
+                const student = studentMap[e.student_id];
+                const cfg = statusConfig[e.status] || statusConfig.active;
                 const StatusIcon = cfg.icon;
                 return (
                   <tr key={e.id} className="border-b border-border last:border-0 hover:bg-secondary/20">
                     <td className="px-4 py-3">
                       <p className="font-medium text-foreground">{student?.name || "Unknown"}</p>
-                      <p className="text-[11px] text-muted-foreground">{student?.university?.studentId || ""}</p>
+                      <p className="text-[11px] text-muted-foreground">{student?.university?.student_id || ""}</p>
                     </td>
                     <td className="px-4 py-3">
                       <span className="px-2 py-0.5 rounded-full text-[11px] font-medium bg-secondary text-foreground capitalize">{e.type}</span>
                     </td>
-                    <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell font-mono text-xs">{e.targetId}</td>
-                    <td className="px-4 py-3 text-muted-foreground hidden md:table-cell text-xs">{new Date(e.startDate).toLocaleDateString()}</td>
-                    <td className="px-4 py-3 text-muted-foreground hidden md:table-cell text-xs">{new Date(e.expiryDate).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell font-mono text-xs">{e.target_id}</td>
+                    <td className="px-4 py-3 text-muted-foreground hidden md:table-cell text-xs">{new Date(e.start_date).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 text-muted-foreground hidden md:table-cell text-xs">{new Date(e.expiry_date).toLocaleDateString()}</td>
                     <td className="px-4 py-3">
                       <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ${cfg.bg} ${cfg.color}`}>
                         <StatusIcon className="w-3 h-3" /> {cfg.label}
