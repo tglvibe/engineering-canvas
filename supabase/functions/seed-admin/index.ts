@@ -2,7 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 Deno.serve(async (req) => {
@@ -14,6 +14,20 @@ Deno.serve(async (req) => {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, serviceRoleKey);
+
+    // Guard: Only allow seeding if no admin exists yet
+    const { data: existingAdmins } = await supabase
+      .from("user_roles")
+      .select("id")
+      .eq("role", "admin")
+      .limit(1);
+
+    if (existingAdmins && existingAdmins.length > 0) {
+      return new Response(JSON.stringify({ error: "Admin already exists. Seed is disabled." }), {
+        status: 403,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     const results: string[] = [];
 
@@ -28,18 +42,13 @@ Deno.serve(async (req) => {
     if (adminError && !adminError.message.includes("already been registered")) {
       results.push(`Admin error: ${adminError.message}`);
     } else if (adminData?.user) {
-      // Set admin role
       await supabase.from("user_roles").upsert({
         user_id: adminData.user.id,
         role: "admin",
       }, { onConflict: "user_id,role" });
-      
-      // Update profile name
       await supabase.from("profiles").update({ name: "Super Admin" }).eq("user_id", adminData.user.id);
-      
       results.push(`Admin created: ${adminData.user.id}`);
     } else {
-      // Admin already exists, find and update role
       const { data: existingUsers } = await supabase.auth.admin.listUsers();
       const adminUser = existingUsers?.users?.find(u => u.email === "admin@talenciaglobal.com");
       if (adminUser) {
@@ -62,13 +71,11 @@ Deno.serve(async (req) => {
     if (demoError && !demoError.message.includes("already been registered")) {
       results.push(`Demo error: ${demoError.message}`);
     } else if (demoData?.user) {
-      // Update profile
       await supabase.from("profiles").update({
         name: "Arjun Mehta",
         avatar: "AM",
       }).eq("user_id", demoData.user.id);
 
-      // Add university data
       await supabase.from("student_university").upsert({
         user_id: demoData.user.id,
         year: "Year 3",
@@ -78,7 +85,6 @@ Deno.serve(async (req) => {
         student_id: "TGL2024001",
       }, { onConflict: "user_id" });
 
-      // Create demo enrollments
       const enrollments = [
         { student_id: demoData.user.id, type: "program", target_id: "backend-mastery", enrolled_by: demoData.user.id },
         { student_id: demoData.user.id, type: "program", target_id: "frontend-mastery", enrolled_by: demoData.user.id },
