@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Rocket, Check, Circle, ArrowRight } from "lucide-react";
+import { Rocket, Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { backendCapstone } from "@/data/tracks";
 
@@ -14,8 +14,8 @@ export default function CapstoneProject() {
         <h3 className="text-sm font-semibold text-foreground">{t("workspace.capstoneProject")}</h3>
       </div>
       <div className="rounded-xl border border-primary/20 bg-primary/[0.02] p-4 mb-4">
-        <h4 className="font-bold text-foreground text-base">{backendCapstone.title}</h4>
-        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{backendCapstone.description}</p>
+        <h4 className="font-bold text-foreground text-base">{t(backendCapstone.titleKey)}</h4>
+        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{t(backendCapstone.descriptionKey)}</p>
         <div className="flex items-center gap-3 mt-3">
           <div className="flex-1 h-2 bg-secondary rounded-full overflow-hidden">
             <motion.div initial={{ width: 0 }} animate={{ width: `${(completedCount / backendCapstone.phases.length) * 100}%` }} transition={{ duration: 0.8 }} className="h-full bg-gradient-brand rounded-full" />
@@ -34,13 +34,13 @@ export default function CapstoneProject() {
             </div>
             <div className="flex-1 min-w-0 pb-2">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{phase.module}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{t(phase.moduleKey)}</span>
                 {phase.completed && <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-primary/10 text-primary">{t("workspace.done")}</span>}
               </div>
-              <h5 className="text-sm font-semibold text-foreground mt-0.5">{phase.title}</h5>
-              <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{phase.description}</p>
+              <h5 className="text-sm font-semibold text-foreground mt-0.5">{t(phase.titleKey)}</h5>
+              <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{t(phase.descriptionKey)}</p>
               <div className="flex flex-wrap gap-1 mt-2">
-                {phase.components.map(c => <span key={c} className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-secondary text-muted-foreground">{c}</span>)}
+                {phase.componentsKeys.map(c => <span key={c} className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-secondary text-muted-foreground">{t(c)}</span>)}
               </div>
             </div>
           </div>

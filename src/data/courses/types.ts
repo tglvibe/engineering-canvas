@@ -2,13 +2,16 @@ import { Course, CategoryId } from '../hierarchy';
 
 export interface CourseModule {
   id: string;
-  titleKey: string;
-  descriptionKey: string;
+  titleKey?: string;
+  title?: string;
+  descriptionKey?: string;
+  description?: string;
   sequenceNumber: number;
   estimatedHours: number;
   topics: string[];
   prerequisiteModuleIds: string[];
-  outcomesKeys: string[];
+  outcomesKeys?: string[];
+  outcomes?: string[];
 }
 
 // ---------------------------------------------------------
@@ -17,10 +20,14 @@ export interface CourseModule {
 
 export interface VideoResource {
   type: "public" | "platform";
-  titleKey: string;
-  authorKey: string;
-  durationKey: string;
-  viewsKey: string;
+  titleKey?: string;
+  title?: string;
+  authorKey?: string;
+  author?: string;
+  durationKey?: string;
+  duration?: string;
+  viewsKey?: string;
+  views?: string;
   isPremium?: boolean;
   url?: string;
 }
@@ -28,36 +35,58 @@ export interface VideoResource {
 export interface MOOCReference {
   platform: string;
   rating: number;
-  titleKey: string;
-  instructorKey: string;
-  enrolledKey: string;
-  durationKey: string;
+  titleKey?: string;
+  title?: string;
+  instructorKey?: string;
+  instructor?: string;
+  enrolledKey?: string;
+  enrolled?: string;
+  durationKey?: string;
+  duration?: string;
   url?: string;
 }
 
 export interface BlogOrDoc {
   type: string;
-  titleKey: string;
-  publisherKey: string;
-  readTimeKey: string;
+  titleKey?: string;
+  title?: string;
+  publisherKey?: string;
+  publisher?: string;
+  readTimeKey?: string;
+  readTime?: string;
+  tag?: string;
   url?: string;
 }
 
 export interface ScenarioProblem {
   id: string;
   difficulty: "Easy" | "Medium" | "Hard" | "Expert";
-  titleKey: string;
-  categoryKey: string;
-  estimatedTimeKey: string;
+  titleKey?: string;
+  title?: string;
+  categoryKey?: string;
+  category?: string;
+  domain?: string;
+  estimatedTimeKey?: string;
+  estimatedTime?: string;
+  context?: string;
+  constraints?: string[];
+  deliverable?: string;
   // Deep problem framework requirements
-  scenarioDescriptionKey: string;
-  problemAnalysisKey: string;
-  architectureLayersKeys: string[];
-  toolsAndTech: { nameKey: string; justificationKey: string }[];
-  tradeOffsKeys: string[];
-  nfrConsiderationsKeys: string[];
-  kpisKeys: string[];
-  keyInsightsKey: string;
+  scenarioDescriptionKey?: string;
+  scenarioDescription?: string;
+  problemAnalysisKey?: string;
+  problemAnalysis?: string;
+  architectureLayersKeys?: string[];
+  architectureLayers?: string[];
+  toolsAndTech?: { nameKey?: string; name?: string; justificationKey?: string; justification?: string }[];
+  tradeOffsKeys?: string[];
+  tradeOffs?: string[];
+  nfrConsiderationsKeys?: string[];
+  nfrConsiderations?: string[];
+  kpisKeys?: string[];
+  kpis?: string[];
+  keyInsightsKey?: string;
+  keyInsights?: string;
 }
 
 export interface CodeLanguageSnippet {
@@ -66,8 +95,10 @@ export interface CodeLanguageSnippet {
 }
 
 export interface CodePlayground {
-  titleKey: string;
+  titleKey?: string;
+  title?: string;
   descriptionKey?: string;
+  description?: string;
   examples: CodeLanguageSnippet[];
 }
 
@@ -76,32 +107,44 @@ export interface GitFile {
   type: "folder" | "file";
   children?: GitFile[];
   contentKey?: string;
+  content?: string;
 }
 
 export interface GitSimulation {
   branchName: string;
   files: GitFile[];
   commitMessageKey?: string;
+  commitMessage?: string;
   activeFileSnippet?: {
     filename: string;
-    codeKey: string;
+    codeKey?: string;
+    code?: string;
   };
 }
 
 export interface CommunitySolution {
-  authorInitials: string;
-  authorName: string;
-  badgeKey: "Top Solution" | string;
-  roleKey: string;
-  levelKey: string;
-  timeAgoKey: string;
+  authorInitials?: string;
+  authorName?: string;
+  badgeKey?: string;
+  badge?: string;
+  roleKey?: string;
+  role?: string;
+  levelKey?: string;
+  level?: string;
+  timeAgoKey?: string;
+  timeAgo?: string;
   upvotes: number;
   comments: number;
   contentKey?: string;
+  content?: string;
+  createdAtKey?: string;
+  summaryKey?: string;
+  summary?: string;
 }
 
 export interface CommunitySection {
-  aiSummaryKey: string;
+  aiSummaryKey?: string;
+  aiSummary?: string;
   solutions: CommunitySolution[];
 }
 
@@ -111,27 +154,39 @@ export interface CommunitySection {
 
 export interface CourseTopic {
   id: string;
-  titleKey: string;
+  titleKey?: string;
+  title?: string;
   moduleId: string;
   sequenceNumber: number;
   estimatedMinutes: number;
 
-  // Core Learning Content
-  whatKey: string;
-  whyKey: string;
-  whenKey: string;
-  howKey: string;
+  // Core Learning Content (accept both patterns)
+  whatKey?: string;
+  what?: string;
+  whyKey?: string;
+  why?: string;
+  whenKey?: string;
+  when?: string;
+  howKey?: string;
+  how?: string;
 
   // Real-world Context
-  ecosystemKey: string;
-  realWorldKey: string;
-  useCasesKeys: string[];
-  advantagesKeys: string[];
-  disadvantagesKeys: string[];
+  ecosystemKey?: string;
+  ecosystem?: string;
+  realWorldKey?: string;
+  realWorld?: string;
+  useCasesKeys?: string[];
+  useCases?: string[];
+  advantagesKeys?: string[];
+  advantages?: string[];
+  disadvantagesKeys?: string[];
+  disadvantages?: string[];
 
   // Career Readiness
-  interviewTipKey: string;
-  resumeBulletKey: string;
+  interviewTipKey?: string;
+  interviewTip?: string;
+  resumeBulletKey?: string;
+  resumeBullet?: string;
 
   // NEW MASSIVE DEPTH FIELDS
   videos?: VideoResource[];
@@ -145,60 +200,78 @@ export interface CourseTopic {
   // Legacy fallback
   codeSnippet?: {
     language: string;
-    titleKey: string;
+    titleKey?: string;
+    title?: string;
     code: string;
-    outputKey: string;
-    explanationKey: string;
+    outputKey?: string;
+    output?: string;
+    explanationKey?: string;
+    explanation?: string;
   }[];
 }
 
 export interface CapstoneStep {
   sequenceNumber?: number;
-  titleKey: string;
+  titleKey?: string;
+  title?: string;
   descriptionKey?: string;
+  description?: string;
   objectiveKey?: string;
+  objective?: string;
   skillsKeys?: string[];
+  skills?: string[];
   status?: "Done" | "In Progress" | "Not Started";
 }
 
 export interface CapstoneProjectDeep {
-  titleKey: string;
-  descriptionKey: string;
+  titleKey?: string;
+  title?: string;
+  descriptionKey?: string;
+  description?: string;
   estimatedDays: number;
-  skillsFocusedKeys: string[];
+  skillsFocusedKeys?: string[];
+  skillsFocused?: string[];
   steps: CapstoneStep[];
 }
 
-export interface CourseEnhanced extends Course {
+export interface CourseEnhanced {
   id: string;
   titleKey: string;
   descKey: string;
   icon: string;
-  durationKey: string;
-  languagesKeys: string[];
+  durationKey?: string;
+  duration?: string;
+  languagesKeys?: string[];
+  languages?: string[];
   category: CategoryId;
   programIds: string[];
-  roleIds?: string[]; // New mapping explicitly bounding courses to roles
+  roleIds?: string[];
+  trackId?: string;
+  moduleCount?: number;
+  levelKey?: string;
 
   modules: CourseModule[];
   topics: CourseTopic[];
 
   level: "beginner" | "intermediate" | "advanced";
-  prerequisitesKeys: string[];
-  targetAudienceKey: string;
-  learningOutcomesKeys: string[];
+  prerequisitesKeys?: string[];
+  prerequisites?: string[];
+  targetAudienceKey?: string;
+  targetAudience?: string;
+  learningOutcomesKeys?: string[];
+  learningOutcomes?: string[];
 
-  videoCount: number;
-  articleCount: number;
-  problemCount: number;
+  videoCount?: number;
+  articleCount?: number;
+  problemCount?: number;
 
   capstoneProject?: CapstoneProjectDeep;
 
-  totalEstimatedHours: number;
-  estimatedCompletionDays: number;
+  totalEstimatedHours?: number;
+  estimatedCompletionDays?: number;
 
-  createdAt: string;
-  updatedAt: string;
-  version: string;
-  status: "draft" | "published" | "archived";
+  createdAt?: string;
+  updatedAt?: string;
+  version?: string;
+  status?: "draft" | "published" | "archived";
 }

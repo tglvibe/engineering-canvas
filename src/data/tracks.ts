@@ -1,25 +1,38 @@
 export interface Module {
   id: string;
-  titleKey: string;
+  titleKey?: string;
+  title?: string;
   topics: Topic[];
 }
 
 export interface Topic {
   id: string;
-  titleKey: string;
-  whatKey: string;
-  whyKey: string;
-  whenKey: string;
-  howKey: string;
-  ecosystemKey: string;
-  realWorldKey: string;
-  useCasesKeys: string[];
-  advantagesKeys: string[];
-  disadvantagesKeys: string[];
-  interviewTipKey: string;
-  resumeBulletKey: string;
+  titleKey?: string;
+  title?: string;
+  whatKey?: string;
+  what?: string;
+  whyKey?: string;
+  why?: string;
+  whenKey?: string;
+  when?: string;
+  howKey?: string;
+  how?: string;
+  ecosystemKey?: string;
+  ecosystem?: string;
+  realWorldKey?: string;
+  realWorld?: string;
+  useCasesKeys?: string[];
+  useCases?: string[];
+  advantagesKeys?: string[];
+  advantages?: string[];
+  disadvantagesKeys?: string[];
+  disadvantages?: string[];
+  interviewTipKey?: string;
+  interviewTip?: string;
+  resumeBulletKey?: string;
+  resumeBullet?: string;
   codeSnippet?: { language: string; code: string; output: string };
-  scenario?: { titleKey: string; contextKey: string; constraintsKeys: string[]; deliverableKey: string };
+  scenario?: { titleKey?: string; title?: string; contextKey?: string; context?: string; constraintsKeys?: string[]; constraints?: string[]; deliverableKey?: string; deliverable?: string };
 }
 
 export interface VideoResource {
