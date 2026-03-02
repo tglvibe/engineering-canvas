@@ -23,6 +23,7 @@ export const hceBack101: CourseEnhanced = {
     programIds: ["HCE BACK"],
     roleIds: ["backend-dev", "fullstack-dev", "system-architect"],
     trackId: "hce",
+    level: "beginner",
     levelKey: "common.levels.beginner",
     prerequisitesKeys: ["courses.coreCs101", "courses.coreProgPy"],
     targetAudienceKey: "courses.hceBack101.targetAudience",

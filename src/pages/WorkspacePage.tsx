@@ -64,13 +64,8 @@ export default function WorkspacePage() {
     return false;
   }, [user?.id, trackId, activeEnrollmentData]);
 
-  const modulesMap: Record<string, any[]> = {
-    backend: backendModules,
-    hce: backendModules,
-    lce: lceModules,
-    nce: lceModules, // Placeholder for NCE
-  };
-  const modules = modulesMap[trackId || "backend"] || backendModules;
+  const modules = useMemo(() => getModulesForTrack(trackId || "backend"), [trackId]);
+  const allTopics = useMemo(() => modules.flatMap(m => m.topics), [modules]);
   const initialTopicId = modules[0]?.topics[0]?.id || "t1";
 
   const [activeMode, setActiveMode] = useState<string>("learn");
@@ -78,7 +73,7 @@ export default function WorkspacePage() {
   const [expandedModules, setExpandedModules] = useState<string[]>([modules[0]?.id || "m1"]);
 
   useEffect(() => {
-    const newModules = modulesMap[trackId || "backend"] || backendModules;
+    const newModules = getModulesForTrack(trackId || "backend");
     const firstTopicId = newModules[0]?.topics[0]?.id || "t1";
     setActiveTopic(firstTopicId);
     setExpandedModules([newModules[0]?.id || "m1"]);
@@ -97,7 +92,7 @@ export default function WorkspacePage() {
     { id: "explore", label: t("workspace.explore"), icon: Compass },
   ] as const;
 
-  const currentTopic = topics.find(t => t.id === activeTopic);
+  const currentTopic = allTopics.find(tp => tp.id === activeTopic);
 
   const toggleModule = (id: string) => {
     setExpandedModules(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -149,11 +144,11 @@ export default function WorkspacePage() {
 
   if (!currentTopic) return null;
 
-  const videos = currentTopic.videos || topicVideos[activeTopic] || [];
-  const blogs = currentTopic.blogs || topicBlogs[activeTopic] || [];
-  const moocs = currentTopic.moocs || topicMOOCs[activeTopic] || [];
-  const scenarios = currentTopic.scenarios || topicScenarios[activeTopic] || [];
-  const playgrounds = currentTopic.playgrounds || [];
+  const videos = (currentTopic as any).videos || topicVideos[activeTopic] || [];
+  const blogs = (currentTopic as any).blogs || topicBlogs[activeTopic] || [];
+  const moocs = (currentTopic as any).moocs || topicMOOCs[activeTopic] || [];
+  const scenarios = (currentTopic as any).scenarios || topicScenarios[activeTopic] || [];
+  const playgrounds = (currentTopic as any).playgrounds || [];
   const codeExamples = playgrounds.length > 0 ? playgrounds : (topicCodeExamples[activeTopic] || []);
 
   return (
@@ -196,7 +191,7 @@ export default function WorkspacePage() {
                     <AnimatePresence>
                       {expandedModules.includes(mod.id) && (
                         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                          {topics.filter((topic: any) => topic.moduleId === mod.id || mod.topics?.some((mt: any) => mt.id === topic.id)).map((topic: any) => (
+                          {mod.topics.filter((topic: any) => true).map((topic: any) => (
                             <button
                               key={topic.id}
                               onClick={() => selectTopic(topic.id)}
