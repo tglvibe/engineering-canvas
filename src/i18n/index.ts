@@ -36,6 +36,17 @@ export const languages = [
   { code: 'es', label: 'Spanish', nativeLabel: 'Español', flag: '🇪🇸' },
 ];
 
+// post-processor removes debug prefixes inserted during build (e.g. "[HI] ")
+i18n.use({
+  type: 'postProcessor',
+  name: 'stripLangTag',
+  process(value, key, options, translator) {
+    // when a language placeholder is added by the build step, strip it so UI shows clean text
+    // also trim any leading whitespace that might exist in the JSON files
+    return String(value).replace(/^\[[A-Z]{2,}\]\s*/, '').trimStart();
+  }
+});
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -58,6 +69,7 @@ i18n
       es: { translation: es },
     },
     fallbackLng: 'en',
+    postProcess: ['stripLangTag'],
     interpolation: { escapeValue: false },
     detection: {
       order: ['localStorage', 'navigator'],

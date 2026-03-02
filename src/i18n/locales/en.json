@@ -2597,6 +2597,8 @@
     "title": "Explore",
     "heading": "Explore your career path",
     "subheading": "Browse by category, role, program or course — your journey, your way.",
+    "enrolledPrograms": "My Programs",
+    "noEnrollments": "You are not enrolled in any programs yet.",
     "recommended": "Recommended",
     "byCategory": "By Category",
     "byRole": "By Role",

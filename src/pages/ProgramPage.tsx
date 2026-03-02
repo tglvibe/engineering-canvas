@@ -9,33 +9,32 @@ import {
 import AppHeader from "@/components/AppHeader";
 import { getProgramById, getCoursesForProgram, getRoleById, getCategoryForRole, programs } from "@/data/hierarchy";
 import { useAuth } from "@/contexts/AuthContext";
-import { getActiveEnrollments, refreshEnrollmentStatuses } from "@/data/store";
+import { useActiveEnrollments } from "@/hooks/useDatabase";
+import { formatDuration, safeT } from "@/lib/utils";
 
 export default function ProgramPage() {
   const { programId } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t: rawT } = useTranslation();
+  const t = (key: string, options?: any) => safeT(rawT, key, options);
   const { user } = useAuth();
 
   const program = useMemo(() => getProgramById(programId || ""), [programId]);
   const programCourses = useMemo(() => program ? getCoursesForProgram(program.id) : [], [program]);
   const targetRole = useMemo(() => program ? getRoleById(program.targetRoleKey.replace("roles.", "").replace(/([A-Z])/g, "-$1").toLowerCase().replace(/^-/, "")) : null, [program]);
 
-  // Check enrollment
+  // Check enrollment (uses same shape as workspace)
+  const { data: activeEnrollmentData = [] } = useActiveEnrollments();
   const isEnrolled = useMemo(() => {
     if (!user?.id || !programId) return false;
-    refreshEnrollmentStatuses();
-    const enrollments = getActiveEnrollments(user.id);
-    // Direct program enrollment
-    if (enrollments.some(e => e.type === "program" && e.targetId === programId)) return true;
-    // Check if enrolled in any course within this program
+    if (activeEnrollmentData.some((e: any) => e.type === "program" && e.target_id === programId)) return true;
     if (program) {
       for (const cid of program.courseIds) {
-        if (enrollments.some(e => e.type === "course" && e.targetId === cid)) return true;
+        if (activeEnrollmentData.some((e: any) => e.type === "course" && e.target_id === cid)) return true;
       }
     }
     return false;
-  }, [user?.id, programId, program]);
+  }, [user?.id, programId, program, activeEnrollmentData]);
 
   if (!program) {
     return (
@@ -62,7 +61,7 @@ export default function ProgramPage() {
 
                 <div className="flex items-center gap-4 mt-4 flex-wrap">
                   <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                    <Clock className="w-4 h-4" /> {t(program.durationKey)}
+                    <Clock className="w-4 h-4" /> {formatDuration(t, program.durationKey)}
                   </span>
                   <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
                     <BookOpen className="w-4 h-4" /> {programCourses.length} {t("explore.courses")}
@@ -140,7 +139,7 @@ export default function ProgramPage() {
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">{t(course.descKey)}</p>
                     <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {t(course.durationKey)}</span>
+                      <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {formatDuration(t, course.durationKey)}</span>
                       <span>{course.moduleCount} {t("tracks.modules")}</span>
                     </div>
                     <div className="flex flex-wrap gap-1 mt-2">

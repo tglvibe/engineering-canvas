@@ -186,7 +186,7 @@ export default function WorkspacePage() {
                       className="w-full flex items-center gap-2 px-2 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-sidebar-accent transition-colors"
                     >
                       {expandedModules.includes(mod.id) ? <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />}
-                      <span className="truncate">{t(mod.titleKey, mod.title)}</span>
+                      <span className="truncate">{mod.title || mod.titleKey || "Untitled Module"}</span>
                     </button>
                     <AnimatePresence>
                       {expandedModules.includes(mod.id) && (
@@ -198,7 +198,8 @@ export default function WorkspacePage() {
                               className={`w-full text-left px-3 pl-8 py-2 text-sm rounded-lg transition-colors ${activeTopic === topic.id ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
                                 }`}
                             >
-                              {t(topic.titleKey, topic.title)}
+                              {/* topics are stored with a plain title, not a translation key */}
+                              {topic.title || topic.titleKey || "Untitled Topic"}
                             </button>
                           ))}
                         </motion.div>
@@ -224,7 +225,7 @@ export default function WorkspacePage() {
       {!focusMode && (
         <header className="h-12 border-b border-border bg-background/80 backdrop-blur-xl flex items-center justify-between px-3 sm:px-4 shrink-0 z-30">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <button onClick={() => setSidebarOpen(true)} className="p-1.5 text-muted-foreground hover:text-foreground lg:hidden shrink-0">
+            <button onClick={() => setSidebarOpen(true)} aria-label="Open sidebar" className="p-1.5 text-muted-foreground hover:text-foreground lg:hidden shrink-0">
               <Menu className="w-4 h-4" />
             </button>
             <button onClick={() => navigate("/tracks")} className="text-muted-foreground hover:text-foreground transition-colors hidden sm:block shrink-0">
