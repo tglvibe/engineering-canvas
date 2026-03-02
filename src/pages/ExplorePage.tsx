@@ -1,8 +1,7 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { safeT, formatDuration } from "@/lib/utils";
 import {
   Search, Layers, Code2, Wand2, Sparkles, Briefcase, BookOpen, GraduationCap,
   ArrowRight, Clock, Users, ChevronRight, Target, TrendingUp, Filter, LayoutGrid, Lock, AlertCircle
@@ -16,8 +15,7 @@ import {
 } from "@/data/hierarchy";
 import { useActiveEnrollments } from "@/hooks/useDatabase";
 
-type BrowseMode = "category" | "role" | "program" | "course" | "recommended" | "enrolled"; // added enrolled mode
-
+type BrowseMode = "category" | "role" | "program" | "course" | "recommended";
 
 const categoryIcons: Record<string, typeof Code2> = {
   "high-code": Code2, "low-code": Wand2, "no-code": Sparkles,
@@ -25,11 +23,9 @@ const categoryIcons: Record<string, typeof Code2> = {
 
 export default function ExplorePage() {
   const navigate = useNavigate();
-  const { t: rawT } = useTranslation();
-  const t = (key: string, options?: any) => safeT(rawT, key, options);
+  const { t } = useTranslation();
   const { user } = useAuth();
-  const [browseMode, setBrowseMode] = useState<BrowseMode>("category");
-
+  const [browseMode, setBrowseMode] = useState<BrowseMode>(user ? "recommended" : "category");
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<CategoryId | null>(null);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
@@ -42,13 +38,6 @@ export default function ExplorePage() {
   const enrolledCourseIds = useMemo(() => new Set(activeEnrollmentData.filter(e => e.type === "course").map(e => e.target_id)), [activeEnrollmentData]);
   const hasAnyEnrollment = activeEnrollmentData.length > 0;
 
-  // whenever enrollments load we make sure the tab switches to the enrolled view if appropriate
-  useEffect(() => {
-    if (user && hasAnyEnrollment) {
-      setBrowseMode("enrolled");
-    }
-  }, [user, hasAnyEnrollment]);
-
   const isEnrolledInCourse = (courseId: string) => {
     if (enrolledCourseIds.has(courseId)) return true;
     // Check if enrolled in a program that contains this course
@@ -60,13 +49,11 @@ export default function ExplorePage() {
 
   const browseModes = [
     ...(user ? [{ id: "recommended" as BrowseMode, labelKey: "explore.recommended", icon: Sparkles }] : []),
-    ...(user && hasAnyEnrollment ? [{ id: "enrolled" as BrowseMode, labelKey: "explore.enrolledPrograms", icon: GraduationCap }] : []),
     { id: "category" as BrowseMode, labelKey: "explore.byCategory", icon: Layers },
     { id: "role" as BrowseMode, labelKey: "explore.byRole", icon: Briefcase },
     { id: "program" as BrowseMode, labelKey: "explore.allPrograms", icon: GraduationCap },
     { id: "course" as BrowseMode, labelKey: "explore.allCourses", icon: BookOpen },
   ];
-
 
   const filteredPrograms = useMemo(() => {
     let result = [...programs];
@@ -177,34 +164,6 @@ export default function ExplorePage() {
         {/* Content Area */}
         <div className="mt-6">
           <AnimatePresence mode="wait">
-            {/* ====== ENROLLED ====== */}
-            {browseMode === "enrolled" && user && (
-              <motion.div key="enrolled" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                {hasAnyEnrollment ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {programs.filter(p => enrolledProgramIds.has(p.id)).map(prog => (
-                      <button key={prog.id} onClick={() => navigate(`/program/${prog.id}`)}
-                        className="text-left p-4 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all group">
-                        <div className="flex items-start gap-3">
-                          <span className="text-2xl">{prog.icon}</span>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{t(prog.titleKey)}</h4>
-                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(prog.descKey)}</p>
-                            <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {formatDuration(t, prog.durationKey)}</span>
-                              <DifficultyBadge level={prog.difficulty} />
-                            </div>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center p-8 text-muted-foreground">{t("explore.noEnrollments")} </div>
-                )}
-              </motion.div>
-            )}
-
             {/* ====== RECOMMENDED ====== */}
             {browseMode === "recommended" && user && (
               <motion.div key="recommended" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
@@ -237,7 +196,7 @@ export default function ExplorePage() {
                           </div>
                           <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(role.descKey)}</p>
                           <div className="flex items-center gap-2 mt-2">
-                            <span className="text-[10px] font-medium text-primary">{t(role.salaryRangeKey)}</span>
+                            <span className="text-[10px] font-medium text-primary">{role.salaryRange}</span>
                             <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
                               role.demandLevel === "high" ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"
                             }`}>{t(`explore.${role.demandLevel}Demand`)}</span>
@@ -261,7 +220,7 @@ export default function ExplorePage() {
                           <h4 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{t(prog.titleKey)}</h4>
                           <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(prog.descKey)}</p>
                           <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {formatDuration(t, prog.durationKey)}</span>
+                            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {prog.duration}</span>
                             <DifficultyBadge level={prog.difficulty} />
                           </div>
                         </div>
@@ -312,7 +271,7 @@ export default function ExplorePage() {
                               </div>
                               <p className="text-xs text-muted-foreground mt-1">{t(role.descKey)}</p>
                               <div className="flex items-center gap-2 mt-2">
-                                <span className="text-[10px] font-medium text-primary">{t(role.salaryRangeKey)}</span>
+                                <span className="text-[10px] font-medium text-primary">{role.salaryRange}</span>
                                 <span className="text-[10px] text-muted-foreground">{role.programIds.length} {t("explore.programs")}</span>
                               </div>
                             </div>
@@ -341,12 +300,12 @@ export default function ExplorePage() {
                           </div>
                           <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(role.descKey)}</p>
                           <div className="flex flex-wrap gap-1 mt-2">
-                            {role.skillsKeys.slice(0, 4).map(s => (
-                              <span key={s} className="px-1.5 py-0.5 rounded-md bg-secondary text-[10px] font-medium text-secondary-foreground">{t(s)}</span>
+                            {role.skills.slice(0, 4).map(s => (
+                              <span key={s} className="px-1.5 py-0.5 rounded-md bg-secondary text-[10px] font-medium text-secondary-foreground">{s}</span>
                             ))}
                           </div>
                           <div className="flex items-center gap-2 mt-2">
-                            <span className="text-[10px] font-medium text-primary">{t(role.salaryRangeKey)}</span>
+                            <span className="text-[10px] font-medium text-primary">{role.salaryRange}</span>
                             <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
                               role.demandLevel === "high" ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"
                             }`}>{t(`explore.${role.demandLevel}Demand`)}</span>
@@ -380,7 +339,7 @@ export default function ExplorePage() {
                             </div>
                             <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(prog.descKey)}</p>
                             <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground flex-wrap">
-                              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {formatDuration(t, prog.durationKey)}</span>
+                              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {prog.duration}</span>
                               <span>{prog.courseIds.length} {t("explore.courses")}</span>
                               <DifficultyBadge level={prog.difficulty} />
                             </div>
@@ -417,7 +376,7 @@ export default function ExplorePage() {
                         <h4 className="mt-2 font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{t(course.titleKey)}</h4>
                         <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(course.descKey)}</p>
                         <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {formatDuration(t, course.durationKey)}</span>
+                          <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {course.duration}</span>
                           <span>{course.moduleCount} {t("tracks.modules")}</span>
                         </div>
                       </button>

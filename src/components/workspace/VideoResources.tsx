@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 export default function VideoResources({ videos }: { videos: VideoResource[] }) {
   const { t } = useTranslation();
+  // Video unlock state stored locally (not auth-dependent)
   const [unlockedVideos, setUnlockedVideos] = useState<string[]>(() => {
     try { return JSON.parse(localStorage.getItem("tgl_unlocked") || "[]"); } catch { return []; }
   });
@@ -51,7 +52,7 @@ export default function VideoResources({ videos }: { videos: VideoResource[] }) 
           )}
         </div>
         <div className="p-3">
-          <h4 className="text-sm font-medium text-foreground leading-tight line-clamp-2">{t(video.titleKey)}</h4>
+          <h4 className="text-sm font-medium text-foreground leading-tight line-clamp-2">{video.title}</h4>
           <div className="flex items-center justify-between mt-2">
             <span className="text-xs text-muted-foreground">{video.channel}</span>
             <span className="text-xs text-muted-foreground">{video.views} {t("common.views")}</span>
@@ -95,7 +96,7 @@ export default function VideoResources({ videos }: { videos: VideoResource[] }) 
                 <button onClick={() => setSelectedVideo(null)} className="absolute top-3 right-3 p-1.5 rounded-full bg-foreground/10 text-foreground hover:bg-foreground/20 transition-colors"><X className="w-4 h-4" /></button>
               </div>
               <div className="p-4">
-                <h3 className="font-semibold text-foreground text-sm">{t(selectedVideo.titleKey)}</h3>
+                <h3 className="font-semibold text-foreground text-sm">{selectedVideo.title}</h3>
                 <p className="text-xs text-muted-foreground mt-1">{selectedVideo.channel} · {selectedVideo.duration} · {selectedVideo.views} {t("common.views")}</p>
               </div>
             </motion.div>
@@ -109,7 +110,7 @@ export default function VideoResources({ videos }: { videos: VideoResource[] }) 
             <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} onClick={e => e.stopPropagation()} className="w-full max-w-sm rounded-xl border border-border bg-card p-5 text-center">
               <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4"><Lock className="w-6 h-6 text-primary" /></div>
               <h3 className="font-bold text-foreground mb-1">{t("workspace.premiumContent")}</h3>
-              <p className="text-sm text-muted-foreground mb-1">{t(unlockModalVideo.titleKey)}</p>
+              <p className="text-sm text-muted-foreground mb-1">{unlockModalVideo.title}</p>
               <p className="text-xs text-muted-foreground mb-5">{t("workspace.premiumContentDesc")}</p>
               <button onClick={() => handleUnlock(unlockModalVideo)} className="w-full bg-gradient-brand text-primary-foreground font-semibold py-3 rounded-xl shadow-brand hover:opacity-90 transition-all flex items-center justify-center gap-2 mb-2">
                 <Unlock className="w-4 h-4" /> {t("workspace.unlockThisVideo")}

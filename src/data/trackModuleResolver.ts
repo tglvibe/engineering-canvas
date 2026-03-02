@@ -2,10 +2,8 @@
 // Track Module Resolver
 // Converts CourseEnhanced data → Workspace Module[] format
 // Maps each trackId to its actual curriculum content
-// Resolves i18n keys to display strings
 // ============================================
 
-import i18next from "i18next";
 import type { Module, Topic } from "./tracks";
 import type { CourseEnhanced } from "./courses/types";
 
@@ -24,72 +22,35 @@ import { lceFoundations } from "./courses/lce-foundations";
 import { nceFound } from "./courses/nce-found";
 
 // ============================================
-// i18n key resolver helper
-// ============================================
-function resolveKey(key?: string, fallback?: string): string {
-  if (fallback) return fallback;
-  if (!key) return "";
-  const resolved = i18next.t(key);
-  // i18next returns the key itself if not found
-  return resolved === key ? "" : resolved;
-}
-
-function resolveStr(plainValue?: string, keyValue?: string): string {
-  if (plainValue) return plainValue;
-  if (!keyValue) return "";
-  const resolved = i18next.t(keyValue);
-  return resolved === keyValue ? keyValue.split(".").pop() || "" : resolved;
-}
-
-function resolveArray(plain?: string[], keys?: string[]): string[] {
-  if (plain && plain.length > 0) return plain;
-  if (!keys) return [];
-  return keys.map(k => {
-    const r = i18next.t(k);
-    return r === k ? "" : r;
-  }).filter(Boolean);
-}
-
-// ============================================
 // Convert CourseEnhanced topics → Workspace Topic format
-// Now resolves i18n keys at call time
 // ============================================
-function convertTopic(t: any): Topic & Record<string, any> {
+function convertTopic(t: any): Topic {
   return {
     id: t.id || "",
-    title: resolveStr(t.title, t.titleKey),
-    what: resolveStr(t.what, t.whatKey),
-    why: resolveStr(t.why, t.whyKey),
-    when: resolveStr(t.when, t.whenKey),
-    how: resolveStr(t.how, t.howKey),
-    ecosystem: resolveStr(t.ecosystem, t.ecosystemKey),
-    realWorld: resolveStr(t.realWorld, t.realWorldKey),
-    useCases: resolveArray(t.useCases, t.useCasesKeys),
-    advantages: resolveArray(t.advantages, t.advantagesKeys),
-    disadvantages: resolveArray(t.disadvantages, t.disadvantagesKeys),
-    interviewTip: resolveStr(t.interviewTip, t.interviewTipKey),
-    resumeBullet: resolveStr(t.resumeBullet, t.resumeBulletKey),
+    title: t.title || "Untitled Topic",
+    what: t.what || "",
+    why: t.why || "",
+    when: t.when || "",
+    how: t.how || "",
+    ecosystem: t.ecosystem || "",
+    realWorld: t.realWorld || "",
+    useCases: t.useCases || [],
+    advantages: t.advantages || [],
+    disadvantages: t.disadvantages || [],
+    interviewTip: t.interviewTip || "",
+    resumeBullet: t.resumeBullet || "",
     codeSnippet: t.codeSnippet,
     scenario: t.scenarios?.[0] ? {
-      title: resolveStr(t.scenarios[0].title, t.scenarios[0].titleKey),
-      context: resolveStr(t.scenarios[0].scenarioDescription || t.scenarios[0].context, t.scenarios[0].scenarioDescriptionKey),
-      constraints: resolveArray(t.scenarios[0].architectureLayers || t.scenarios[0].constraints, t.scenarios[0].architectureLayersKeys),
-      deliverable: resolveStr(t.scenarios[0].keyInsights || t.scenarios[0].deliverable, t.scenarios[0].keyInsightsKey),
+      title: t.scenarios[0].title || "",
+      context: t.scenarios[0].scenarioDescription || t.scenarios[0].context || "",
+      constraints: t.scenarios[0].architectureLayers || t.scenarios[0].constraints || [],
+      deliverable: t.scenarios[0].keyInsights || t.scenarios[0].deliverable || "",
     } : undefined,
-    // Pass through deep content fields for workspace panels
-    videos: t.videos,
-    moocs: t.moocs,
-    blogs: t.blogs,
-    scenarios: t.scenarios,
-    playgrounds: t.playgrounds,
-    gitSimulation: t.gitSimulation,
-    community: t.community,
   };
 }
 
 // ============================================
 // Convert CourseEnhanced → Module[]
-// Resolves i18n keys lazily at call time
 // ============================================
 function courseToModules(course: CourseEnhanced): Module[] {
   if (!course.modules || !course.topics) return [];
@@ -128,7 +89,7 @@ function courseToModules(course: CourseEnhanced): Module[] {
 
     return {
       id: mod.id,
-      title: resolveStr(mod.title, mod.titleKey),
+      title: mod.title || "Untitled Module",
       topics: resolvedTopics,
     };
   });
@@ -160,10 +121,28 @@ function generatePlaceholderModules(trackId: string, trackTitle: string, topicNa
 }
 
 // ============================================
-// TRACK → MODULES MAPPING (lazy evaluation)
+// TRACK → MODULES MAPPING
 // ============================================
 
-// Placeholder modules (static, no i18n needed)
+// High-Code tracks with real course data
+const frontendModules = courseToModules(hceFront101);
+const backendCourseMods = courseToModules(hceBack101);
+const aiModules = courseToModules(hceAi101);
+const dataModules = courseToModules(hceData101);
+const devopsModules = courseToModules(hceDevops101);
+const cyberModules = courseToModules(hceCyber101);
+const blockchainModules = courseToModules(hceBlock101);
+const embedModules = courseToModules(hceEmbed101);
+const gameModules = courseToModules(hceGame101);
+const aiNativeModules = courseToModules(hceAiNative101);
+
+// Low-Code tracks with real course data
+const lceFoundationModules = courseToModules(lceFoundations);
+
+// No-Code tracks with real course data
+const nceFoundModules = courseToModules(nceFound);
+
+// Placeholder modules for tracks without detailed course data yet
 const fullstackModules = generatePlaceholderModules("fullstack", "Full Stack Engineering", [
   ["Full Stack Architecture Overview", "Monolith vs Microservices", "API-First Design"],
   ["Frontend-Backend Integration", "REST & GraphQL from Both Sides", "Real-time Communication"],
@@ -213,66 +192,50 @@ const aiWorkflowModules = generatePlaceholderModules("ai-workflows", "AI Workflo
 ]);
 
 // ============================================
-// Course → Module mapping (keyed by course object ref)
-// Resolved lazily so i18n is ready
+// MASTER MODULE MAP
 // ============================================
-const courseCache = new Map<CourseEnhanced, Module[]>();
-
-function getCourseModules(course: CourseEnhanced): Module[] {
-  // Always re-resolve to pick up language changes
-  return courseToModules(course);
-}
+export const trackModulesMap: Record<string, Module[]> = {
+  // High-Code Engineering
+  backend: backendCourseMods.length > 0 ? backendCourseMods : [],
+  frontend: frontendModules.length > 0 ? frontendModules : [],
+  fullstack: fullstackModules,
+  ai: aiModules.length > 0 ? aiModules : [],
+  data: dataModules.length > 0 ? dataModules : [],
+  devops: devopsModules.length > 0 ? devopsModules : [],
+  "system-design": systemDesignModules,
+  
+  // HCE umbrella — show backend as default entry
+  hce: backendCourseMods.length > 0 ? backendCourseMods : [],
+  
+  // Specialized HCE tracks
+  cyber: cyberModules.length > 0 ? cyberModules : [],
+  blockchain: blockchainModules.length > 0 ? blockchainModules : [],
+  embedded: embedModules.length > 0 ? embedModules : [],
+  game: gameModules.length > 0 ? gameModules : [],
+  "ai-native": aiNativeModules.length > 0 ? aiNativeModules : [],
+  
+  // Low-Code Engineering
+  lce: lceFoundationModules.length > 0 ? lceFoundationModules : [],
+  automation: automationModules,
+  "api-integration": apiIntegrationModules,
+  "internal-tools": internalToolsModules,
+  
+  // No-Code Engineering
+  nce: nceFoundModules.length > 0 ? nceFoundModules : [],
+  "product-launch": productLaunchModules,
+  "ai-workflows": aiWorkflowModules,
+};
 
 // ============================================
 // RESOLVER FUNCTION
 // ============================================
 export function getModulesForTrack(trackId: string): Module[] {
-  // Map trackIds to course data
-  const trackToCourse: Record<string, CourseEnhanced> = {
-    backend: hceBack101,
-    frontend: hceFront101,
-    ai: hceAi101,
-    data: hceData101,
-    devops: hceDevops101,
-    cyber: hceCyber101,
-    blockchain: hceBlock101,
-    embedded: hceEmbed101,
-    game: hceGame101,
-    "ai-native": hceAiNative101,
-    hce: hceBack101,
-    lce: lceFoundations,
-    nce: nceFound,
-  };
-
-  const course = trackToCourse[trackId];
-  if (course) {
-    const modules = getCourseModules(course);
-    if (modules.length > 0) return modules;
-  }
-
-  // Check placeholder tracks
-  const placeholderMap: Record<string, Module[]> = {
-    fullstack: fullstackModules,
-    "system-design": systemDesignModules,
-    automation: automationModules,
-    "api-integration": apiIntegrationModules,
-    "internal-tools": internalToolsModules,
-    "product-launch": productLaunchModules,
-    "ai-workflows": aiWorkflowModules,
-  };
-
-  if (placeholderMap[trackId]) return placeholderMap[trackId];
-
+  const modules = trackModulesMap[trackId];
+  if (modules && modules.length > 0) return modules;
+  
   // Fallback: generate a minimal placeholder
   return generatePlaceholderModules(trackId, trackId.replace(/-/g, " "), [
     [`Introduction to ${trackId.replace(/-/g, " ")}`, "Getting Started", "Core Concepts"],
     [`Advanced ${trackId.replace(/-/g, " ")}`, "Best Practices", "Real-World Applications"],
   ]);
 }
-
-// Legacy export for backward compat
-export const trackModulesMap: Record<string, Module[]> = new Proxy({} as Record<string, Module[]>, {
-  get(_, prop: string) {
-    return getModulesForTrack(prop);
-  }
-});

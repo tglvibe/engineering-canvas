@@ -18,11 +18,11 @@ export default function MOOCResources({ moocs }: { moocs: MOOCResource[] }) {
               <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary text-foreground">{mooc.platform}</span>
               <div className="flex items-center gap-1"><Star className="w-3 h-3 text-primary fill-primary" /><span className="text-xs font-semibold text-foreground">{mooc.rating}</span></div>
             </div>
-            <h4 className="text-sm font-medium text-foreground leading-tight mb-1">{t(mooc.titleKey)}</h4>
+            <h4 className="text-sm font-medium text-foreground leading-tight mb-1">{mooc.title}</h4>
             <p className="text-xs text-muted-foreground mb-3">{t("common.by")} {mooc.instructor}</p>
             <div className="flex items-center gap-3 text-xs text-muted-foreground">
               <span className="flex items-center gap-1"><Users className="w-3 h-3" /> {mooc.enrolled}</span>
-              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {t(mooc.durationKey)}</span>
+              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {mooc.duration}</span>
             </div>
           </div>
         ))}

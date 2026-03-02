@@ -14,9 +14,6 @@ import mr from './locales/mr.json';
 import gu from './locales/gu.json';
 import pa from './locales/pa.json';
 import or_ from './locales/or.json';
-import fr from './locales/fr.json';
-import de from './locales/de.json';
-import es from './locales/es.json';
 
 export const languages = [
   { code: 'en', label: 'English', nativeLabel: 'English', flag: '🇬🇧' },
@@ -31,21 +28,7 @@ export const languages = [
   { code: 'gu', label: 'Gujarati', nativeLabel: 'ગુજરાતી', flag: '🇮🇳' },
   { code: 'pa', label: 'Punjabi', nativeLabel: 'ਪੰਜਾਬੀ', flag: '🇮🇳' },
   { code: 'or', label: 'Odia', nativeLabel: 'ଓଡ଼ିଆ', flag: '🇮🇳' },
-  { code: 'fr', label: 'French', nativeLabel: 'Français', flag: '🇫🇷' },
-  { code: 'de', label: 'German', nativeLabel: 'Deutsch', flag: '🇩🇪' },
-  { code: 'es', label: 'Spanish', nativeLabel: 'Español', flag: '🇪🇸' },
 ];
-
-// post-processor removes debug prefixes inserted during build (e.g. "[HI] ")
-i18n.use({
-  type: 'postProcessor',
-  name: 'stripLangTag',
-  process(value, key, options, translator) {
-    // when a language placeholder is added by the build step, strip it so UI shows clean text
-    // also trim any leading whitespace that might exist in the JSON files
-    return String(value).replace(/^\[[A-Z]{2,}\]\s*/, '').trimStart();
-  }
-});
 
 i18n
   .use(LanguageDetector)
@@ -64,12 +47,8 @@ i18n
       gu: { translation: gu },
       pa: { translation: pa },
       or: { translation: or_ },
-      fr: { translation: fr },
-      de: { translation: de },
-      es: { translation: es },
     },
     fallbackLng: 'en',
-    postProcess: ['stripLangTag'],
     interpolation: { escapeValue: false },
     detection: {
       order: ['localStorage', 'navigator'],

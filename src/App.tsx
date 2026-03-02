@@ -23,18 +23,6 @@ import AdminSettings from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
 
-function AuthLoadingGate({ children }: { children: React.ReactNode }) {
-  const { isLoading } = useAuth();
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
-      </div>
-    );
-  }
-  return <>{children}</>;
-}
-
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
@@ -56,32 +44,30 @@ function StudentRoute({ children }: { children: React.ReactNode }) {
 }
 
 const AppRoutes = () => (
-  <AuthLoadingGate>
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<LoginPage />} />
+  <Routes>
+    <Route path="/" element={<LandingPage />} />
+    <Route path="/login" element={<LoginPage />} />
 
-      {/* Admin routes */}
-      <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
-        <Route index element={<AdminDashboard />} />
-        <Route path="students" element={<StudentManagement />} />
-        <Route path="enrollments" element={<EnrollmentManagement />} />
-        <Route path="analytics" element={<AdminAnalytics />} />
-        <Route path="settings" element={<AdminSettings />} />
-      </Route>
+    {/* Admin routes */}
+    <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+      <Route index element={<AdminDashboard />} />
+      <Route path="students" element={<StudentManagement />} />
+      <Route path="enrollments" element={<EnrollmentManagement />} />
+      <Route path="analytics" element={<AdminAnalytics />} />
+      <Route path="settings" element={<AdminSettings />} />
+    </Route>
 
-      {/* Student routes */}
-      <Route path="/explore" element={<StudentRoute><ExplorePage /></StudentRoute>} />
-      <Route path="/tracks" element={<StudentRoute><TracksPage /></StudentRoute>} />
-      <Route path="/program/:programId" element={<StudentRoute><ProgramPage /></StudentRoute>} />
-      <Route path="/role/:roleId" element={<StudentRoute><RolePage /></StudentRoute>} />
-      <Route path="/workspace/:trackId" element={<StudentRoute><WorkspacePage /></StudentRoute>} />
-      <Route path="/dashboard" element={<StudentRoute><DashboardPage /></StudentRoute>} />
-      <Route path="/profile" element={<StudentRoute><ProfilePage /></StudentRoute>} />
+    {/* Student routes */}
+    <Route path="/explore" element={<StudentRoute><ExplorePage /></StudentRoute>} />
+    <Route path="/tracks" element={<StudentRoute><TracksPage /></StudentRoute>} />
+    <Route path="/program/:programId" element={<StudentRoute><ProgramPage /></StudentRoute>} />
+    <Route path="/role/:roleId" element={<StudentRoute><RolePage /></StudentRoute>} />
+    <Route path="/workspace/:trackId" element={<StudentRoute><WorkspacePage /></StudentRoute>} />
+    <Route path="/dashboard" element={<StudentRoute><DashboardPage /></StudentRoute>} />
+    <Route path="/profile" element={<StudentRoute><ProfilePage /></StudentRoute>} />
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  </AuthLoadingGate>
+    <Route path="*" element={<NotFound />} />
+  </Routes>
 );
 
 const App = () => (

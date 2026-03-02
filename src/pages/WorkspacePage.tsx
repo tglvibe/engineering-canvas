@@ -15,7 +15,6 @@ import { getModulesForTrack } from "@/data/trackModuleResolver";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useActiveEnrollments } from "@/hooks/useDatabase";
 import { courses as hierarchyCourses, programs } from "@/data/hierarchy";
-import { allHceCourses } from "@/data/courses";
 
 import VideoResources from "@/components/workspace/VideoResources";
 import BlogResources from "@/components/workspace/BlogResources";
@@ -65,7 +64,6 @@ export default function WorkspacePage() {
   }, [user?.id, trackId, activeEnrollmentData]);
 
   const modules = useMemo(() => getModulesForTrack(trackId || "backend"), [trackId]);
-  const allTopics = useMemo(() => modules.flatMap(m => m.topics), [modules]);
   const initialTopicId = modules[0]?.topics[0]?.id || "t1";
 
   const [activeMode, setActiveMode] = useState<string>("learn");
@@ -92,7 +90,7 @@ export default function WorkspacePage() {
     { id: "explore", label: t("workspace.explore"), icon: Compass },
   ] as const;
 
-  const currentTopic = allTopics.find(tp => tp.id === activeTopic);
+  const currentTopic = modules.flatMap(m => m.topics).find(t => t.id === activeTopic);
 
   const toggleModule = (id: string) => {
     setExpandedModules(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -144,12 +142,11 @@ export default function WorkspacePage() {
 
   if (!currentTopic) return null;
 
-  const videos = (currentTopic as any).videos || topicVideos[activeTopic] || [];
-  const blogs = (currentTopic as any).blogs || topicBlogs[activeTopic] || [];
-  const moocs = (currentTopic as any).moocs || topicMOOCs[activeTopic] || [];
-  const scenarios = (currentTopic as any).scenarios || topicScenarios[activeTopic] || [];
-  const playgrounds = (currentTopic as any).playgrounds || [];
-  const codeExamples = playgrounds.length > 0 ? playgrounds : (topicCodeExamples[activeTopic] || []);
+  const videos = topicVideos[activeTopic] || [];
+  const blogs = topicBlogs[activeTopic] || [];
+  const moocs = topicMOOCs[activeTopic] || [];
+  const scenarios = topicScenarios[activeTopic] || [];
+  const codeExamples = topicCodeExamples[activeTopic] || [];
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
@@ -186,20 +183,19 @@ export default function WorkspacePage() {
                       className="w-full flex items-center gap-2 px-2 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-sidebar-accent transition-colors"
                     >
                       {expandedModules.includes(mod.id) ? <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />}
-                      <span className="truncate">{mod.title || mod.titleKey || "Untitled Module"}</span>
+                      <span className="truncate">{t(`trackContent.${mod.id}.title`, mod.title)}</span>
                     </button>
                     <AnimatePresence>
                       {expandedModules.includes(mod.id) && (
                         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                          {mod.topics.filter((topic: any) => true).map((topic: any) => (
+                          {mod.topics.map(topic => (
                             <button
                               key={topic.id}
                               onClick={() => selectTopic(topic.id)}
                               className={`w-full text-left px-3 pl-8 py-2 text-sm rounded-lg transition-colors ${activeTopic === topic.id ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
                                 }`}
                             >
-                              {/* topics are stored with a plain title, not a translation key */}
-                              {topic.title || topic.titleKey || "Untitled Topic"}
+                              {t(`trackContent.${topic.id}.title`, topic.title)}
                             </button>
                           ))}
                         </motion.div>
@@ -225,7 +221,7 @@ export default function WorkspacePage() {
       {!focusMode && (
         <header className="h-12 border-b border-border bg-background/80 backdrop-blur-xl flex items-center justify-between px-3 sm:px-4 shrink-0 z-30">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <button onClick={() => setSidebarOpen(true)} aria-label="Open sidebar" className="p-1.5 text-muted-foreground hover:text-foreground lg:hidden shrink-0">
+            <button onClick={() => setSidebarOpen(true)} className="p-1.5 text-muted-foreground hover:text-foreground lg:hidden shrink-0">
               <Menu className="w-4 h-4" />
             </button>
             <button onClick={() => navigate("/tracks")} className="text-muted-foreground hover:text-foreground transition-colors hidden sm:block shrink-0">

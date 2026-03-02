@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { formatDuration, safeT } from "@/lib/utils";
 import {
   ArrowRight, Clock, Target, TrendingUp, BookOpen, Briefcase,
   Award, ChevronRight, MapPin, GraduationCap
@@ -16,8 +15,7 @@ import {
 export default function RolePage() {
   const { roleId } = useParams();
   const navigate = useNavigate();
-  const { t: rawT } = useTranslation();
-  const t = (key: string, options?: any) => safeT(rawT, key, options);
+  const { t } = useTranslation();
 
   const role = useMemo(() => getRoleById(roleId || ""), [roleId]);
   const rolePrograms = useMemo(() => role ? getProgramsForRole(role.id) : [], [role]);
@@ -58,7 +56,7 @@ export default function RolePage() {
                 <p className="text-sm sm:text-base text-muted-foreground mt-2">{t(role.descKey)}</p>
                 <div className="flex items-center gap-4 mt-4 flex-wrap">
                   <span className="flex items-center gap-1.5 text-sm font-medium text-primary">
-                    <TrendingUp className="w-4 h-4" /> {t(role.salaryRangeKey)}
+                    <TrendingUp className="w-4 h-4" /> {role.salaryRange}
                   </span>
                   <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
                     role.demandLevel === "high" ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"
@@ -74,8 +72,8 @@ export default function RolePage() {
               <Award className="w-4 h-4 text-primary" /> {t("explore.requiredSkills")}
             </h2>
             <div className="flex flex-wrap gap-2">
-              {role.skillsKeys.map(s => (
-                <span key={s} className="px-2.5 py-1 rounded-lg bg-primary/5 text-xs font-medium text-primary border border-primary/10">{t(s)}</span>
+              {role.skills.map(s => (
+                <span key={s} className="px-2.5 py-1 rounded-lg bg-primary/5 text-xs font-medium text-primary border border-primary/10">{s}</span>
               ))}
             </div>
           </div>
@@ -111,7 +109,7 @@ export default function RolePage() {
                       </div>
                       <p className="text-xs text-muted-foreground mt-1">{t(prog.descKey)}</p>
                       <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {formatDuration(t, prog.durationKey)}</span>
+                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {prog.duration}</span>
                         <span>{progCourses.length} {t("explore.courses")}</span>
                       </div>
                     </div>
@@ -126,7 +124,7 @@ export default function RolePage() {
                           <span className="text-base">{course.icon}</span>
                           <div className="flex-1 min-w-0">
                             <span className="text-xs font-medium text-foreground group-hover/c:text-primary transition-colors">{t(course.titleKey)}</span>
-                            <span className="text-[10px] text-muted-foreground ml-2">{formatDuration(t, course.durationKey)}</span>
+                            <span className="text-[10px] text-muted-foreground ml-2">{course.duration}</span>
                           </div>
                           <ArrowRight className="w-3 h-3 text-muted-foreground group-hover/c:text-primary shrink-0" />
                         </button>

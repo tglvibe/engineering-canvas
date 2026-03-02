@@ -38,7 +38,7 @@ export default function CommunityPanel() {
                     {sol.isTopSolution && <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold text-primary"><Trophy className="w-3 h-3" /> {t("workspace.topSolution")}</span>}
                   </div>
                   <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5">
-                    <span>{user?.role}</span><span>{user?.level}</span><span>{t(sol.createdAtKey)}</span>
+                    <span>{user?.role}</span><span>{user?.level}</span><span>{sol.createdAt}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
@@ -49,7 +49,7 @@ export default function CommunityPanel() {
               </button>
               {expanded === sol.id && (
                 <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} className="px-3 pb-3 border-t border-border">
-                  <p className="text-xs text-muted-foreground leading-relaxed pt-2">{t(sol.summaryKey)}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed pt-2">{sol.summary}</p>
                   <div className="flex items-center gap-2 mt-2">
                     <button className="px-2.5 py-1 rounded-md bg-secondary text-xs font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"><ThumbsUp className="w-3 h-3" /> {t("workspace.upvote")}</button>
                     <button className="px-2.5 py-1 rounded-md bg-secondary text-xs font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"><MessageSquare className="w-3 h-3" /> {t("workspace.comment")}</button>
