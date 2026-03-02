@@ -62,7 +62,7 @@ export default function ProgramPage() {
 
                 <div className="flex items-center gap-4 mt-4 flex-wrap">
                   <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                    <Clock className="w-4 h-4" /> {program.duration}
+                    <Clock className="w-4 h-4" /> {t(program.durationKey)}
                   </span>
                   <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
                     <BookOpen className="w-4 h-4" /> {programCourses.length} {t("explore.courses")}
@@ -91,20 +91,20 @@ export default function ProgramPage() {
               <Award className="w-4 h-4 text-primary" /> {t("explore.skillsGained")}
             </h2>
             <div className="flex flex-wrap gap-2">
-              {program.skillsGained.map(s => (
-                <span key={s} className="px-2.5 py-1 rounded-lg bg-primary/5 text-xs font-medium text-primary border border-primary/10">{s}</span>
+              {program.skillsGainedKeys.map(s => (
+                <span key={s} className="px-2.5 py-1 rounded-lg bg-primary/5 text-xs font-medium text-primary border border-primary/10">{t(s)}</span>
               ))}
             </div>
           </div>
 
           {/* Prerequisites */}
-          {program.prerequisites.length > 0 && (
+          {program.prerequisitesKeys.length > 0 && (
             <div className="rounded-xl border border-border bg-card p-5 mb-5">
               <h2 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                 <Layers className="w-4 h-4 text-muted-foreground" /> {t("explore.prerequisites")}
               </h2>
               <div className="flex flex-wrap gap-2">
-                {program.prerequisites.map(pid => {
+                {program.prerequisitesKeys.map(pid => {
                   const prereq = programs.find(p => p.courseIds.includes(pid));
                   return (
                     <span key={pid} className="px-2.5 py-1 rounded-lg bg-secondary text-xs font-medium text-muted-foreground">{pid}</span>
@@ -140,12 +140,12 @@ export default function ProgramPage() {
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">{t(course.descKey)}</p>
                     <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {course.duration}</span>
+                      <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {t(course.durationKey)}</span>
                       <span>{course.moduleCount} {t("tracks.modules")}</span>
                     </div>
                     <div className="flex flex-wrap gap-1 mt-2">
-                      {course.languages.map(l => (
-                        <span key={l} className="px-1.5 py-0.5 rounded-md bg-secondary text-[10px] font-medium text-secondary-foreground">{l}</span>
+                      {course.languagesKeys.map(l => (
+                        <span key={l} className="px-1.5 py-0.5 rounded-md bg-secondary text-[10px] font-medium text-secondary-foreground">{t(l)}</span>
                       ))}
                     </div>
                   </div>

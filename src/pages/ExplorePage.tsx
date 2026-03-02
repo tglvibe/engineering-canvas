@@ -196,7 +196,7 @@ export default function ExplorePage() {
                           </div>
                           <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(role.descKey)}</p>
                           <div className="flex items-center gap-2 mt-2">
-                            <span className="text-[10px] font-medium text-primary">{role.salaryRange}</span>
+                            <span className="text-[10px] font-medium text-primary">{t(role.salaryRangeKey)}</span>
                             <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
                               role.demandLevel === "high" ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"
                             }`}>{t(`explore.${role.demandLevel}Demand`)}</span>
@@ -220,7 +220,7 @@ export default function ExplorePage() {
                           <h4 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{t(prog.titleKey)}</h4>
                           <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(prog.descKey)}</p>
                           <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {prog.duration}</span>
+                            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {t(prog.durationKey)}</span>
                             <DifficultyBadge level={prog.difficulty} />
                           </div>
                         </div>
@@ -271,7 +271,7 @@ export default function ExplorePage() {
                               </div>
                               <p className="text-xs text-muted-foreground mt-1">{t(role.descKey)}</p>
                               <div className="flex items-center gap-2 mt-2">
-                                <span className="text-[10px] font-medium text-primary">{role.salaryRange}</span>
+                                <span className="text-[10px] font-medium text-primary">{t(role.salaryRangeKey)}</span>
                                 <span className="text-[10px] text-muted-foreground">{role.programIds.length} {t("explore.programs")}</span>
                               </div>
                             </div>
@@ -300,12 +300,12 @@ export default function ExplorePage() {
                           </div>
                           <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(role.descKey)}</p>
                           <div className="flex flex-wrap gap-1 mt-2">
-                            {role.skills.slice(0, 4).map(s => (
-                              <span key={s} className="px-1.5 py-0.5 rounded-md bg-secondary text-[10px] font-medium text-secondary-foreground">{s}</span>
+                            {role.skillsKeys.slice(0, 4).map(s => (
+                              <span key={s} className="px-1.5 py-0.5 rounded-md bg-secondary text-[10px] font-medium text-secondary-foreground">{t(s)}</span>
                             ))}
                           </div>
                           <div className="flex items-center gap-2 mt-2">
-                            <span className="text-[10px] font-medium text-primary">{role.salaryRange}</span>
+                            <span className="text-[10px] font-medium text-primary">{t(role.salaryRangeKey)}</span>
                             <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
                               role.demandLevel === "high" ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"
                             }`}>{t(`explore.${role.demandLevel}Demand`)}</span>
@@ -339,7 +339,7 @@ export default function ExplorePage() {
                             </div>
                             <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(prog.descKey)}</p>
                             <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground flex-wrap">
-                              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {prog.duration}</span>
+                              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {t(prog.durationKey)}</span>
                               <span>{prog.courseIds.length} {t("explore.courses")}</span>
                               <DifficultyBadge level={prog.difficulty} />
                             </div>
@@ -376,7 +376,7 @@ export default function ExplorePage() {
                         <h4 className="mt-2 font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{t(course.titleKey)}</h4>
                         <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{t(course.descKey)}</p>
                         <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {course.duration}</span>
+                          <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {t(course.durationKey)}</span>
                           <span>{course.moduleCount} {t("tracks.modules")}</span>
                         </div>
                       </button>
