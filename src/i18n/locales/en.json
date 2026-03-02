@@ -2626,6 +2626,10 @@
     "coursesIncluded": "Courses Included",
     "enrollInProgram": "Enroll in Full Program",
     "orEnrollIndividual": "Or enroll in individual courses above",
+    "startLearning": "Start Learning",
+    "allCoursesUnlocked": "All courses in this program are unlocked for you.",
+    "notEnrolled": "Not Enrolled",
+    "contactAdmin": "Contact your administrator to get enrolled in this program.",
     "requiredSkills": "Required Skills",
     "careerRoadmap": "Career Roadmap",
     "startCareerPath": "Start This Career Path"
@@ -2659,6 +2663,59 @@
     }
   },
   "common": {
+    "learners": "learners",
+    "duration": {
+      "4weeks": "4 weeks",
+      "5weeks": "5 weeks",
+      "6weeks": "6 weeks",
+      "8weeks": "8 weeks",
+      "10weeks": "10 weeks",
+      "12weeks": "12 weeks",
+      "14weeks": "14 weeks",
+      "16weeks": "16 weeks",
+      "18weeks": "18 weeks",
+      "20weeks": "20 weeks",
+      "24weeks": "24 weeks",
+      "4hours": "4 hours",
+      "5hours": "5 hours",
+      "6hours": "6 hours",
+      "8hours": "8 hours",
+      "9hours": "9 hours",
+      "10hours": "10 hours",
+      "12hours": "12 hours",
+      "15hours": "15 hours",
+      "20hours": "20 hours",
+      "24hours": "24 hours",
+      "30hours": "30 hours",
+      "40hours": "40 hours",
+      "52hours": "52 hours",
+      "65hours": "65 hours",
+      "4-5hours": "4–5 hours",
+      "4-6hours": "4–6 hours",
+      "5-7hours": "5–7 hours",
+      "6-8hours": "6–8 hours"
+    },
+    "domains": {
+      "fintech": "FinTech",
+      "saas": "SaaS",
+      "ecommerce": "E-Commerce",
+      "infrastructure": "Infrastructure",
+      "healthcare": "Healthcare",
+      "edtech": "EdTech"
+    },
+    "langs": {
+      "typescript": "TypeScript",
+      "python": "Python",
+      "go": "Go",
+      "java": "Java",
+      "sql": "SQL",
+      "javascript": "JavaScript",
+      "csharp": "C#",
+      "rust": "Rust",
+      "kotlin": "Kotlin",
+      "swift": "Swift",
+      "ruby": "Ruby"
+    },
     "skills": {
       "nodejs": "Node.js",
       "python": "Python",
@@ -2759,7 +2816,17 @@
       "dbdesign": "Database Design",
       "auth": "Authentication",
       "caching": "Caching",
-      "queues": "Message Queues"
+      "queues": "Message Queues",
+      "lowcodeappdesign": "Low-Code App Design",
+      "connectordev": "Connector Development",
+      "mobilelowcode": "Mobile Low-Code",
+      "deployment": "Deployment",
+      "entarch": "Enterprise Architecture",
+      "mvpdesign": "MVP Design",
+      "landingpages": "Landing Pages",
+      "launchstrat": "Launch Strategy",
+      "aitoolchains": "AI Tool Chains",
+      "businessai": "Business AI"
     }
   }
 }

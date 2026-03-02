@@ -159,15 +159,15 @@ export default function ProgramPage() {
               <>
                 <button onClick={() => navigate(`/workspace/${programCourses[0]?.trackId || "backend"}`)}
                   className="inline-flex items-center gap-2.5 bg-gradient-brand text-primary-foreground font-bold px-8 py-3.5 rounded-2xl shadow-brand hover:opacity-90 transition-all">
-                  {t("explore.enrollInProgram")} <ArrowRight className="w-4 h-4" />
+                  {t("explore.startLearning")} <ArrowRight className="w-4 h-4" />
                 </button>
-                <p className="text-xs text-muted-foreground mt-2">{t("explore.orEnrollIndividual")}</p>
+                <p className="text-xs text-muted-foreground mt-2">{t("explore.allCoursesUnlocked")}</p>
               </>
             ) : (
               <div className="p-4 rounded-2xl border border-border bg-secondary/30">
                 <Lock className="w-6 h-6 text-muted-foreground mx-auto mb-2" />
-                <p className="text-sm font-semibold text-foreground">Not Enrolled</p>
-                <p className="text-xs text-muted-foreground mt-1">Contact your administrator to get enrolled in this program.</p>
+                <p className="text-sm font-semibold text-foreground">{t("explore.notEnrolled")}</p>
+                <p className="text-xs text-muted-foreground mt-1">{t("explore.contactAdmin")}</p>
               </div>
             )}
           </div>
