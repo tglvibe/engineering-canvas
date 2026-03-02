@@ -96,8 +96,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch profile and role for a given user
-  const fetchUserData = async (authUserId: string, email: string) => {
+  // Fetch profile and role for a given user — returns the resolved role
+  const fetchUserData = async (authUserId: string, email: string): Promise<AppRole> => {
     try {
       // Fetch role
       const { data: roles } = await supabase
@@ -164,8 +164,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       };
 
       setUser(userProfile);
+      return role;
     } catch (err) {
       console.error("Error fetching user data:", err);
+      return "student";
     }
   };
 
@@ -183,10 +185,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAuthUser(newSession?.user ?? null);
 
         if (newSession?.user) {
-          // Use setTimeout to avoid deadlock with Supabase client
-          setTimeout(() => {
-            fetchUserData(newSession.user.id, newSession.user.email || "");
-          }, 0);
+          // Await user data before clearing loading state to prevent UI flicker
+          await fetchUserData(newSession.user.id, newSession.user.email || "");
         } else {
           setUser(null);
           setIsAdmin(false);
@@ -201,12 +201,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       new Promise<{ data: { session: null } }>((resolve) =>
         setTimeout(() => resolve({ data: { session: null } }), 10000)
       ),
-    ]).then(({ data: { session: existingSession } }) => {
+    ]).then(async ({ data: { session: existingSession } }) => {
       setSession(existingSession);
       setAuthUser(existingSession?.user ?? null);
 
       if (existingSession?.user) {
-        fetchUserData(existingSession.user.id, existingSession.user.email || "");
+        await fetchUserData(existingSession.user.id, existingSession.user.email || "");
       }
       setIsLoading(false);
     }).catch(() => {
